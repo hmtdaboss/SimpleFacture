@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="aac62a64-1269-47de-84a5-4cc64cad275a">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="query" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="test" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[$P!{query}]]>
+	</queryString>
+	<field name="id" class="java.lang.Object"/>
+	<field name="name" class="java.lang.Object"/>
+	<field name="price" class="java.lang.Double"/>
+	<field name="shopname" class="java.lang.Object"/>
+	<field name="postalcode" class="java.lang.Object"/>
+	<field name="commune" class="java.lang.Object"/>
+	<field name="adres" class="java.lang.Object"/>
+	<field name="mail" class="java.lang.Object"/>
+	<field name="tel" class="java.lang.Object"/>
+	<field name="tva" class="java.lang.Object"/>
+	<field name="clientid" class="java.lang.Object"/>
+	<field name="clientsocietyname" class="java.lang.Object"/>
+	<field name="clientpostalcode" class="java.lang.Object"/>
+	<field name="clientadress" class="java.lang.Object"/>
+	<field name="clientcommune" class="java.lang.Object"/>
+	<field name="clienttel" class="java.lang.Object"/>
+	<field name="clienttva" class="java.lang.Object"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="188" splitType="Stretch">
+			<textField>
+				<reportElement mode="Transparent" x="0" y="0" width="200" height="24" forecolor="#000000" backcolor="#91D48B" uuid="a6004d95-f018-4791-9a6b-28e70e475fc6"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="18" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{shopname}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="19" y="40" width="179" height="16" uuid="aa3f66fa-d045-4777-bae5-445ead05065f"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{postalcode} + " " + ($F{commune})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="19" y="24" width="96" height="16" uuid="1c9aa455-5b6b-400b-954c-69b58434b06c"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{adres}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="38" y="96" width="96" height="16" forecolor="#FFFFFF" backcolor="#CCCCCC" uuid="748a75b3-f0e8-4f2c-99dd-743b206ed713"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tva}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="19" y="58" width="96" height="16" uuid="374c8068-fd4b-43e8-bcdf-869522c19a0c"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{tel}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="307" y="5" width="231" height="35" uuid="24a6cf51-2ded-401b-bcb5-87f0cdf365d5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="20"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{test}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="307" y="83" width="231" height="28" uuid="25ad4948-01cd-4aa8-b77e-f051128e9270"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="18" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{clientsocietyname}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="324" y="112" width="96" height="16" uuid="43710598-335c-4947-92b2-b11b787dfd0e"/>
+				<textFieldExpression><![CDATA[$F{clientadress}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="324" y="128" width="231" height="16" uuid="ab0c1fc4-2e09-47c4-8c7f-9480130d2186"/>
+				<textFieldExpression><![CDATA[$F{clientpostalcode} + " " + $F{clientcommune}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="324" y="144" width="96" height="16" uuid="94dccb4f-6768-488c-8f21-cceb96cbe258"/>
+				<textFieldExpression><![CDATA[$F{clienttel}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="397" y="162" width="96" height="16" forecolor="#FFFFFF" backcolor="#CCCCCC" uuid="d763b1a6-75c0-4505-89c1-e4f285e6729d"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{clienttva}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="0" y="58" width="15" height="15" uuid="113c5b16-08e3-4a6f-b42c-847a1869af74"/>
+				<imageExpression><![CDATA["C:\\Users\\fsafi\\Netbeans\\JasperInvoice\\test\\tel.jpg"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="0" y="25" width="15" height="15" uuid="291cc9b1-9e0e-4d55-a42d-7efa8f179ca9"/>
+				<imageExpression><![CDATA["C:\\Users\\fsafi\\Netbeans\\JasperInvoice\\test\\adres.jpg"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="0" y="77" width="15" height="15" uuid="2eb4de69-147e-4a0b-9820-2c26584b71f9"/>
+				<imageExpression><![CDATA["C:\\Users\\fsafi\\Netbeans\\JasperInvoice\\test\\mail.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="96" width="37" height="16" forecolor="#FFFFFF" backcolor="#CCCCCC" uuid="173505d6-9b26-4d7d-9871-17946b83d771"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TVA  :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="19" y="76" width="96" height="16" uuid="8b65099a-3020-4e7e-9f8b-b70ed59e060d"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{mail}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="307" y="112" width="15" height="15" uuid="1480a464-ce7b-4a61-9aa8-2a22fbbb811a"/>
+				<imageExpression><![CDATA["C:\\Users\\fsafi\\Netbeans\\JasperInvoice\\test\\adres.jpg"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="307" y="144" width="15" height="15" uuid="2a3ca59e-73ca-470d-94a6-51abbc82c5c8"/>
+				<imageExpression><![CDATA["C:\\Users\\fsafi\\Netbeans\\JasperInvoice\\test\\tel.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement mode="Opaque" x="324" y="162" width="72" height="16" forecolor="#FFFFFF" backcolor="#CCCCCC" uuid="5a28cde1-496a-41f0-9252-a01fc6568901"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TVA  CLIENT:]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="47" splitType="Stretch">
+			<rectangle>
+				<reportElement mode="Transparent" x="0" y="0" width="553" height="20" forecolor="#CCCCCC" backcolor="#91D48B" uuid="5029c424-17f3-4335-b157-c90d5c3dea44"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="58" height="20" forecolor="#FFFFFF" backcolor="#CCCCCC" uuid="345c4b27-39ca-429d-b4fe-cb21516eded2"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Facture N° :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="480" y="0" width="36" height="20" uuid="d10b7f12-caf0-4309-93e0-fd89d0398a67"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="441" y="0" width="39" height="20" forecolor="#FFFFFF" backcolor="#CCCCCC" uuid="b34fe435-173c-4b09-80ea-560031523309"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PAGE :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="148" y="0" width="58" height="20" forecolor="#FFFFFF" backcolor="#CCCCCC" uuid="336e474f-a7ca-4e23-bcdd-753dd4d0171d"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="184" y="0" width="100" height="20" uuid="33e30966-27cd-4b2b-92a8-081ee796d3e4"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[(new SimpleDateFormat("dd/MM/yyyy")).format(new Date())]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Transparent" x="324" y="0" width="96" height="20" uuid="46fb52e7-cb8a-4223-9940-78bc08c29a04"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{clientid}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="260" y="0" width="58" height="20" forecolor="#FFFFFF" backcolor="#CCCCCC" uuid="1f631219-f2dd-40de-b84a-2d71e151eff5"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Client N°]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="404" y="0" width="56" height="20" forecolor="#FFFFFF" backcolor="#CCCCCC" uuid="479a6591-a5a7-467d-9bce-0fb5e2bbc280"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Prix HT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="352" y="0" width="51" height="20" forecolor="#FFFFFF" backcolor="#CCCCCC" uuid="ded7d126-ad53-4135-b458-9c89139ba787"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Quantité]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="493" y="0" width="62" height="20" forecolor="#FFFFFF" backcolor="#CCCCCC" uuid="8a977888-693d-4679-b33f-f7bd6958627b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL HT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="461" y="0" width="31" height="20" forecolor="#FFFFFF" backcolor="#CCCCCC" uuid="8a8cfd6a-f9e9-432b-beee-45da694295f6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TVA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="351" height="20" forecolor="#FFFFFF" backcolor="#CCCCCC" uuid="48db9048-767a-4007-87cf-f11629b98fd5"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Désignation]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement mode="Opaque" x="1" y="0" width="350" height="19" uuid="902c602d-f74d-4954-be7c-8a2a2a963daf"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Transparent" x="404" y="0" width="57" height="19" uuid="553da61b-93a3-4e8a-b4eb-56c2abea7640"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0.00 €").format($F{price})]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="132" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="352" y="77" width="107" height="31" forecolor="#FFFFFF" backcolor="#CCCCCC" uuid="6cd7d4c9-75a7-4a86-af54-b629941ce3b2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MONTANT TOTAL ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="352" y="6" width="79" height="20" forecolor="#FFFFFF" backcolor="#CCCCCC" uuid="e07f3b53-512f-4770-ac0c-6feefe916d72"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Remise :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="352" y="27" width="79" height="20" forecolor="#FFFFFF" backcolor="#CCCCCC" uuid="6de72122-ee82-4a8c-a763-077d3260e7d9"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total H.T :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="352" y="48" width="79" height="20" forecolor="#FFFFFF" backcolor="#CCCCCC" uuid="fa0656ae-bd80-466c-bf98-2cb66f4d339b"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TVA :]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement mode="Transparent" x="350" y="5" width="205" height="62" forecolor="#CCCCCC" backcolor="#91D48B" uuid="7d29d0c4-c372-4b01-b9e4-fe8c121c2090"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Transparent" x="350" y="77" width="205" height="31" forecolor="#CCCCCC" backcolor="#91D48B" uuid="af1d3293-a1a8-4e45-a1e6-666ce59ed1f1"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<line>
+				<reportElement x="0" y="5" width="554" height="1" uuid="de4ad732-b318-4685-847e-c23bc68488be"/>
+			</line>
+		</band>
+	</summary>
+</jasperReport>

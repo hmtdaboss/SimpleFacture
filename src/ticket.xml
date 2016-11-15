@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ticket>
+  <head>
+    <line>SimpleCaisse</line>
+    <line>Touch Point Of Sale</line>
+    <line>Copyright (c) 2009-2014 Safi</line>
+  </head>
+  <footer>
+    <line>Merci</line>
+    <line>Please Call Again</line>
+  </footer>
+  <head_led>
+    <line>Welcome</line>
+    <line>to our Store</line>
+  </head_led>
+  <footer_led>
+    <line>Merci</line>
+    <line>Please Call Again</line>
+  </footer_led>
+  <printerTicket>
+    <line>Microsoft XPS Document Writer</line>
+  </printerTicket>
+  <printerTicketPort>
+    <line>COM1</line>
+  </printerTicketPort>
+  <printerTicketRayon>
+    <line>Microsoft XPS Document Writer</line>
+  </printerTicketRayon>
+  <printerTicketRayonPort>
+    <line>COM4</line>
+  </printerTicketRayonPort>
+  <customerDisplayPort>
+    <line>COM4</line>
+  </customerDisplayPort>
+  <allLangues>
+    <line>Francais,English,Dutch</line>
+  </allLangues>
+  <langueChoisi>
+    <line>Francais</line>
+  </langueChoisi>
+</ticket>
