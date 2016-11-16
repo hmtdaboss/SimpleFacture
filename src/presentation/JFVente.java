@@ -23,6 +23,7 @@ import dao.DAOTravaille;
 import dao.DAOVente;
 import daoMySQL.ConnexionMySQL;
 import factory.Factory;
+import facture.Facture;
 import java.awt.AWTException;
 import java.awt.Color;
 import java.awt.Component;
@@ -35,6 +36,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import static java.lang.Math.abs;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -47,6 +49,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.print.DocFlavor;
+import javax.print.PrintException;
 import javax.print.PrintService;
 import javax.print.PrintServiceLookup;
 import javax.print.attribute.HashPrintRequestAttributeSet;
@@ -71,6 +74,9 @@ import model.JTableTotalTVA;
 import model.JTableTransaction;
 import model.JTableTravaille;
 import model.JTableVente;
+import net.sf.jasperreports.engine.JRException;
+import org.icepdf.core.exceptions.PDFException;
+import org.icepdf.core.exceptions.PDFSecurityException;
 import ticket.ConfigImprimente;
 import ticket.ImprimerTicket;
 import ticket.TicketInfo;
@@ -1457,6 +1463,11 @@ public class JFVente extends javax.swing.JFrame {
         codebarreArea.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         codebarreArea.setOpaque(false);
         codebarreArea.setPreferredSize(new java.awt.Dimension(0, 24));
+        codebarreArea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                codebarreAreaActionPerformed(evt);
+            }
+        });
         codebarreArea.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 codebarreAreaKeyPressed(evt);
@@ -2323,7 +2334,7 @@ public class JFVente extends javax.swing.JFrame {
                         .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jSeparator14)
                     .addComponent(jSeparator15, javax.swing.GroupLayout.PREFERRED_SIZE, 569, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3216,7 +3227,7 @@ public class JFVente extends javax.swing.JFrame {
                 .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator26, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jComboTikcet.getAccessibleContext().setAccessibleName("printerTicket");
@@ -3528,6 +3539,7 @@ public class JFVente extends javax.swing.JFrame {
     }
 
     private void encaisser(boolean imprimer) {
+        String codeBarres = "";
         ArrayList<Vente> list1 = listeVente;
         ArrayList<Vente> list2;
         list2 = new ArrayList();
@@ -3547,6 +3559,7 @@ public class JFVente extends javax.swing.JFrame {
         }
         for (Vente vente : listeVente) {
             vente.setIdVente(idVente);
+            codeBarres += "'"+vente.getCodebarre()  + "',";
             if(bDatabase){
                 //dans le cas tor mal 
                daoVente.insertNbProdVente2(vente); 
@@ -3555,6 +3568,7 @@ public class JFVente extends javax.swing.JFrame {
             }
             
         }
+        
         for (SousTotal mode : listeST) {
             if(!bDatabase){
                 DifferentModPay modPay = new DifferentModPay(idVente, mode.getIdPayement(), mode.getMontant());
@@ -3565,7 +3579,25 @@ public class JFVente extends javax.swing.JFrame {
         if (imprimer) {
             imprimerTicket(ticket);
         }
-
+        if(bDatabase){
+            codeBarres = codeBarres.substring(0, codeBarres.length()-1);
+            try {
+                Facture facture = new Facture();
+                facture.generatePdf(codeBarres);
+            } catch (SQLException ex) {
+                Logger.getLogger(JFVente.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (JRException ex) {
+                Logger.getLogger(JFVente.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (PDFException ex) {
+                Logger.getLogger(JFVente.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (PDFSecurityException ex) {
+                Logger.getLogger(JFVente.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(JFVente.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (PrintException ex) {
+                Logger.getLogger(JFVente.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         this.lastTicket = (TicketInfo) ticket.clone();
 
         jLabelNoTicket.setText(String.valueOf(idVente + 1));
@@ -4643,6 +4675,10 @@ public class JFVente extends javax.swing.JFrame {
         // TODO add your handling code here:
         codebarreAreaKeyTyped(evt);
     }//GEN-LAST:event_jTextFieldMontantRecuKeyTyped
+
+    private void codebarreAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codebarreAreaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_codebarreAreaActionPerformed
 
     /**
      * @param args the command line arguments

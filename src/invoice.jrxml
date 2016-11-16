@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="aac62a64-1269-47de-84a5-4cc64cad275a">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="240"/>
 	<parameter name="query" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -22,6 +22,9 @@
 	<field name="mail" class="java.lang.Object"/>
 	<field name="tel" class="java.lang.Object"/>
 	<field name="tva" class="java.lang.Object"/>
+	<field name="tvaproduit" class="java.lang.Integer"/>
+	<field name="qte" class="java.lang.Integer"/>
+	<field name="total" class="java.lang.Double"/>
 	<field name="clientid" class="java.lang.Object"/>
 	<field name="clientsocietyname" class="java.lang.Object"/>
 	<field name="clientpostalcode" class="java.lang.Object"/>
@@ -98,15 +101,15 @@
 			</textField>
 			<image>
 				<reportElement x="0" y="58" width="15" height="15" uuid="113c5b16-08e3-4a6f-b42c-847a1869af74"/>
-				<imageExpression><![CDATA["C:\\Users\\fsafi\\Netbeans\\JasperInvoice\\test\\tel.jpg"]]></imageExpression>
+				<imageExpression><![CDATA["C:\\Users\\safi\\Documents\\NetBeansProjects\\simpleFacture\\src\\images\\tel.jpg"]]></imageExpression>
 			</image>
 			<image>
 				<reportElement x="0" y="25" width="15" height="15" uuid="291cc9b1-9e0e-4d55-a42d-7efa8f179ca9"/>
-				<imageExpression><![CDATA["C:\\Users\\fsafi\\Netbeans\\JasperInvoice\\test\\adres.jpg"]]></imageExpression>
+				<imageExpression><![CDATA["C:\\Users\\safi\\Documents\\NetBeansProjects\\simpleFacture\\src\\images\\adres.jpg"]]></imageExpression>
 			</image>
 			<image>
 				<reportElement x="0" y="77" width="15" height="15" uuid="2eb4de69-147e-4a0b-9820-2c26584b71f9"/>
-				<imageExpression><![CDATA["C:\\Users\\fsafi\\Netbeans\\JasperInvoice\\test\\mail.jpg"]]></imageExpression>
+				<imageExpression><![CDATA["C:\\Users\\safi\\Documents\\NetBeansProjects\\simpleFacture\\src\\images\\mail.jpg"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement mode="Opaque" x="0" y="96" width="37" height="16" forecolor="#FFFFFF" backcolor="#CCCCCC" uuid="173505d6-9b26-4d7d-9871-17946b83d771"/>
@@ -122,11 +125,11 @@
 			</textField>
 			<image>
 				<reportElement x="307" y="112" width="15" height="15" uuid="1480a464-ce7b-4a61-9aa8-2a22fbbb811a"/>
-				<imageExpression><![CDATA["C:\\Users\\fsafi\\Netbeans\\JasperInvoice\\test\\adres.jpg"]]></imageExpression>
+				<imageExpression><![CDATA["C:\\Users\\safi\\Documents\\NetBeansProjects\\simpleFacture\\src\\images\\adres.jpg"]]></imageExpression>
 			</image>
 			<image>
 				<reportElement x="307" y="144" width="15" height="15" uuid="2a3ca59e-73ca-470d-94a6-51abbc82c5c8"/>
-				<imageExpression><![CDATA["C:\\Users\\fsafi\\Netbeans\\JasperInvoice\\test\\tel.jpg"]]></imageExpression>
+				<imageExpression><![CDATA["C:\\Users\\safi\\Documents\\NetBeansProjects\\simpleFacture\\src\\images\\tel.jpg"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement mode="Opaque" x="324" y="162" width="72" height="16" forecolor="#FFFFFF" backcolor="#CCCCCC" uuid="5a28cde1-496a-41f0-9252-a01fc6568901"/>
@@ -193,14 +196,14 @@
 	<columnHeader>
 		<band height="20" splitType="Stretch">
 			<staticText>
-				<reportElement mode="Opaque" x="404" y="0" width="56" height="20" forecolor="#FFFFFF" backcolor="#CCCCCC" uuid="479a6591-a5a7-467d-9bce-0fb5e2bbc280"/>
+				<reportElement mode="Opaque" x="371" y="0" width="87" height="20" forecolor="#FFFFFF" backcolor="#CCCCCC" uuid="479a6591-a5a7-467d-9bce-0fb5e2bbc280"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Prix HT]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="352" y="0" width="51" height="20" forecolor="#FFFFFF" backcolor="#CCCCCC" uuid="ded7d126-ad53-4135-b458-9c89139ba787"/>
+				<reportElement mode="Opaque" x="319" y="0" width="51" height="20" forecolor="#FFFFFF" backcolor="#CCCCCC" uuid="ded7d126-ad53-4135-b458-9c89139ba787"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
@@ -214,14 +217,14 @@
 				<text><![CDATA[TOTAL HT]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="461" y="0" width="31" height="20" forecolor="#FFFFFF" backcolor="#CCCCCC" uuid="8a8cfd6a-f9e9-432b-beee-45da694295f6"/>
+				<reportElement mode="Opaque" x="459" y="0" width="33" height="20" forecolor="#FFFFFF" backcolor="#CCCCCC" uuid="8a8cfd6a-f9e9-432b-beee-45da694295f6"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[TVA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="0" width="351" height="20" forecolor="#FFFFFF" backcolor="#CCCCCC" uuid="48db9048-767a-4007-87cf-f11629b98fd5"/>
+				<reportElement mode="Opaque" x="0" y="0" width="318" height="20" forecolor="#FFFFFF" backcolor="#CCCCCC" uuid="48db9048-767a-4007-87cf-f11629b98fd5"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
@@ -237,9 +240,24 @@
 				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement mode="Transparent" x="404" y="0" width="57" height="19" uuid="553da61b-93a3-4e8a-b4eb-56c2abea7640"/>
+				<reportElement mode="Transparent" x="371" y="0" width="87" height="19" uuid="553da61b-93a3-4e8a-b4eb-56c2abea7640"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0.00 €").format($F{price})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="459" y="0" width="31" height="19" uuid="13da9af2-49a6-4b14-a955-ac11357c7c6f"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{tvaproduit}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="318" y="0" width="52" height="19" uuid="10c735b3-57b8-40d7-b983-54def8269ad8"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{qte}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="492" y="0" width="61" height="19" uuid="d464abae-8855-4e00-8b9b-0010e58645dc"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0.00 €").format($F{total})]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
