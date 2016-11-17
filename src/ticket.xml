@@ -18,13 +18,13 @@
     <line>Please Call Again</line>
   </footer_led>
   <printerTicket>
-    <line>Foxit Reader PDF Printer</line>
+    <line>Microsoft XPS Document Writer</line>
   </printerTicket>
   <printerTicketPort>
     <line>COM1</line>
   </printerTicketPort>
   <printerTicketRayon>
-    <line>Foxit Reader PDF Printer</line>
+    <line>Microsoft XPS Document Writer</line>
   </printerTicketRayon>
   <printerTicketRayonPort>
     <line>COM4</line>

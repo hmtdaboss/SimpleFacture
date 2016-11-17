@@ -125,7 +125,7 @@ public class DAOVenteMySQL implements DAOVente {
                 + " montantTva,remiseArticle, codeBarre,idVente)"
                 + " values( "
                 + vente.getQuantite() + "," + (vente.getPrixTotal() - remise) + ","
-                + vente.getPrixHT() + "," + vente.getMontantTVA() + "," + vente.getRemiseArt() + ",'"
+                + "round("+vente.getPrixHT() + ",3), round(" + vente.getMontantTVA() + ",3)," + vente.getRemiseArt() + ",'"
                 + vente.getCodeBarre() + "',"
                 + vente.getIdVente() + ")";
 

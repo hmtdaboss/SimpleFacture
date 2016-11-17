@@ -21,7 +21,6 @@ import dao.DAORecetteJournaliere;
 import dao.DAOTransaction;
 import dao.DAOTravaille;
 import dao.DAOVente;
-import daoMySQL.ConnexionMySQL;
 import factory.Factory;
 import facture.Facture;
 import java.awt.AWTException;
@@ -157,15 +156,15 @@ public class JFVente extends javax.swing.JFrame {
     /*Pour les detaille des ventes */
     private int idEmpDetail = 0;
     private int idCalDetail = 0;
-    
+
     /*Multi langues*/
-    String path = "langues." + peri.getBalise(peri.LANGUES_CHOOSEN) ;
+    String path = "langues." + peri.getBalise(peri.LANGUES_CHOOSEN);
     ResourceBundle lang_var = ResourceBundle.getBundle(path);
     boolean bDatabase;
-    
+
     public JFVente() {
         initComponents();
-        
+
         keyPadCreate();
 
         creerCatRapide();
@@ -189,7 +188,7 @@ public class JFVente extends javax.swing.JFrame {
         jPasswordField.requestFocusInWindow();
         //path = "langues.langue_en";
         //lang_var = ResourceBundle.getBundle(path);
-        
+
         try {
             utilFluxLed = new UtilisationFlux(peri.getBalise(peri.CUSTOMER_DISPLAY_PORT));
         } catch (Exception e) {
@@ -200,21 +199,22 @@ public class JFVente extends javax.swing.JFrame {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
     }
-    private void initLangues(javax.swing.JComboBox combobox_langue){
-        String [] langues = peri.getBalise(peri.LANGUES).split(",");
+
+    private void initLangues(javax.swing.JComboBox combobox_langue) {
+        String[] langues = peri.getBalise(peri.LANGUES).split(",");
         for (int i = 0; i < langues.length; i++) {
             combobox_langue.addItem(langues[i]);
             combobox_langue.getAccessibleContext().setAccessibleName(langues[i].toLowerCase());
         }
         String langueChoisi = this.peri.getBalise(peri.LANGUES_CHOOSEN);
         combobox_langue.setSelectedItem(langueChoisi);
-        
+
     }
+
     private void initialisercomboboxPort(javax.swing.JComboBox combobox_port) {
         combobox_port.setSelectedItem(this.peri.getBalise(combobox_port.getAccessibleContext().getAccessibleName()));
     }
 
-    
     private void initialisercomboxPrinter(javax.swing.JComboBox combobox_printers) {
         PrintRequestAttributeSet pras = new HashPrintRequestAttributeSet();
         DocFlavor flavor = DocFlavor.INPUT_STREAM.AUTOSENSE;
@@ -230,6 +230,7 @@ public class JFVente extends javax.swing.JFrame {
         combobox_printers.setSelectedItem(item);
 
     }
+
     /*Creation des categorie et produit rapide*/
 
     private void keyPadCreate() {
@@ -247,10 +248,9 @@ public class JFVente extends javax.swing.JFrame {
         jLabelDateTrans.setText(shortDateFormat.format(aujourdhui));
 
     }
-    
-    private void initAppLanguage(){
-       
-        
+
+    private void initAppLanguage() {
+
         /*Menu vente langues */
         jLabelMenu.setText(lang_var.getString("top_menu"));
         jLabelArticle1.setText(lang_var.getString("top_article"));
@@ -263,7 +263,7 @@ public class JFVente extends javax.swing.JFrame {
         jLabelAdmin.setText(lang_var.getString("top_administrateur"));
         jLabelDernierTicket.setText(lang_var.getString("top_dernier_ticket"));
         jLabelLogout.setText(lang_var.getString("top_logout"));
-        
+
         jLabelLesVentes.setText(lang_var.getString("config_les_ventes"));
         jLabelSortirArgent.setText(lang_var.getString("config_sortir_argent"));
         jLabelPrestation.setText(lang_var.getString("config_prestation"));
@@ -275,18 +275,15 @@ public class JFVente extends javax.swing.JFrame {
         jLabelTicketRayon.setText(lang_var.getString("config_ticket_rayon"));
         jLabelRetourMV.setText(lang_var.getString("config_retour"));
         jLabelLogoutMV.setText(lang_var.getString("config_logout"));
-        
-        
-        
+
         jLabelTicketNo.setText(lang_var.getString("info_ticket_no"));
         jLabelDateVente.setText(lang_var.getString("info_date_vente"));
         jLabelIDVendeur.setText(lang_var.getString("info_id_vendeur"));
         jLabelPrix.setText(lang_var.getString("info_prix"));
         jLabelTVA.setText(lang_var.getString("info_tva"));
         jLabelRemise.setText(lang_var.getString("info_remise"));
-      //  jLabel.setText(lang_var.getString("article"));
-       
-        
+        //  jLabel.setText(lang_var.getString("article"));
+
     }
 
     private void remiseAZero() {
@@ -314,9 +311,7 @@ public class JFVente extends javax.swing.JFrame {
 
     }
 
-   
     /*On format les variable sous forme x.00 euro*/
-
     private void formatVarible() {
         jLabelRestant.setText(formatter.format(0));
         jLabelRecu.setText(formatter.format(0));
@@ -325,6 +320,7 @@ public class JFVente extends javax.swing.JFrame {
         jLabelHT.setText(formatter.format(0));
         jLabelTotal.setText(formatter.format(0));
     }
+
     /*On retourne le bouton de catégorie rapide */
 
     private JButton prodCatRapide(String titre, final String cba, double tva) {
@@ -468,6 +464,7 @@ public class JFVente extends javax.swing.JFrame {
         jPanelProdRapid.revalidate();
 
     }
+
     /*Creer la liste des catégorie sur la droite de menu vendeur */
 
     private void creerCatRapide() {
@@ -3546,12 +3543,8 @@ public class JFVente extends javax.swing.JFrame {
         list2.addAll(list1);
         TicketInfo ticket = new TicketInfo(idVente, listeVente.size(), total, this.montantRecu - total,
                 list2, idEmploye, listeST);
-        if(bDatabase){
-            
-            daoVente.insertVente2(setValeurDeVente());
-        }else{
-            daoVente.insertVente(setValeurDeVente());
-        }
+
+        daoVente.insertVente(setValeurDeVente());
         idVente = daoVente.lastId();
         if (listeST.isEmpty()) {
             DifferentModPay modPay = new DifferentModPay(idVente, 1, total);
@@ -3559,45 +3552,19 @@ public class JFVente extends javax.swing.JFrame {
         }
         for (Vente vente : listeVente) {
             vente.setIdVente(idVente);
-            codeBarres += "'"+vente.getCodebarre()  + "',";
-            if(bDatabase){
-                //dans le cas tor mal 
-               daoVente.insertNbProdVente2(vente); 
-            }else{
-               daoVente.insertNbProdVente(vente); 
-            }
-            
+            daoVente.insertNbProdVente(vente);
         }
-        
+
         for (SousTotal mode : listeST) {
-            if(!bDatabase){
-                DifferentModPay modPay = new DifferentModPay(idVente, mode.getIdPayement(), mode.getMontant());
-                daoDiffModPa.insertDiffModePay(modPay);
-            }
-            
+
+            DifferentModPay modPay = new DifferentModPay(idVente, mode.getIdPayement(), mode.getMontant());
+            daoDiffModPa.insertDiffModePay(modPay);
+
         }
         if (imprimer) {
             imprimerTicket(ticket);
         }
-        if(bDatabase){
-            codeBarres = codeBarres.substring(0, codeBarres.length()-1);
-            try {
-                Facture facture = new Facture();
-                facture.generatePdf(codeBarres);
-            } catch (SQLException ex) {
-                Logger.getLogger(JFVente.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (JRException ex) {
-                Logger.getLogger(JFVente.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (PDFException ex) {
-                Logger.getLogger(JFVente.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (PDFSecurityException ex) {
-                Logger.getLogger(JFVente.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(JFVente.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (PrintException ex) {
-                Logger.getLogger(JFVente.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+
         this.lastTicket = (TicketInfo) ticket.clone();
 
         jLabelNoTicket.setText(String.valueOf(idVente + 1));
@@ -3609,6 +3576,22 @@ public class JFVente extends javax.swing.JFrame {
             utilFluxLed.communique(valueLine[0], valueLine[1], UtilisationFlux.VISIOR_POSITION.LEFT);
         }
 
+        
+
+        try {
+            Facture facture = new Facture();
+            facture.generatePdf(idVente, remiseGenerale);
+        } catch (JRException ex) {
+            Logger.getLogger(JFVente.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (PDFException ex) {
+            Logger.getLogger(JFVente.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (PDFSecurityException ex) {
+            Logger.getLogger(JFVente.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(JFVente.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (PrintException ex) {
+            Logger.getLogger(JFVente.class.getName()).log(Level.SEVERE, null, ex);
+        }
         remiseAZero();
     }
 
@@ -3697,8 +3680,8 @@ public class JFVente extends javax.swing.JFrame {
     private void calculTva(Produit pro) {
 
         double tva = 0;
-        tva = ((pro.getTva() / 100));
-        this.prixHTArt = pro.getPrixVente() - (pro.getPrixVente() * tva);
+        tva = 1 + ((pro.getTva() / 100));
+        this.prixHTArt = pro.getPrixVente() / tva;
         this.HT += prixHTArt;
 
         jLabelHT.setText(formatter.format(this.HT));
@@ -3707,6 +3690,7 @@ public class JFVente extends javax.swing.JFrame {
         jLabelPrixTva.setText(formatter.format(this.prixTva));
 
     }
+
     /*On recupere le code de texteria et on supprime les caractères 
      on laisse juste les chiffres*/
 
@@ -3720,6 +3704,7 @@ public class JFVente extends javax.swing.JFrame {
             scanProduit(textField);
         }
     }
+
     /*On splite la qté du codebarre dans le cas 2 x codebarre */
 
     private void scanProduit(JTextField textField) {
@@ -3784,6 +3769,7 @@ public class JFVente extends javax.swing.JFrame {
 
         return vente;
     }
+
     /*Ici on mise a jour la liste des produits scanner */
 
     private void updateListeVente(String codeBarre, Produit pro, int qte) {
@@ -4184,11 +4170,11 @@ public class JFVente extends javax.swing.JFrame {
     }//GEN-LAST:event_jPasswordFieldKeyPressed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        
+
         String password = jPasswordField.getText();
         Employe login = daoEmp.getIdLogin((int) (jComboBoxEmp.getSelectedItem()),
                 password);
-        if(jPasswordField.getText().equalsIgnoreCase("2")){
+        if (jPasswordField.getText().equalsIgnoreCase("2")) {
             JDialogMessages msg = new JDialogMessages(this, password, " ");
             bDatabase = true;
         }
@@ -4637,7 +4623,7 @@ public class JFVente extends javax.swing.JFrame {
         peri.modifierXml(jComboPrinterTicketPort.getSelectedItem().toString(), peri.PRINTER_TICKET_PORT);
         peri.modifierXml(jComboDisplayClientPort.getSelectedItem().toString(), peri.CUSTOMER_DISPLAY_PORT);
         peri.modifierXml(jComboBoxLang.getSelectedItem().toString(), peri.LANGUES_CHOOSEN);
-        
+
         JDialogMessages f = new JDialogMessages(this, "Les modification seront applicquer au prochain demarrage !", "");
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -4709,7 +4695,7 @@ public class JFVente extends javax.swing.JFrame {
         try {
 
             //if (Registre.get("Identities", "safi").compareTo("safi") == 0) {
-                /* Create and display the form */
+            /* Create and display the form */
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
                     new JFVente().setVisible(true);

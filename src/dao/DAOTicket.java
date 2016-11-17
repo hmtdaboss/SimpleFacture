@@ -9,6 +9,7 @@ package dao;
 import java.util.ArrayList;
 
 import transferObject.Produit;
+import transferObject.TVA;
 
 /**
  *
@@ -17,6 +18,7 @@ import transferObject.Produit;
 public interface DAOTicket {
 
     ArrayList<Produit> selectTicket(int idVente);
+    public ArrayList<TVA> selectTVAForTVA(int idVente);
     public boolean deleteNbProduitVendu(String codeBarre, int idVente);
     public boolean deleteVente(int idVente);
     public boolean updateTicketQte(int qte, int idVente, String codeBarre, double prixUnitaire);

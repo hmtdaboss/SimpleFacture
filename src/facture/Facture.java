@@ -5,7 +5,8 @@
  */
 package facture;
 
-import Utile.PeripheriqueXML;
+import daoMySQL.ConnexionMySQL;
+import factory.Factory;
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -13,13 +14,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import javax.print.PrintException;
-import javax.print.PrintService;
-import javax.print.PrintServiceLookup;
-import javax.print.attribute.standard.MediaSizeName;
-import javax.print.attribute.standard.PrintQuality;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -28,10 +26,7 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.util.JRLoader;
 import org.icepdf.core.exceptions.PDFException;
 import org.icepdf.core.exceptions.PDFSecurityException;
-import org.icepdf.core.pobjects.Document;
-import org.icepdf.core.views.DocumentViewController;
-import org.icepdf.ri.common.SwingController;
-import org.icepdf.ri.common.views.DocumentViewControllerImpl;
+import transferObject.TVA;
 
 /**
  *
@@ -49,47 +44,64 @@ public class Facture {
             + "mag.commune as commune, mag.tel as tel, mag.tva as tva, mag.mail as mail, "
             + "cli.idClient as clientid, cli.nomSociete as clientsocietyname, cli.adresse as clientadress, "
             + "cli.codepostal as clientpostalcode, cli.commune as clientcommune, cli.tel as clienttel, "
-            + "cli.tva as clienttva from produit pro join prixdevente pv on pro.codebarre = pv.codebarre "
+            + "cli.tva as clienttva from produit pro "
+            + "join prixdevente pv on pro.codebarre = pv.codebarre "
             + "join magasin mag on mag.idmag = pv.idmag "
             + "join client cli on cli.idmag = mag.idmag "
             + "join categorie cat on cat.idcat = pro.idcat "
-            + "where pro.codebarre in (";
+            + "join prixdevente pv on pro.codebarre = pv.codebarre "
+            + "where pro.codebarre in (" ;
     
 
-    public void generatePdf(String codebar) throws SQLException, JRException, PDFException, PDFSecurityException, IOException, PrintException {
-        String DBPath = "src/extraVideoDB.db";
-        try {
-            Class.forName("org.sqlite.JDBC");
-            conn = DriverManager.getConnection("jdbc:sqlite:" + DBPath);
-            stat = conn.createStatement();
-            System.out.println("Connexion a " + DBPath + " avec succès");
+    public void generatePdf(int idVent, double remise) throws JRException, PDFException, PDFSecurityException, IOException, PrintException {
+ 
+        String req = "Select pro.codebarre as id , pro.libelle as name,  "
+                + "cat.tva as tvaproduit, proVendu.quantite as qte,  "
+                + "(round(proVendu.prixHT/proVendu.quantite,3)) as price,"
+                + "ven.montantTotal as totalgeneral,  "
+                + "proVendu.prixHT as total, "
+                + "mag.nomMagasin as shopname, mag.adresse as adres, mag.codepostal as postalcode, "
+                + "mag.commune as commune, mag.tel as tel, mag.tva as tva, mag.mail as mail, "
+                + "cli.idClient as clientid, cli.nomSociete as clientsocietyname, cli.adresse as clientadress, "
+                + "cli.codepostal as clientpostalcode, cli.commune as clientcommune, cli.tel as clienttel, "
+                + "cli.tva as clienttva "
+                + "from ventes ven "
+                + "join Produit pro on proVendu.codeBarre = pro.codeBarre "
+                + "join magasin mag on mag.idmag = pv.idmag "
+                + "join client cli on cli.idmag = mag.idmag "
+                + "join nbproduitvendu proVendu on proVendu.idVente = ven.idVente "
+                + "join categorie cat on cat.idcat = pro.idcat "
+                + "join prixdevente pv on pro.codebarre = pv.codebarre "
+                + "where ven.idVente = "+ idVent
+                + " order by 1";     
 
-        } catch (ClassNotFoundException | SQLException notFoundException) {
-            System.out.println("Erreur de connecxion");
-
-        }
-
-                
-
-        System.out.println(INVOICE_QUERY + codebar + ")");
-       
+        System.out.println(req);
+        
+        ArrayList<TVA> listeTVA = Factory.getTicket().selectTVAForTVA(idVent);
+        
 
         // - Paramètres à envoyer au rapport
         Map parameters = new HashMap();
-        parameters.put("query", INVOICE_QUERY + codebar + ")");
+        parameters.put("query", req);
         parameters.put("test", "F A C T U R E");
         parameters.put("reference", 1);
-
+        for (TVA tva : listeTVA) {
+            String taux = "tva_"+tva.getTVA_taux();
+            System.out.println(taux + " : " + tva.getTVA_value());
+            //parameters.put("tva_"+tva.getTVA_taux(), tva.getTVA_value());
+            parameters.put(taux, tva.getTVA_value());
+        }
+        parameters.put("remise", remise);
         FileInputStream fis = new FileInputStream("./src/invoice.jasper"); 
         BufferedInputStream bufferedInputStream = new BufferedInputStream(fis);
 //Load bufferedInputStream file.jasper 
         JasperReport jasperReport = (JasperReport) JRLoader.loadObject(bufferedInputStream); 
-        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters,conn);
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters,ConnexionMySQL.getInstance().getConn());
         
        
        JasperExportManager.exportReportToPdfFile(jasperPrint, "facture.pdf");
         
-     
+     /*
        
        PeripheriqueXML peri = new PeripheriqueXML();
         Document pdf = new Document();
@@ -121,7 +133,7 @@ public class Facture {
 
         printHelper.getPrintRequestAttributeSet().add(MediaSizeName.ISO_A4);
 
-        printHelper.print();
+        printHelper.print();*/
 
     }
 
