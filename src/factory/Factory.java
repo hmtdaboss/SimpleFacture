@@ -67,5 +67,9 @@ public class Factory {
     
     public static dao.DAOTicket getTicket(){
         return daoMySQL.DAOTicketMySQL.getInstance();
+    } 
+    
+    public static dao.DAOClient getClient(){
+        return daoMySQL.DAOClientMySQL.getInstance();
     }
 }

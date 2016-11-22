@@ -13,6 +13,7 @@ import afficheurLed.UtilisationFlux;
 import dao.DAOArgentSortie;
 import dao.DAOCalendrier;
 import dao.DAOCategorie;
+import dao.DAOClient;
 import dao.DAODifferentModPay;
 import dao.DAOEmploye;
 import dao.DAOListeRapide;
@@ -63,6 +64,7 @@ import javax.swing.table.TableCellRenderer;
 import model.JListModelCat;
 import model.JTableArgentSortie;
 import model.JTableCategorie;
+import model.JTableClient;
 import model.JTableEtatCaisse;
 import model.JTableListeRapide;
 import model.JTableListeX;
@@ -377,9 +379,9 @@ public class JFVente extends javax.swing.JFrame {
         jTableLesVentes.getTableHeader().setPreferredSize(new Dimension(jTableVente.getTableHeader().getWidth(), 40));
 
         /*jTable prestation */
-        jTablePrestation.getTableHeader().setPreferredSize(new Dimension(jTablePrestation.getTableHeader().getWidth(), 50));
-        jTablePrestation.getColumnModel().getColumn(0).setPreferredWidth(100);
-        jTablePrestation.getTableHeader().setFont(new Font("Helvetica", Font.BOLD, 13));
+        jTableClient.getTableHeader().setPreferredSize(new Dimension(jTableClient.getTableHeader().getWidth(), 50));
+        jTableClient.getColumnModel().getColumn(0).setPreferredWidth(100);
+        jTableClient.getTableHeader().setFont(new Font("Helvetica", Font.BOLD, 13));
 
     }
 
@@ -786,9 +788,9 @@ public class JFVente extends javax.swing.JFrame {
         jPanel1TicketRaMen = new javax.swing.JPanel();
         jPanelConfigMsg = new javax.swing.JPanel();
         jPanelConfigPrint = new javax.swing.JPanel();
-        jPanelPrestation = new javax.swing.JPanel();
+        jPanelClient = new javax.swing.JPanel();
         jScrollPane13 = new javax.swing.JScrollPane();
-        jTablePrestation = new JTable(myModelTra);
+        jTableClient = new JTable(myModelClient);
         jLabel34 = new javax.swing.JLabel();
         jPanelLangue = new javax.swing.JPanel();
         jLabel25 = new javax.swing.JLabel();
@@ -3293,30 +3295,30 @@ public class JFVente extends javax.swing.JFrame {
 
         jPanelCardVendeur.add(jPanelConfigMsg, "card8");
 
-        jTablePrestation.setAutoCreateRowSorter(true);
-        jTablePrestation.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jTablePrestation.setRowHeight(40);
-        jScrollPane13.setViewportView(jTablePrestation);
+        jTableClient.setAutoCreateRowSorter(true);
+        jTableClient.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jTableClient.setRowHeight(40);
+        jScrollPane13.setViewportView(jTableClient);
 
         jLabel34.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         jLabel34.setText(lang_var.getString("config_prestation"));
 
-        javax.swing.GroupLayout jPanelPrestationLayout = new javax.swing.GroupLayout(jPanelPrestation);
-        jPanelPrestation.setLayout(jPanelPrestationLayout);
-        jPanelPrestationLayout.setHorizontalGroup(
-            jPanelPrestationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelPrestationLayout.createSequentialGroup()
+        javax.swing.GroupLayout jPanelClientLayout = new javax.swing.GroupLayout(jPanelClient);
+        jPanelClient.setLayout(jPanelClientLayout);
+        jPanelClientLayout.setHorizontalGroup(
+            jPanelClientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelClientLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelPrestationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelPrestationLayout.createSequentialGroup()
+                .addGroup(jPanelClientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelClientLayout.createSequentialGroup()
                         .addComponent(jLabel34)
                         .addGap(0, 772, Short.MAX_VALUE))
                     .addComponent(jScrollPane13))
                 .addContainerGap())
         );
-        jPanelPrestationLayout.setVerticalGroup(
-            jPanelPrestationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelPrestationLayout.createSequentialGroup()
+        jPanelClientLayout.setVerticalGroup(
+            jPanelClientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelClientLayout.createSequentialGroup()
                 .addGap(13, 13, 13)
                 .addComponent(jLabel34)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -3324,7 +3326,7 @@ public class JFVente extends javax.swing.JFrame {
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
-        jPanelCardVendeur.add(jPanelPrestation, "card6");
+        jPanelCardVendeur.add(jPanelClient, "card6");
 
         jLabel25.setText("jLabel25");
 
@@ -3991,7 +3993,7 @@ public class JFVente extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonOpenDrawerActionPerformed
 
     private void jButtonAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdminActionPerformed
-
+        
     }//GEN-LAST:event_jButtonAdminActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -4295,7 +4297,7 @@ public class JFVente extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonSortirArgActionPerformed
 
     private void jButtonPrestationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPrestationActionPerformed
-        methodeUtile.updatePanel(jPanelCardVendeur, jPanelPrestation);
+        methodeUtile.updatePanel(jPanelCardVendeur, jPanelClient);
         myModelTra.setMyList(daoTra.selectPrestationEmploye(idEmploye));
 
     }//GEN-LAST:event_jButtonPrestationActionPerformed
@@ -4913,6 +4915,7 @@ public class JFVente extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JPanel jPanelCard;
     private javax.swing.JPanel jPanelCardVendeur;
+    private javax.swing.JPanel jPanelClient;
     private javax.swing.JPanel jPanelConfigMsg;
     private javax.swing.JPanel jPanelConfigPrint;
     private javax.swing.JPanel jPanelEtatCaisse;
@@ -4928,7 +4931,6 @@ public class JFVente extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelNumPad;
     private javax.swing.JPanel jPanelNumPadPy;
     private javax.swing.JPanel jPanelPayement;
-    private javax.swing.JPanel jPanelPrestation;
     private javax.swing.JPanel jPanelProdRapid;
     private javax.swing.JPanel jPanelRechercheTicket;
     private javax.swing.JPanel jPanelSTBG;
@@ -4992,11 +4994,11 @@ public class JFVente extends javax.swing.JFrame {
     private javax.swing.JTable jTableArgentSortie;
     private javax.swing.JTable jTableCat;
     private javax.swing.JTable jTableCategorieVente;
+    private javax.swing.JTable jTableClient;
     private javax.swing.JTable jTableEtatCaisse;
     private javax.swing.JTable jTableJourVentMenu;
     private javax.swing.JTable jTableLesVentes;
     private javax.swing.JTable jTableListeRapide;
-    private javax.swing.JTable jTablePrestation;
     private javax.swing.JTable jTableProduit;
     private javax.swing.JTable jTableSousTotal;
     private javax.swing.JTable jTableTotTVA;
@@ -5022,7 +5024,8 @@ public class JFVente extends javax.swing.JFrame {
     private static final DAORecetteJournaliere daoRec = Factory.getRecetteJournaliere();
     private static final DAOArgentSortie daoArg = Factory.getArgentSortie();
     private static final DAOTravaille daoTra = Factory.getTravaille();
-
+    private static final DAOClient daoClient = Factory.getClient();
+    
     /*Les modèles de jTable menu vendeur */
     private static final JTableTransaction myModelTrans = new JTableTransaction(daoTrans.selectTransactionID(1));
     private static final JTableRecetteJours myModelRec = new JTableRecetteJours(daoRec.selectRecette(5, "ASC"));
@@ -5032,7 +5035,7 @@ public class JFVente extends javax.swing.JFrame {
     private static final JTableListeX myModelX = new JTableListeX(daoVente.selectX(0));
     private static final JTableTotalTVA myModelTVA = new JTableTotalTVA(daoVente.selectTotalTVA(0));
     private static final JTableTravaille myModelTra = new JTableTravaille(daoTra.selectPrestationEmploye(1));
-
+    private static final JTableClient myModelClient = new JTableClient(daoClient.selectClient());
     /*Pour les produits et catégories rapides */
     private static final JTableProduit myModelProduit = new JTableProduit(daoProduit.selectProduit());
     private JListModelCat myModelCat = new JListModelCat(daoCat.selectCategorie());
