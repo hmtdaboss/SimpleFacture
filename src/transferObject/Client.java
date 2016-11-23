@@ -32,6 +32,10 @@ public class Client {
         this.idMag = idMag;
     }
 
+    public Client() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public int getIdClient() {
         return idClient;
     }

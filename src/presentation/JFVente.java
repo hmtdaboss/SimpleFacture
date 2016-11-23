@@ -792,6 +792,9 @@ public class JFVente extends javax.swing.JFrame {
         jScrollPane13 = new javax.swing.JScrollPane();
         jTableClient = new JTable(myModelClient);
         jLabel34 = new javax.swing.JLabel();
+        jButtonNewClient = new javax.swing.JButton();
+        jButtonMiseAJour = new javax.swing.JButton();
+        jButtonProfil = new javax.swing.JButton();
         jPanelLangue = new javax.swing.JPanel();
         jLabel25 = new javax.swing.JLabel();
         jTextFieldLangue = new javax.swing.JTextField();
@@ -3303,6 +3306,36 @@ public class JFVente extends javax.swing.JFrame {
         jLabel34.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         jLabel34.setText(lang_var.getString("config_prestation"));
 
+        jButtonNewClient.setBackground(new java.awt.Color(0, 138, 0));
+        jButtonNewClient.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 15)); // NOI18N
+        jButtonNewClient.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonNewClient.setText("Nouveau Client");
+        jButtonNewClient.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonNewClientActionPerformed(evt);
+            }
+        });
+
+        jButtonMiseAJour.setBackground(new java.awt.Color(0, 138, 0));
+        jButtonMiseAJour.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 15)); // NOI18N
+        jButtonMiseAJour.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonMiseAJour.setText("Mettre à jour");
+        jButtonMiseAJour.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonMiseAJourActionPerformed(evt);
+            }
+        });
+
+        jButtonProfil.setBackground(new java.awt.Color(0, 109, 169));
+        jButtonProfil.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 15)); // NOI18N
+        jButtonProfil.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonProfil.setText("Voir Profil");
+        jButtonProfil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonProfilActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelClientLayout = new javax.swing.GroupLayout(jPanelClient);
         jPanelClient.setLayout(jPanelClientLayout);
         jPanelClientLayout.setHorizontalGroup(
@@ -3312,15 +3345,26 @@ public class JFVente extends javax.swing.JFrame {
                 .addGroup(jPanelClientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelClientLayout.createSequentialGroup()
                         .addComponent(jLabel34)
-                        .addGap(0, 772, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonNewClient)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonMiseAJour, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonProfil, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 262, Short.MAX_VALUE))
                     .addComponent(jScrollPane13))
                 .addContainerGap())
         );
         jPanelClientLayout.setVerticalGroup(
             jPanelClientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelClientLayout.createSequentialGroup()
-                .addGap(13, 13, 13)
-                .addComponent(jLabel34)
+                .addGap(12, 12, 12)
+                .addGroup(jPanelClientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel34)
+                    .addGroup(jPanelClientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButtonNewClient, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonMiseAJour, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonProfil, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane13, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(20, Short.MAX_VALUE))
@@ -3448,7 +3492,7 @@ public class JFVente extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelCard, javax.swing.GroupLayout.PREFERRED_SIZE, 1008, Short.MAX_VALUE)
+            .addComponent(jPanelCard, javax.swing.GroupLayout.DEFAULT_SIZE, 1008, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -4668,6 +4712,19 @@ public class JFVente extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_codebarreAreaActionPerformed
 
+    private void jButtonNewClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNewClientActionPerformed
+        JDInscriptionClient client = new JDInscriptionClient(this, "Ajouter Client");
+        
+    }//GEN-LAST:event_jButtonNewClientActionPerformed
+
+    private void jButtonMiseAJourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMiseAJourActionPerformed
+      
+    }//GEN-LAST:event_jButtonMiseAJourActionPerformed
+
+    private void jButtonProfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonProfilActionPerformed
+       
+    }//GEN-LAST:event_jButtonProfilActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -4763,11 +4820,14 @@ public class JFVente extends javax.swing.JFrame {
     private javax.swing.JButton jButtonListeRapide;
     private javax.swing.JButton jButtonLogOut2;
     private javax.swing.JButton jButtonLogout;
+    private javax.swing.JButton jButtonMiseAJour;
+    private javax.swing.JButton jButtonNewClient;
     private javax.swing.JButton jButtonOpenDrawer;
     private javax.swing.JButton jButtonPeripherique;
     private javax.swing.JButton jButtonPlus;
     private javax.swing.JButton jButtonPrestation;
     private javax.swing.JButton jButtonPrintCat;
+    private javax.swing.JButton jButtonProfil;
     private javax.swing.JButton jButtonProton;
     private javax.swing.JButton jButtonRemiseGen;
     private javax.swing.JButton jButtonReset;

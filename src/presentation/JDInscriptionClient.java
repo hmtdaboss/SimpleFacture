@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.text.ParseException;
 import javax.swing.JFormattedTextField;
 import javax.swing.text.MaskFormatter;
+import transferObject.Client;
 
 
 /**
@@ -34,15 +35,7 @@ public class JDInscriptionClient extends javax.swing.JDialog {
     }
     
     public void initialisationCouleurDefaut(){
-        jLabelErreur.setText("");
-        jLabelNom.setForeground(new Color(0,0,0));
-        jLabelPrenom.setForeground(new Color(0,0,0));
-        jLabelRue.setForeground(new Color(0,0,0));
-        jLabelPays.setForeground(new Color(0,0,0));
-        jLabelCommune.setForeground(new Color(0,0,0));
-        jLabelCodepostale.setForeground(new Color(0,0,0));
-        jLabelEmail.setForeground(new Color(0,0,0));
-
+       
     }
     
     public void validationEmail(){
@@ -55,6 +48,12 @@ public class JDInscriptionClient extends javax.swing.JDialog {
 
     public void ajoutClient(){
        
+       Client client = new Client();
+       client.setAdresse(jTextRue.getText());
+       client.setNomSociete(jTextNomSociete.getText());
+//       client.setCommune(commune);
+//               commune,jTextNom.getText(),jTextPrenom.getText(),jTextEmail.getText(),,dateActuelle,jTextTelephone.getText());
+//            
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -63,18 +62,14 @@ public class JDInscriptionClient extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabelNom = new javax.swing.JLabel();
-        jLabelPrenom = new javax.swing.JLabel();
         jLabelRue = new javax.swing.JLabel();
         jLabelCommune = new javax.swing.JLabel();
         jLabelCodepostale = new javax.swing.JLabel();
         jLabelEmail = new javax.swing.JLabel();
-        jTextNom = new javax.swing.JTextField();
-        jTextPrenom = new javax.swing.JTextField();
-        jTextPays = new javax.swing.JTextField();
+        jTextNomSociete = new javax.swing.JTextField();
         jTextCommune = new javax.swing.JTextField();
         jTextEmail = new javax.swing.JTextField();
         jTextRue = new javax.swing.JTextField();
-        jLabelPays = new javax.swing.JLabel();
         jTextTelephone = new javax.swing.JTextField();
         jTextTelephone.setDocument(new JTextFieldLimit(10));
         jLabelTelephone = new javax.swing.JLabel();
@@ -92,8 +87,9 @@ public class JDInscriptionClient extends javax.swing.JDialog {
         jFormattedTextCodepostale = new JFormattedTextField(mf);
         jButtonClientAnnuler = new javax.swing.JButton();
         jButtonClient = new javax.swing.JButton();
-        jLabelErreur = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        jLabelTelephone2 = new javax.swing.JLabel();
+        jTextTVA = new javax.swing.JTextField();
+        jTextTelephone.setDocument(new JTextFieldLimit(10));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -101,9 +97,7 @@ public class JDInscriptionClient extends javax.swing.JDialog {
         jLabel1.setText("Inscription client");
         jLabel1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
-        jLabelNom.setText("Nom *");
-
-        jLabelPrenom.setText("Prenom *");
+        jLabelNom.setText("Nom Société *");
 
         jLabelRue.setText("Rue *");
 
@@ -113,21 +107,9 @@ public class JDInscriptionClient extends javax.swing.JDialog {
 
         jLabelEmail.setText("Email *");
 
-        jTextNom.addKeyListener(new java.awt.event.KeyAdapter() {
+        jTextNomSociete.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextNomKeyTyped(evt);
-            }
-        });
-
-        jTextPrenom.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextPrenomKeyTyped(evt);
-            }
-        });
-
-        jTextPays.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextPaysKeyTyped(evt);
+                jTextNomSocieteKeyTyped(evt);
             }
         });
 
@@ -136,8 +118,6 @@ public class JDInscriptionClient extends javax.swing.JDialog {
                 jTextCommuneKeyTyped(evt);
             }
         });
-
-        jLabelPays.setText("Pays *");
 
         jTextTelephone.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -175,6 +155,14 @@ public class JDInscriptionClient extends javax.swing.JDialog {
             }
         });
 
+        jLabelTelephone2.setText("T.V.A");
+
+        jTextTVA.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextTVAKeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -188,7 +176,6 @@ public class JDInscriptionClient extends javax.swing.JDialog {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabelEmail)
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(jLabelTelephone1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(jLabelTelephone, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(jLabelCodepostale, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                     .addComponent(jLabelCommune)))
@@ -197,53 +184,44 @@ public class JDInscriptionClient extends javax.swing.JDialog {
                                 .addComponent(jLabelNom))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(jLabelPays))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addContainerGap()
                                 .addComponent(jLabelRue))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(jLabelPrenom)))
+                                .addComponent(jLabelTelephone1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextNom, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBoxCommerce, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextNomSociete, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextTelephone, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextCommune, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextPays, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextRue, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextPrenom, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jFormattedTextCodepostale, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jFormattedTextCodepostale, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBoxCommerce, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextTVA, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(141, 141, 141)
                         .addComponent(jButtonClient, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButtonClientAnnuler, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(212, Short.MAX_VALUE))
+                        .addComponent(jButtonClientAnnuler, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabelTelephone2, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(282, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(2, 2, 2)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextNom, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextNomSociete, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelNom))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextPrenom, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
-                    .addComponent(jLabelPrenom))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextRue, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelRue, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(13, 13, 13)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextPays, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelPays))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelCommune, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
+                    .addComponent(jLabelCommune, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE)
                     .addComponent(jTextCommune, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -257,51 +235,38 @@ public class JDInscriptionClient extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextTelephone, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelTelephone))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(8, 8, 8)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelTelephone2)
+                    .addComponent(jTextTVA, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBoxCommerce, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelTelephone1))
-                .addGap(38, 38, 38)
+                .addGap(45, 45, 45)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonClient, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonClientAnnuler, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
-
-        jLabelErreur.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabelErreur.setForeground(new java.awt.Color(255, 0, 51));
-
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/clientInscription.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(70, 70, 70)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(11, 11, 11)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jLabel2)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(188, 188, 188))
-                            .addComponent(jLabelErreur, javax.swing.GroupLayout.PREFERRED_SIZE, 581, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(188, 188, 188))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1))
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabelErreur, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addGap(45, 45, 45)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -309,6 +274,7 @@ public class JDInscriptionClient extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+ 
     private void jButtonClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonClientActionPerformed
         /*
         verificationChamp();
@@ -320,23 +286,11 @@ public class JDInscriptionClient extends javax.swing.JDialog {
         */
     }//GEN-LAST:event_jButtonClientActionPerformed
 
-    private void jTextNomKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextNomKeyTyped
+    private void jTextNomSocieteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextNomSocieteKeyTyped
          if (!Character.isAlphabetic(evt.getKeyChar())) {
             evt.consume();
         }  
-    }//GEN-LAST:event_jTextNomKeyTyped
-
-    private void jTextPrenomKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextPrenomKeyTyped
-        if (!Character.isAlphabetic(evt.getKeyChar())) {
-            evt.consume();
-        }  
-    }//GEN-LAST:event_jTextPrenomKeyTyped
-
-    private void jTextPaysKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextPaysKeyTyped
-         if (!Character.isAlphabetic(evt.getKeyChar())) {
-            evt.consume();
-        }        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextPaysKeyTyped
+    }//GEN-LAST:event_jTextNomSocieteKeyTyped
 
     private void jTextCommuneKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextCommuneKeyTyped
                if (!Character.isAlphabetic(evt.getKeyChar())) {
@@ -360,30 +314,30 @@ public class JDInscriptionClient extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_jButtonClientAnnulerActionPerformed
 
+    private void jTextTVAKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextTVAKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextTVAKeyTyped
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonClient;
     private javax.swing.JButton jButtonClientAnnuler;
     private javax.swing.JComboBox<String> jComboBoxCommerce;
     private javax.swing.JFormattedTextField jFormattedTextCodepostale;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabelCodepostale;
     private javax.swing.JLabel jLabelCommune;
     private javax.swing.JLabel jLabelEmail;
-    private javax.swing.JLabel jLabelErreur;
     private javax.swing.JLabel jLabelNom;
-    private javax.swing.JLabel jLabelPays;
-    private javax.swing.JLabel jLabelPrenom;
     private javax.swing.JLabel jLabelRue;
     private javax.swing.JLabel jLabelTelephone;
     private javax.swing.JLabel jLabelTelephone1;
+    private javax.swing.JLabel jLabelTelephone2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextCommune;
     private javax.swing.JTextField jTextEmail;
-    private javax.swing.JTextField jTextNom;
-    private javax.swing.JTextField jTextPays;
-    private javax.swing.JTextField jTextPrenom;
+    private javax.swing.JTextField jTextNomSociete;
     private javax.swing.JTextField jTextRue;
+    private javax.swing.JTextField jTextTVA;
     private javax.swing.JTextField jTextTelephone;
     // End of variables declaration//GEN-END:variables
 
