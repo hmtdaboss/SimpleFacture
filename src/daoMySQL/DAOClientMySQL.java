@@ -10,8 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import transferObject.Client;
-import transferObject.Employe;
-import transferObject.Travaille;
+
 
 /**
  *
@@ -29,7 +28,7 @@ public class DAOClientMySQL implements DAOClient  {
     public ArrayList<Client> selectClient() {
         ArrayList<Client> myList = new ArrayList();
 
-        String req = "select idClient, nomSociete, adresse, codepostal, commune, tel, tva, idmag"
+        String req = "select idClient, nomSociete, adresse, codepostal, commune, tel, tva, idmag, mail"
                 + " from Client"
                 + " order by 1";
 
@@ -38,7 +37,7 @@ public class DAOClientMySQL implements DAOClient  {
             while (resu.next()) {
                 //création de l'objet Chanteur
                 myList.add(new Client(resu.getInt(1), resu.getString(2), resu.getString(3),
-                        resu.getInt(4), resu.getString(5),resu.getString(6), resu.getString(7), resu.getInt(8)));
+                        resu.getInt(4), resu.getString(5),resu.getString(6), resu.getString(7), resu.getInt(8), resu.getString(9)));
 
             }
         } catch (SQLException e) {
@@ -50,11 +49,13 @@ public class DAOClientMySQL implements DAOClient  {
     }
 
     @Override
-    public boolean insertProduit(Client client) {
-        String requete = "Insert into Employe ( nomSociete, adresse, codepostal, commune, tel, tva, idmag ) values ('"
+    public boolean insertClient(Client client) {
+        String requete = "Insert into Client ( nomSociete, adresse, codepostal, commune, tel, tva, idmag, mail ) values ('"
                 + client.getNomSociete()+ "','" + client.getAdresse()+ "'," + client.getCodepostal()+ ",'"
-                + client.getCommune()+ "','" + client.getTel()+ "', '" + client.getTva()+ "' ," + client.getIdMag()+")";
+                + client.getCommune()+ "','" + client.getTel()+ "', '" + client.getTva()+ "' ," + client.getIdMag()+",'" + client.getMail()+"')";
 
+        System.out.println("insertclient " + requete);
+        System.out.println(client.toString());
         boolean ok = ConnexionMySQL.getInstance().actionQuery(requete);
         return ok;
     }

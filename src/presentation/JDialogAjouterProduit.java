@@ -160,6 +160,11 @@ public class JDialogAjouterProduit extends javax.swing.JDialog {
         jTextFieldPrixVente.setBackground(new java.awt.Color(255, 51, 51));
         jTextFieldPrixVente.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jTextFieldPrixVente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTextFieldPrixVente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldPrixVenteActionPerformed(evt);
+            }
+        });
         jTextFieldPrixVente.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextFieldPrixVenteKeyTyped(evt);
@@ -735,6 +740,10 @@ public class JDialogAjouterProduit extends javax.swing.JDialog {
 
         }
     }//GEN-LAST:event_jTableCatMouseClicked
+
+    private void jTextFieldPrixVenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldPrixVenteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldPrixVenteActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAjouter;

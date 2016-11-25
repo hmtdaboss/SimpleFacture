@@ -77,6 +77,7 @@ public class TicketRayon extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
+        jLabelErreur = new javax.swing.JLabel();
 
         jButton2.setBackground(new java.awt.Color(102, 153, 204));
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/delete-icon.png"))); // NOI18N
@@ -118,6 +119,9 @@ public class TicketRayon extends javax.swing.JPanel {
         jLabel4.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         jLabel4.setText("Ticket Rayon");
 
+        jLabelErreur.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabelErreur.setForeground(new java.awt.Color(255, 0, 0));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -141,7 +145,8 @@ public class TicketRayon extends javax.swing.JPanel {
                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane2)
                             .addComponent(textFieldCodeBarre)
-                            .addComponent(jSeparator1))))
+                            .addComponent(jSeparator1)
+                            .addComponent(jLabelErreur, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(153, 153, 153)
@@ -157,7 +162,9 @@ public class TicketRayon extends javax.swing.JPanel {
                 .addComponent(jLabel4)
                 .addGap(1, 1, 1)
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(7, 7, 7)
+                .addGap(3, 3, 3)
+                .addComponent(jLabelErreur, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textFieldCodeBarre, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
@@ -186,23 +193,27 @@ public class TicketRayon extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
-        try {
-            this.generatePdf();
-            this.listModel.clear();
-        } catch (SQLException ex) {
-            Logger.getLogger(TicketRayon.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (JRException ex) {
-            Logger.getLogger(TicketRayon.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (PDFException ex) {
-            Logger.getLogger(TicketRayon.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (PDFSecurityException ex) {
-            Logger.getLogger(TicketRayon.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(TicketRayon.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (PrintException ex) {
-            Logger.getLogger(TicketRayon.class.getName()).log(Level.SEVERE, null, ex);
+        if (listModel.isEmpty()) {
+            jLabelErreur.setText("La liste est vide Scanner un produit d'abord");
+        } else {
+            try {
+                this.generatePdf();
+                this.listModel.clear();
+            } catch (SQLException ex) {
+                Logger.getLogger(TicketRayon.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (JRException ex) {
+                Logger.getLogger(TicketRayon.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (PDFException ex) {
+                Logger.getLogger(TicketRayon.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (PDFSecurityException ex) {
+                Logger.getLogger(TicketRayon.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(TicketRayon.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (PrintException ex) {
+                Logger.getLogger(TicketRayon.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void textFieldCodeBarreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldCodeBarreKeyPressed
@@ -218,9 +229,11 @@ public class TicketRayon extends javax.swing.JPanel {
     }//GEN-LAST:event_textFieldCodeBarreKeyPressed
     private String createQuery() {
         String query = "SELECT PRODUIT.codeBarre AS ID, PRODUIT.codeBarre AS REFERENCE, PRODUIT.codeBarre AS CODE,"
-                + " PRODUIT.libelle as NAME,"
+                + " PRODUIT.libelle as NAME, cat.libelle as libelle, cat.tva as tva, "
                 + " PRODUIT.prixAchat as PRICEBUY , PRIXDEVENTE.prix as PRICESELL "
-                + " FROM PRODUIT join PRIXDEVENTE on PRODUIT.codeBarre = PRIXDEVENTE.codeBarre ";
+                + " FROM PRODUIT "
+                + " JOIN PRIXDEVENTE on PRODUIT.codeBarre = PRIXDEVENTE.codeBarre "
+                + " JOIN CATEGORIE cat on cat.idCat = produit.idCat ";
 
         int size = listModel.getSize();
         if (size > 0) {
@@ -235,6 +248,7 @@ public class TicketRayon extends javax.swing.JPanel {
             }
         }
         System.out.println(query);
+
         return query;
     }
 
@@ -259,7 +273,7 @@ public class TicketRayon extends javax.swing.JPanel {
         parameters.put("reference", 1);
 
         //  JasperDesign jasperDesign = JRXmlLoader.load("src/productlabels.jrxml");
-     //  String jasperReport = JasperCompileManager.compileReportToFile("src/productlabels.jrxml");
+        //  String jasperReport = JasperCompileManager.compileReportToFile("src/productlabels.jrxml");
         // - Execution du rapport
         JasperPrint jasperPrint = JasperFillManager.fillReport("src/productlabels.jasper", parameters, conn);
 
@@ -307,6 +321,7 @@ public class TicketRayon extends javax.swing.JPanel {
             listModel.addElement(codeBarre);
             ListCodeBarre.setModel(listModel);
             textFieldCodeBarre.setText("");
+            jLabelErreur.setText("");
 
         } else {
             JOptionPane.showMessageDialog(null, "Aucun produit trouver !",
@@ -324,6 +339,7 @@ public class TicketRayon extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabelErreur;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;

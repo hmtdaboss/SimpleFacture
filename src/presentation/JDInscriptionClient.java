@@ -1,60 +1,78 @@
 package presentation;
 
-
 import Utile.JTextFieldLimit;
-import java.awt.Color;
+import dao.DAOClient;
+import dao.DAOMagasin;
+import factory.Factory;
 import java.text.ParseException;
 import javax.swing.JFormattedTextField;
+import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
 import transferObject.Client;
-
+import transferObject.Employe;
+import transferObject.Magasin;
 
 /**
  *
  * @author binu
  */
 public class JDInscriptionClient extends javax.swing.JDialog {
-
-    /**
-     * Tous les champs sont ici analysés
-     * Ex : il ne peut pas entrer des numéros pour un nom etc 
-     * la vérification est faite pour certains champs directement à la saisie du clavier
-     * ++ j'ai rajouté une fonctionnalité pour qu'il puisse ajouter une nouvelle catégorie directement sur cette fenêtre
-     */
+    private boolean ajoutOk = false;
     public JDInscriptionClient(java.awt.Frame parent, String titre) {
-        super(parent, titre,true);
-        
+        super(parent, titre, true);
+
         initComponents();
-        fillComponents();
+        fillMagasinCombo();
         setLocationRelativeTo(null);
         setVisible(true);
     }
 
-    public void fillComponents(){
-        
-    }
-    
-    public void initialisationCouleurDefaut(){
-       
-    }
-    
-    public void validationEmail(){
-       
-    }
-    
-    public void verificationChamp(){
-      
+    private void fillMagasinCombo() {
+        for (Magasin e : daoMagasin.selectMagasin()) {
+            jComboBoxCommerce.addItem(e.getNomMagasin());
+        }
     }
 
-    public void ajoutClient(){
-       
-       Client client = new Client();
-       client.setAdresse(jTextRue.getText());
-       client.setNomSociete(jTextNomSociete.getText());
-//       client.setCommune(commune);
-//               commune,jTextNom.getText(),jTextPrenom.getText(),jTextEmail.getText(),,dateActuelle,jTextTelephone.getText());
-//            
+    private void initialiserChamps() {
+        jTextRue.setText("");
+        jTextNomSociete.setText("");
+        jTextNomSociete.setText("");
+        jTextCommune.setText("");
+        jTextTelephone.setText("");
+        jTextTelephone.setText("");
+        jTextTVA.setText("");
+        jTextEmail.setText("");
+        
     }
+
+    private void ajoutClient() {
+
+        Client client = new Client();
+        client.setAdresse(jTextRue.getText());
+        client.setNomSociete(jTextNomSociete.getText());
+        client.setCodepostal(Integer.valueOf(jFormattedTextCodepostale.getText()));
+        client.setCommune(jTextCommune.getText());
+        client.setTel(jTextTelephone.getText());
+        client.setTva(jTextTVA.getText());
+        client.setMail(jTextEmail.getText());
+        int idMag = daoMagasin.getIdMagasin((String) jComboBoxCommerce.getSelectedItem());
+        client.setIdMag(idMag);
+        boolean ok = daoClient.insertClient(client);
+
+        if (!ok) {
+            JOptionPane.showMessageDialog(null, "Insertion Impossible produit existe déjà!",
+                    "Avertissement", JOptionPane.ERROR_MESSAGE);
+        } else {
+            initialiserChamps();
+            this.dispose();
+            ajoutOk = true;
+        }
+
+    }
+    public boolean isAjoutOK(){
+        return this.ajoutOk;
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -92,43 +110,70 @@ public class JDInscriptionClient extends javax.swing.JDialog {
         jTextTelephone.setDocument(new JTextFieldLimit(10));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(500, 592));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("Inscription client");
         jLabel1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
+        jPanel1.setPreferredSize(new java.awt.Dimension(410, 482));
+
+        jLabelNom.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabelNom.setText("Nom Société *");
 
+        jLabelRue.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabelRue.setText("Rue *");
 
+        jLabelCommune.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabelCommune.setText("Nom commune *");
 
+        jLabelCodepostale.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabelCodepostale.setText("Code postale *");
 
-        jLabelEmail.setText("Email *");
+        jLabelEmail.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabelEmail.setText("Email ");
 
+        jTextNomSociete.setBackground(new java.awt.Color(102, 153, 204));
+        jTextNomSociete.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jTextNomSociete.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextNomSocieteKeyTyped(evt);
             }
         });
 
+        jTextCommune.setBackground(new java.awt.Color(102, 153, 204));
+        jTextCommune.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jTextCommune.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextCommuneKeyTyped(evt);
             }
         });
 
+        jTextEmail.setBackground(new java.awt.Color(102, 153, 204));
+        jTextEmail.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        jTextRue.setBackground(new java.awt.Color(102, 153, 204));
+        jTextRue.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        jTextTelephone.setBackground(new java.awt.Color(102, 153, 204));
+        jTextTelephone.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jTextTelephone.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextTelephoneKeyTyped(evt);
             }
         });
 
+        jLabelTelephone.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabelTelephone.setText("Télephone ");
 
+        jComboBoxCommerce.setBackground(new java.awt.Color(102, 153, 204));
+        jComboBoxCommerce.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        jLabelTelephone1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabelTelephone1.setText("Magasins :");
 
+        jFormattedTextCodepostale.setBackground(new java.awt.Color(102, 153, 204));
+        jFormattedTextCodepostale.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jFormattedTextCodepostale.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jFormattedTextCodepostaleKeyTyped(evt);
@@ -155,8 +200,11 @@ public class JDInscriptionClient extends javax.swing.JDialog {
             }
         });
 
-        jLabelTelephone2.setText("T.V.A");
+        jLabelTelephone2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabelTelephone2.setText("T.V.A *");
 
+        jTextTVA.setBackground(new java.awt.Color(102, 153, 204));
+        jTextTVA.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jTextTVA.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextTVAKeyTyped(evt);
@@ -170,80 +218,73 @@ public class JDInscriptionClient extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabelEmail)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(jLabelTelephone, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabelCodepostale, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addComponent(jLabelCommune)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(jLabelNom))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabelRue))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabelTelephone1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextNomSociete, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextTelephone, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextCommune, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextRue, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jFormattedTextCodepostale, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBoxCommerce, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextTVA, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(141, 141, 141)
                         .addComponent(jButtonClient, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jButtonClientAnnuler, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabelTelephone2, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(282, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelEmail)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jLabelTelephone, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabelCodepostale, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabelCommune)
+                            .addComponent(jLabelTelephone1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelNom)
+                            .addComponent(jLabelRue)
+                            .addComponent(jLabelTelephone2, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextTVA, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jTextTelephone)
+                                .addComponent(jTextEmail)
+                                .addComponent(jTextCommune)
+                                .addComponent(jFormattedTextCodepostale, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTextRue)
+                                .addComponent(jTextNomSociete)
+                                .addComponent(jComboBoxCommerce, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(2, 2, 2)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextNomSociete, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelNom))
+                    .addComponent(jTextNomSociete, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelNom, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextRue, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelRue, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTextRue, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+                    .addComponent(jLabelRue, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(20, 20, 20)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabelCommune, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTextCommune, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(jFormattedTextCodepostale, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabelCodepostale, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelCommune, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE)
-                    .addComponent(jTextCommune, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jFormattedTextCodepostale, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelCodepostale))
-                .addGap(16, 16, 16)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTextEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+                    .addComponent(jLabelEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabelEmail)
-                    .addComponent(jTextEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextTelephone, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelTelephone))
-                .addGap(8, 8, 8)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelTelephone2)
-                    .addComponent(jTextTVA, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBoxCommerce, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelTelephone1))
-                .addGap(45, 45, 45)
+                    .addComponent(jTextTelephone, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelTelephone, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(17, 17, 17)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextTVA, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelTelephone2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(16, 16, 16)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabelTelephone1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jComboBoxCommerce, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE))
+                .addGap(24, 24, 24)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonClient, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonClientAnnuler, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -253,47 +294,40 @@ public class JDInscriptionClient extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(188, 188, 188))
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(45, 45, 45)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(64, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
- 
+
     private void jButtonClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonClientActionPerformed
-        /*
-        verificationChamp();
-        if(isFormulaireValidee)
-        validationEmail();
         ajoutClient();
-        if(isAjoutValidee && isFormulaireValidee && isEmailValidee)
-            this.dispose();
-        */
     }//GEN-LAST:event_jButtonClientActionPerformed
 
     private void jTextNomSocieteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextNomSocieteKeyTyped
-         if (!Character.isAlphabetic(evt.getKeyChar())) {
+        if (!Character.isAlphabetic(evt.getKeyChar())) {
             evt.consume();
-        }  
+        }
     }//GEN-LAST:event_jTextNomSocieteKeyTyped
 
     private void jTextCommuneKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextCommuneKeyTyped
-               if (!Character.isAlphabetic(evt.getKeyChar())) {
+        if (!Character.isAlphabetic(evt.getKeyChar())) {
             evt.consume();
         }
     }//GEN-LAST:event_jTextCommuneKeyTyped
@@ -301,13 +335,13 @@ public class JDInscriptionClient extends javax.swing.JDialog {
     private void jTextTelephoneKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextTelephoneKeyTyped
         if (!Character.isDigit(evt.getKeyChar())) {
             evt.consume();
-        } 
+        }
     }//GEN-LAST:event_jTextTelephoneKeyTyped
 
     private void jFormattedTextCodepostaleKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFormattedTextCodepostaleKeyTyped
         if (!Character.isDigit(evt.getKeyChar())) {
             evt.consume();
-        } 
+        }
     }//GEN-LAST:event_jFormattedTextCodepostaleKeyTyped
 
     private void jButtonClientAnnulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonClientAnnulerActionPerformed
@@ -318,6 +352,7 @@ public class JDInscriptionClient extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextTVAKeyTyped
 
+       
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonClient;
     private javax.swing.JButton jButtonClientAnnuler;
@@ -341,10 +376,6 @@ public class JDInscriptionClient extends javax.swing.JDialog {
     private javax.swing.JTextField jTextTelephone;
     // End of variables declaration//GEN-END:variables
 
-  
-    private int commerce=1;
-    private boolean isFormulaireValidee=true;
-    private boolean isEmailValidee=true;
-    private boolean isAjoutValidee=true;
-
+    private static final DAOMagasin daoMagasin = Factory.getMagasin();
+    private static final DAOClient daoClient = Factory.getClient();
 }

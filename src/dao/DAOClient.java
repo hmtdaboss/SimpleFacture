@@ -14,7 +14,7 @@ import transferObject.Client;
  */
 public interface DAOClient {
 
-    boolean insertProduit(Client client);
+    boolean insertClient(Client client);
 
     ArrayList<Client> selectClient();
 

@@ -72,4 +72,8 @@ public class Factory {
     public static dao.DAOClient getClient(){
         return daoMySQL.DAOClientMySQL.getInstance();
     }
+    
+    public static dao.DAOMagasin getMagasin(){
+        return daoMySQL.DAOMagasinMySQL.getInstance();
+    }
 }

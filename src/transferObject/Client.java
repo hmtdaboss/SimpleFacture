@@ -16,12 +16,13 @@ public class Client {
     String adresse;
     int codepostal;
     String commune;
+    String mail;
     String tel;
     String tva;
     int idMag;
 
     public Client(int idClient, String nomSociete, String adresse, int codepostal, 
-            String commune, String tel, String tva, int idMag) {
+            String commune, String tel, String tva, int idMag, String mail) {
         this.idClient = idClient;
         this.nomSociete = nomSociete;
         this.adresse = adresse;
@@ -30,10 +31,10 @@ public class Client {
         this.tel = tel;
         this.tva = tva;
         this.idMag = idMag;
+        this.mail = mail;
     }
 
     public Client() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public int getIdClient() {
@@ -99,6 +100,20 @@ public class Client {
     public void setIdMag(int idMag) {
         this.idMag = idMag;
     }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
     
+    @Override
+    public String toString(){
+        return "[nom Société : "+ this.nomSociete + " adress : " +this.adresse + " codepostal : " 
+                + this.codepostal + " commune : " + this.commune + " tel : " + this.tel + " tva : "+this.tva + " idMag : " + this.idMag 
+                + " mail : " + this.mail +"]";
+    }
     
 }

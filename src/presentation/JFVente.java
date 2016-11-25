@@ -234,7 +234,6 @@ public class JFVente extends javax.swing.JFrame {
     }
 
     /*Creation des categorie et produit rapide*/
-
     private void keyPadCreate() {
         KeyPad pad3 = new KeyPad();
         KeyPad pad = new KeyPad();
@@ -324,7 +323,6 @@ public class JFVente extends javax.swing.JFrame {
     }
 
     /*On retourne le bouton de catégorie rapide */
-
     private JButton prodCatRapide(String titre, final String cba, double tva) {
         JButton bt = new JButton(titre);
         bt.setBackground(new Color(102, 153, 204));
@@ -468,13 +466,14 @@ public class JFVente extends javax.swing.JFrame {
     }
 
     /*Creer la liste des catégorie sur la droite de menu vendeur */
-
     private void creerCatRapide() {
         jPanelGridRapiCat.removeAll();
         jPanelGridRapiCat.revalidate();
 
         for (Categorie cat : daoCat.selectCategorieRapid()) {
             JButton proRapid = prodCatRapide(cat.getLibelle(), cat.getLibelle(), cat.getTva());
+            proRapid.setBackground(new java.awt.Color(0, 138, 0));
+            proRapid.setForeground(new java.awt.Color(255, 255, 255));
             jPanelGridRapiCat.add(proRapid);
 
         }
@@ -3622,8 +3621,6 @@ public class JFVente extends javax.swing.JFrame {
             utilFluxLed.communique(valueLine[0], valueLine[1], UtilisationFlux.VISIOR_POSITION.LEFT);
         }
 
-        
-
         try {
             Facture facture = new Facture();
             facture.generatePdf(idVente, remiseGenerale);
@@ -3739,7 +3736,6 @@ public class JFVente extends javax.swing.JFrame {
 
     /*On recupere le code de texteria et on supprime les caractères 
      on laisse juste les chiffres*/
-
     private void scanner(java.awt.event.KeyEvent evt, JTextField textField) {
 
         if (evt.getKeyChar() != '\n' && evt.getKeyChar() != '*'
@@ -3752,7 +3748,6 @@ public class JFVente extends javax.swing.JFrame {
     }
 
     /*On splite la qté du codebarre dans le cas 2 x codebarre */
-
     private void scanProduit(JTextField textField) {
         String codeBarre = textField.getText();
         int qte = 1;
@@ -3817,7 +3812,6 @@ public class JFVente extends javax.swing.JFrame {
     }
 
     /*Ici on mise a jour la liste des produits scanner */
-
     private void updateListeVente(String codeBarre, Produit pro, int qte) {
 
         int qtePourLed = 1;
@@ -4037,7 +4031,7 @@ public class JFVente extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonOpenDrawerActionPerformed
 
     private void jButtonAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdminActionPerformed
-        
+
     }//GEN-LAST:event_jButtonAdminActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -4714,15 +4708,19 @@ public class JFVente extends javax.swing.JFrame {
 
     private void jButtonNewClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNewClientActionPerformed
         JDInscriptionClient client = new JDInscriptionClient(this, "Ajouter Client");
-        
+        if (client.isAjoutOK()) {
+            myModelClient.setMyList(daoClient.selectClient());
+            
+        }
+
     }//GEN-LAST:event_jButtonNewClientActionPerformed
 
     private void jButtonMiseAJourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMiseAJourActionPerformed
-      
+
     }//GEN-LAST:event_jButtonMiseAJourActionPerformed
 
     private void jButtonProfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonProfilActionPerformed
-       
+
     }//GEN-LAST:event_jButtonProfilActionPerformed
 
     /**
@@ -5085,7 +5083,7 @@ public class JFVente extends javax.swing.JFrame {
     private static final DAOArgentSortie daoArg = Factory.getArgentSortie();
     private static final DAOTravaille daoTra = Factory.getTravaille();
     private static final DAOClient daoClient = Factory.getClient();
-    
+
     /*Les modèles de jTable menu vendeur */
     private static final JTableTransaction myModelTrans = new JTableTransaction(daoTrans.selectTransactionID(1));
     private static final JTableRecetteJours myModelRec = new JTableRecetteJours(daoRec.selectRecette(5, "ASC"));
