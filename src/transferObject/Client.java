@@ -20,9 +20,9 @@ public class Client {
     String tel;
     String tva;
     int idMag;
-
+    String nomMagasin ;
     public Client(int idClient, String nomSociete, String adresse, int codepostal, 
-            String commune, String tel, String tva, int idMag, String mail) {
+            String commune, String tel, String tva, int idMag, String mail, String nomMagasin) {
         this.idClient = idClient;
         this.nomSociete = nomSociete;
         this.adresse = adresse;
@@ -32,6 +32,7 @@ public class Client {
         this.tva = tva;
         this.idMag = idMag;
         this.mail = mail;
+        this.nomMagasin = nomMagasin;
     }
 
     public Client() {
@@ -107,6 +108,14 @@ public class Client {
 
     public void setMail(String mail) {
         this.mail = mail;
+    }
+
+    public String getNomMagasin() {
+        return nomMagasin;
+    }
+
+    public void setNomMagasin(String nomMagasin) {
+        this.nomMagasin = nomMagasin;
     }
     
     @Override

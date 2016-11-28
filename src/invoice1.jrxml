@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="aac62a64-1269-47de-84a5-4cc64cad275a">
-	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="45"/>
-	<subDataset name="dataset1" uuid="b5091037-e838-4535-93fd-02606c6ef6dd"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="query" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -136,7 +135,7 @@
 		</band>
 	</title>
 	<pageHeader>
-		<band height="24" splitType="Stretch">
+		<band height="27" splitType="Stretch">
 			<staticText>
 				<reportElement mode="Opaque" x="0" y="0" width="58" height="20" forecolor="#FFFFFF" backcolor="#8CC640" uuid="345c4b27-39ca-429d-b4fe-cb21516eded2"/>
 				<textElement verticalAlignment="Middle">
@@ -183,43 +182,33 @@
 			<textField>
 				<reportElement mode="Transparent" x="58" y="0" width="68" height="20" uuid="c8396e13-920b-4462-a63a-c0acbdf6ec3e"/>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{nofacture}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{clientid}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="22" splitType="Stretch">
+		<band height="20" splitType="Stretch">
 			<staticText>
-				<reportElement mode="Opaque" x="370" y="1" width="89" height="20" forecolor="#FFFFFF" backcolor="#8CC640" uuid="479a6591-a5a7-467d-9bce-0fb5e2bbc280"/>
-				<box leftPadding="2">
-					<topPen lineWidth="0.5" lineColor="#000000"/>
-					<bottomPen lineWidth="0.5" lineColor="#000000"/>
-					<rightPen lineWidth="0.0" lineColor="#000000"/>
-				</box>
+				<reportElement mode="Opaque" x="371" y="0" width="87" height="20" forecolor="#FFFFFF" backcolor="#8CC640" uuid="479a6591-a5a7-467d-9bce-0fb5e2bbc280"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Prix HT]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="318" y="1" width="52" height="20" forecolor="#FFFFFF" backcolor="#8CC640" uuid="ded7d126-ad53-4135-b458-9c89139ba787"/>
-				<box>
-					<topPen lineWidth="0.5" lineColor="#000000"/>
-					<bottomPen lineWidth="0.5" lineColor="#000000"/>
-					<rightPen lineWidth="0.5" lineColor="#000000"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<reportElement mode="Opaque" x="319" y="0" width="51" height="20" forecolor="#FFFFFF" backcolor="#8CC640" uuid="ded7d126-ad53-4135-b458-9c89139ba787"/>
+				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Quantité]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="492" y="1" width="63" height="20" forecolor="#FFFFFF" backcolor="#8CC640" uuid="8a977888-693d-4679-b33f-f7bd6958627b"/>
+				<reportElement mode="Opaque" x="493" y="0" width="62" height="20" forecolor="#FFFFFF" backcolor="#8CC640" uuid="8a977888-693d-4679-b33f-f7bd6958627b"/>
 				<box>
 					<pen lineColor="#000000"/>
-					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineColor="#000000"/>
 					<leftPen lineColor="#000000"/>
-					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineColor="#000000"/>
 					<rightPen lineWidth="0.5" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -228,26 +217,16 @@
 				<text><![CDATA[TOTAL HT]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="459" y="1" width="33" height="20" forecolor="#FFFFFF" backcolor="#8CC640" uuid="8a8cfd6a-f9e9-432b-beee-45da694295f6"/>
-				<box>
-					<pen lineColor="#000000"/>
-					<topPen lineWidth="0.5" lineColor="#000000"/>
-					<leftPen lineWidth="0.5" lineColor="#000000"/>
-					<bottomPen lineWidth="0.5" lineColor="#000000"/>
-					<rightPen lineWidth="0.5" lineColor="#000000"/>
-				</box>
+				<reportElement mode="Opaque" x="459" y="0" width="33" height="20" forecolor="#FFFFFF" backcolor="#8CC640" uuid="8a8cfd6a-f9e9-432b-beee-45da694295f6"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[TVA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="1" width="318" height="20" forecolor="#FFFFFF" backcolor="#8CC640" uuid="48db9048-767a-4007-87cf-f11629b98fd5"/>
+				<reportElement mode="Opaque" x="0" y="0" width="318" height="20" forecolor="#FFFFFF" backcolor="#8CC640" uuid="48db9048-767a-4007-87cf-f11629b98fd5"/>
 				<box leftPadding="4">
-					<topPen lineWidth="0.5" lineColor="#000000"/>
 					<leftPen lineWidth="0.5" lineColor="#000000"/>
-					<bottomPen lineWidth="0.5" lineColor="#000000"/>
-					<rightPen lineWidth="0.5" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font isBold="true"/>
@@ -259,45 +238,46 @@
 	<detail>
 		<band height="20" splitType="Stretch">
 			<textField>
-				<reportElement mode="Opaque" x="0" y="0" width="318" height="20" uuid="902c602d-f74d-4954-be7c-8a2a2a963daf"/>
-				<box leftPadding="4">
+				<reportElement mode="Opaque" x="0" y="0" width="318" height="19" uuid="902c602d-f74d-4954-be7c-8a2a2a963daf"/>
+				<box>
 					<leftPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.0"/>
 				</box>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement mode="Transparent" x="370" y="0" width="89" height="20" uuid="553da61b-93a3-4e8a-b4eb-56c2abea7640"/>
-				<box rightPadding="2">
-					<rightPen lineWidth="0.5"/>
+				<reportElement mode="Transparent" x="370" y="0" width="87" height="19" uuid="553da61b-93a3-4e8a-b4eb-56c2abea7640"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.0"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0.000 €").format($F{price})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="459" y="0" width="33" height="20" uuid="13da9af2-49a6-4b14-a955-ac11357c7c6f"/>
-				<box rightPadding="2">
-					<rightPen lineWidth="0.5"/>
+				<reportElement x="459" y="0" width="34" height="19" uuid="13da9af2-49a6-4b14-a955-ac11357c7c6f"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.0"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{tvaproduit}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="318" y="0" width="52" height="20" uuid="10c735b3-57b8-40d7-b983-54def8269ad8"/>
-				<box rightPadding="2">
-					<rightPen lineWidth="0.5"/>
+				<reportElement x="318" y="0" width="52" height="19" uuid="10c735b3-57b8-40d7-b983-54def8269ad8"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.0"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{qte}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="492" y="0" width="63" height="20" uuid="d464abae-8855-4e00-8b9b-0010e58645dc"/>
-				<box rightPadding="2">
-					<pen lineWidth="0.0"/>
-					<topPen lineWidth="0.0"/>
-					<leftPen lineWidth="0.0"/>
-					<bottomPen lineWidth="0.0"/>
+				<reportElement x="493" y="0" width="62" height="19" uuid="d464abae-8855-4e00-8b9b-0010e58645dc"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle"/>
@@ -361,7 +341,7 @@
 				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0.00 €").format($F{totalgeneral} )]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement mode="Transparent" x="431" y="48" width="122" height="20" uuid="d43a62f9-0b31-46fe-8f9d-f41d18cdbb03"/>
+				<reportElement mode="Transparent" x="433" y="49" width="122" height="19" uuid="d43a62f9-0b31-46fe-8f9d-f41d18cdbb03"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[($P{tva_0} +$P{tva_6}+$P{tva_21})]]></textFieldExpression>
 			</textField>
@@ -370,13 +350,6 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0.00 €").format($P{remise})]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="0" y="0" width="555" height="6" uuid="977cf077-34f6-4842-8593-988cf86516b9"/>
-				<box>
-					<topPen lineWidth="0.5"/>
-				</box>
-				<text><![CDATA[]]></text>
-			</staticText>
 		</band>
 	</summary>
 </jasperReport>

@@ -85,6 +85,7 @@ import ticketRayon.TicketRayon;
 import transferObject.ArgentSortie;
 import transferObject.Calendrier;
 import transferObject.Categorie;
+import transferObject.Client;
 import transferObject.DifferentModPay;
 import transferObject.Employe;
 import transferObject.ListeRapide;
@@ -794,6 +795,9 @@ public class JFVente extends javax.swing.JFrame {
         jButtonNewClient = new javax.swing.JButton();
         jButtonMiseAJour = new javax.swing.JButton();
         jButtonProfil = new javax.swing.JButton();
+        jButtonSupprimerClient = new javax.swing.JButton();
+        jButtonModifierClient = new javax.swing.JButton();
+        jTextFieldSearch1 = new javax.swing.JTextField();
         jPanelLangue = new javax.swing.JPanel();
         jLabel25 = new javax.swing.JLabel();
         jTextFieldLangue = new javax.swing.JTextField();
@@ -3335,6 +3339,34 @@ public class JFVente extends javax.swing.JFrame {
             }
         });
 
+        jButtonSupprimerClient.setBackground(new java.awt.Color(0, 109, 169));
+        jButtonSupprimerClient.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 15)); // NOI18N
+        jButtonSupprimerClient.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonSupprimerClient.setText("Supprimer");
+        jButtonSupprimerClient.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSupprimerClientActionPerformed(evt);
+            }
+        });
+
+        jButtonModifierClient.setBackground(new java.awt.Color(0, 109, 169));
+        jButtonModifierClient.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 15)); // NOI18N
+        jButtonModifierClient.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonModifierClient.setText("Modifier");
+        jButtonModifierClient.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonModifierClientActionPerformed(evt);
+            }
+        });
+
+        jTextFieldSearch1.setBackground(new java.awt.Color(134, 185, 236));
+        jTextFieldSearch1.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
+        jTextFieldSearch1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextFieldSearch1KeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelClientLayout = new javax.swing.GroupLayout(jPanelClient);
         jPanelClient.setLayout(jPanelClientLayout);
         jPanelClientLayout.setHorizontalGroup(
@@ -3342,16 +3374,22 @@ public class JFVente extends javax.swing.JFrame {
             .addGroup(jPanelClientLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelClientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane13, javax.swing.GroupLayout.DEFAULT_SIZE, 984, Short.MAX_VALUE)
                     .addGroup(jPanelClientLayout.createSequentialGroup()
                         .addComponent(jLabel34)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextFieldSearch1)
                         .addGap(18, 18, 18)
-                        .addComponent(jButtonNewClient)
+                        .addComponent(jButtonNewClient, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButtonMiseAJour, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonMiseAJour, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButtonProfil, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 262, Short.MAX_VALUE))
-                    .addComponent(jScrollPane13))
+                        .addComponent(jButtonProfil, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelClientLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButtonModifierClient, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonSupprimerClient, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanelClientLayout.setVerticalGroup(
@@ -3359,14 +3397,20 @@ public class JFVente extends javax.swing.JFrame {
             .addGroup(jPanelClientLayout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addGroup(jPanelClientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel34)
                     .addGroup(jPanelClientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButtonNewClient, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButtonMiseAJour, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButtonProfil, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jButtonProfil, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelClientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jTextFieldSearch1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel34)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane13, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addComponent(jScrollPane13, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanelClientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButtonSupprimerClient, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
+                    .addComponent(jButtonModifierClient, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(26, 26, 26))
         );
 
         jPanelCardVendeur.add(jPanelClient, "card6");
@@ -4710,18 +4754,48 @@ public class JFVente extends javax.swing.JFrame {
         JDInscriptionClient client = new JDInscriptionClient(this, "Ajouter Client");
         if (client.isAjoutOK()) {
             myModelClient.setMyList(daoClient.selectClient());
-            
+
         }
 
     }//GEN-LAST:event_jButtonNewClientActionPerformed
 
     private void jButtonMiseAJourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMiseAJourActionPerformed
+        if (jTableClient.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(null, "Sélectionnez d'abord un Client svp !",
+                    "Avertissement", JOptionPane.ERROR_MESSAGE);
+        } else {
+
+            Client client = myModelClient.getMyList(jTableClient.getSelectedRow());
+            JDInscriptionClient f = new JDInscriptionClient(this, "Modifier le client", client);
+            if (f.isAjoutOK()) {
+                myModelClient.setMyList(daoClient.selectClient());
+
+            }
+        }
 
     }//GEN-LAST:event_jButtonMiseAJourActionPerformed
 
     private void jButtonProfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonProfilActionPerformed
 
     }//GEN-LAST:event_jButtonProfilActionPerformed
+
+    private void jButtonSupprimerClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSupprimerClientActionPerformed
+
+    }//GEN-LAST:event_jButtonSupprimerClientActionPerformed
+
+    private void jButtonModifierClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModifierClientActionPerformed
+
+    }//GEN-LAST:event_jButtonModifierClientActionPerformed
+
+    private void jTextFieldSearch1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldSearch1KeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyChar() != '\n' && evt.getKeyChar() != java.awt.event.KeyEvent.VK_BACK_SPACE) {
+            evt.consume();
+        }
+        if (evt.getKeyChar() == KeyEvent.VK_ENTER) {
+            rechercherProduit();
+        }
+    }//GEN-LAST:event_jTextFieldSearch1KeyPressed
 
     /**
      * @param args the command line arguments
@@ -4819,6 +4893,7 @@ public class JFVente extends javax.swing.JFrame {
     private javax.swing.JButton jButtonLogOut2;
     private javax.swing.JButton jButtonLogout;
     private javax.swing.JButton jButtonMiseAJour;
+    private javax.swing.JButton jButtonModifierClient;
     private javax.swing.JButton jButtonNewClient;
     private javax.swing.JButton jButtonOpenDrawer;
     private javax.swing.JButton jButtonPeripherique;
@@ -4836,6 +4911,7 @@ public class JFVente extends javax.swing.JFrame {
     private javax.swing.JButton jButtonSearch;
     private javax.swing.JButton jButtonSortirArg;
     private javax.swing.JButton jButtonSousTo;
+    private javax.swing.JButton jButtonSupprimerClient;
     private javax.swing.JButton jButtonTicketRayon;
     private javax.swing.JButton jButtonVisa;
     private javax.swing.JComboBox jComboBox7;
@@ -5064,6 +5140,7 @@ public class JFVente extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldLangue;
     private javax.swing.JTextField jTextFieldMontantRecu;
     private javax.swing.JTextField jTextFieldSearch;
+    private javax.swing.JTextField jTextFieldSearch1;
     private javax.swing.JTextPane jTextPaneRaison;
     private javax.swing.JButton jbuttonPrintTotalGen;
     // End of variables declaration//GEN-END:variables

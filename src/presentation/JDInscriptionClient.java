@@ -9,7 +9,6 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
 import transferObject.Client;
-import transferObject.Employe;
 import transferObject.Magasin;
 
 /**
@@ -17,12 +16,24 @@ import transferObject.Magasin;
  * @author binu
  */
 public class JDInscriptionClient extends javax.swing.JDialog {
+
     private boolean ajoutOk = false;
+    private int idClient;
+
     public JDInscriptionClient(java.awt.Frame parent, String titre) {
         super(parent, titre, true);
 
         initComponents();
         fillMagasinCombo();
+        setLocationRelativeTo(null);
+        setVisible(true);
+    }
+
+    public JDInscriptionClient(java.awt.Frame parent, String titre, Client client) {
+        super(parent, titre, true);
+
+        initComponents();
+        setClientValue(client);
         setLocationRelativeTo(null);
         setVisible(true);
     }
@@ -33,20 +44,35 @@ public class JDInscriptionClient extends javax.swing.JDialog {
         }
     }
 
+    private void setClientValue(Client client) {
+        jTextRue.setText(client.getAdresse());
+        jTextNomSociete.setText(client.getNomSociete());
+
+        jTextCommune.setText(client.getCommune());
+        jTextTelephone.setText(client.getTel());
+
+        jTextTVA.setText(client.getTva());
+        jTextEmail.setText(client.getMail());
+        System.out.println("Nommagagggg " + client.getNomMagasin());
+        jComboBoxCommerce.setSelectedItem(client.getNomMagasin());
+        jButtonAjouter.setEnabled(false);
+        idClient = client.getIdClient();
+
+    }
+
     private void initialiserChamps() {
         jTextRue.setText("");
         jTextNomSociete.setText("");
-        jTextNomSociete.setText("");
+
         jTextCommune.setText("");
         jTextTelephone.setText("");
         jTextTelephone.setText("");
         jTextTVA.setText("");
         jTextEmail.setText("");
-        
+
     }
 
-    private void ajoutClient() {
-
+    private Client initClientValue() {
         Client client = new Client();
         client.setAdresse(jTextRue.getText());
         client.setNomSociete(jTextNomSociete.getText());
@@ -57,6 +83,13 @@ public class JDInscriptionClient extends javax.swing.JDialog {
         client.setMail(jTextEmail.getText());
         int idMag = daoMagasin.getIdMagasin((String) jComboBoxCommerce.getSelectedItem());
         client.setIdMag(idMag);
+        client.setIdClient(idClient);
+        return client;
+    }
+
+    private void ajoutClient() {
+
+        Client client = initClientValue();
         boolean ok = daoClient.insertClient(client);
 
         if (!ok) {
@@ -69,7 +102,22 @@ public class JDInscriptionClient extends javax.swing.JDialog {
         }
 
     }
-    public boolean isAjoutOK(){
+
+    private void modifierClient() {
+        Client client = initClientValue();
+        boolean ok = daoClient.updateClient(client);
+        if (!ok) {
+            JOptionPane.showMessageDialog(null, "Insertion Impossible produit existe déjà!",
+                    "Avertissement", JOptionPane.ERROR_MESSAGE);
+        } else {
+            initialiserChamps();
+            this.dispose();
+            ajoutOk = true;
+        }
+
+    }
+
+    public boolean isAjoutOK() {
         return this.ajoutOk;
     }
 
@@ -104,13 +152,13 @@ public class JDInscriptionClient extends javax.swing.JDialog {
         }
         jFormattedTextCodepostale = new JFormattedTextField(mf);
         jButtonClientAnnuler = new javax.swing.JButton();
-        jButtonClient = new javax.swing.JButton();
+        jButtonModifier = new javax.swing.JButton();
         jLabelTelephone2 = new javax.swing.JLabel();
         jTextTVA = new javax.swing.JTextField();
         jTextTelephone.setDocument(new JTextFieldLimit(10));
+        jButtonAjouter = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(500, 592));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("Inscription client");
@@ -167,6 +215,7 @@ public class JDInscriptionClient extends javax.swing.JDialog {
         jLabelTelephone.setText("Télephone ");
 
         jComboBoxCommerce.setBackground(new java.awt.Color(102, 153, 204));
+        jComboBoxCommerce.setEditable(true);
         jComboBoxCommerce.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         jLabelTelephone1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -190,13 +239,13 @@ public class JDInscriptionClient extends javax.swing.JDialog {
             }
         });
 
-        jButtonClient.setBackground(new java.awt.Color(0, 138, 0));
-        jButtonClient.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButtonClient.setForeground(new java.awt.Color(255, 255, 255));
-        jButtonClient.setText("Valider");
-        jButtonClient.addActionListener(new java.awt.event.ActionListener() {
+        jButtonModifier.setBackground(new java.awt.Color(0, 138, 0));
+        jButtonModifier.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButtonModifier.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonModifier.setText("Modifier");
+        jButtonModifier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonClientActionPerformed(evt);
+                jButtonModifierActionPerformed(evt);
             }
         });
 
@@ -211,41 +260,52 @@ public class JDInscriptionClient extends javax.swing.JDialog {
             }
         });
 
+        jButtonAjouter.setBackground(new java.awt.Color(0, 138, 0));
+        jButtonAjouter.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButtonAjouter.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonAjouter.setText("Ajouter");
+        jButtonAjouter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAjouterActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(141, 141, 141)
-                        .addComponent(jButtonClient, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButtonClientAnnuler, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelEmail)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jLabelTelephone, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabelCodepostale, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jLabelCommune)
-                            .addComponent(jLabelTelephone1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelNom)
-                            .addComponent(jLabelRue)
-                            .addComponent(jLabelTelephone2, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextTVA, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jTextTelephone)
-                                .addComponent(jTextEmail)
-                                .addComponent(jTextCommune)
-                                .addComponent(jFormattedTextCodepostale, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTextRue)
-                                .addComponent(jTextNomSociete)
-                                .addComponent(jComboBoxCommerce, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addComponent(jLabelEmail)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jLabelTelephone, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabelCodepostale, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabelCommune)
+                    .addComponent(jLabelTelephone1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelNom)
+                    .addComponent(jLabelRue)
+                    .addComponent(jLabelTelephone2, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextTVA, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jTextTelephone)
+                        .addComponent(jTextEmail)
+                        .addComponent(jTextCommune)
+                        .addComponent(jFormattedTextCodepostale, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextRue)
+                        .addComponent(jTextNomSociete)
+                        .addComponent(jComboBoxCommerce, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonAjouter, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonModifier, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35)
+                .addComponent(jButtonClientAnnuler, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(90, 90, 90))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -286,8 +346,9 @@ public class JDInscriptionClient extends javax.swing.JDialog {
                     .addComponent(jComboBoxCommerce, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE))
                 .addGap(24, 24, 24)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonClient, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonClientAnnuler, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jButtonModifier, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonClientAnnuler, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonAjouter, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -295,12 +356,12 @@ public class JDInscriptionClient extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(130, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(188, 188, 188))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 588, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -316,9 +377,9 @@ public class JDInscriptionClient extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
 
-    private void jButtonClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonClientActionPerformed
-        ajoutClient();
-    }//GEN-LAST:event_jButtonClientActionPerformed
+    private void jButtonModifierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModifierActionPerformed
+        modifierClient();
+    }//GEN-LAST:event_jButtonModifierActionPerformed
 
     private void jTextNomSocieteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextNomSocieteKeyTyped
         if (!Character.isAlphabetic(evt.getKeyChar())) {
@@ -352,10 +413,15 @@ public class JDInscriptionClient extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextTVAKeyTyped
 
-       
+    private void jButtonAjouterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAjouterActionPerformed
+        ajoutClient();
+    }//GEN-LAST:event_jButtonAjouterActionPerformed
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonClient;
+    private javax.swing.JButton jButtonAjouter;
     private javax.swing.JButton jButtonClientAnnuler;
+    private javax.swing.JButton jButtonModifier;
     private javax.swing.JComboBox<String> jComboBoxCommerce;
     private javax.swing.JFormattedTextField jFormattedTextCodepostale;
     private javax.swing.JLabel jLabel1;

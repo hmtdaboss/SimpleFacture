@@ -28,8 +28,9 @@ public class DAOClientMySQL implements DAOClient  {
     public ArrayList<Client> selectClient() {
         ArrayList<Client> myList = new ArrayList();
 
-        String req = "select idClient, nomSociete, adresse, codepostal, commune, tel, tva, idmag, mail"
-                + " from Client"
+        String req = "select cli.idClient, cli.nomSociete, cli.adresse, cli.codepostal, cli.commune, cli.tel, cli.tva, cli.idmag, cli.mail, mag.nomMagasin"
+                + " from Client cli"
+                + " join Magasin mag on mag.idMag = cli.idMag"
                 + " order by 1";
 
         ResultSet resu = ConnexionMySQL.getInstance().selectQuery(req);
@@ -37,7 +38,7 @@ public class DAOClientMySQL implements DAOClient  {
             while (resu.next()) {
                 //création de l'objet Chanteur
                 myList.add(new Client(resu.getInt(1), resu.getString(2), resu.getString(3),
-                        resu.getInt(4), resu.getString(5),resu.getString(6), resu.getString(7), resu.getInt(8), resu.getString(9)));
+                        resu.getInt(4), resu.getString(5),resu.getString(6), resu.getString(7), resu.getInt(8), resu.getString(9), resu.getString(10)));
 
             }
         } catch (SQLException e) {
@@ -72,6 +73,8 @@ public class DAOClientMySQL implements DAOClient  {
                 + " where idClient = " + client.getIdClient();
 
         boolean ok = ConnexionMySQL.getInstance().actionQuery(req);
+        
+        System.out.println("update Client : " + req);
 
         return ok;
     }
