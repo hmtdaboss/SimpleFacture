@@ -91,6 +91,7 @@ public class Facture {
             //parameters.put("tva_"+tva.getTVA_taux(), tva.getTVA_value());
             parameters.put(taux, tva.getTVA_value());
         }
+        
         parameters.put("remise", remise);
         FileInputStream fis = new FileInputStream("./src/invoice.jasper"); 
         BufferedInputStream bufferedInputStream = new BufferedInputStream(fis);
