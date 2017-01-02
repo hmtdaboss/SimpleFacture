@@ -100,11 +100,11 @@ public class DAOVenteMySQL implements DAOVente {
     
     @Override
     public boolean insertVente(Vente vente) {
-        String requete = "Insert into ventes ( idEmploye,remiseGenerale,idMag, idCalendrier, heure, montantTotal)"
+        String requete = "Insert into ventes ( idEmploye,remiseGenerale,idMag, idCalendrier, heure, montantTotal, idClient)"
                 + " values ("
                 + vente.getIdVendeur() + "," + vente.getRemiseGen() + "," + vente.getIdMagasin() + ","
                 + vente.getIdCalendrier() + ",'"
-                + vente.getHeure() + "'," + vente.getMontantTotal() + ")";
+                + vente.getHeure() + "'," + vente.getMontantTotal() + ","+vente.getIdClient()+")";
         System.out.println(requete);
 
         boolean ok = ConnexionMySQL.getInstance().actionQuery(requete);

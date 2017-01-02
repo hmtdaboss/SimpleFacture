@@ -17,7 +17,7 @@ import transferObject.Client;
  */
 public class JTableClient extends AbstractTableModel{
     
-    private final  String[] columnNames = {"Numéro client ", "Nom Societé ", "TVA", "Téléphone ","Commune"};
+    private final  String[] columnNames = {"ID ", "Nom Societé ", "TVA", "Téléphone ","Commune"};
     private ArrayList<Client> liste ;
     
     

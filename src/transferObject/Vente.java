@@ -28,6 +28,7 @@ public class Vente {
     private double remiseArt;
     private double montantTVA;
     private double montantTotal;
+    private int idClient;
 
     public Vente(int idVente,String codeBarre, String libelleProduit, int idVendeur, 
             int idMagasin, int idCalendrier, int idPayement, 
@@ -55,7 +56,7 @@ public class Vente {
     
 
     public Vente(int idVente, int idVendeur, int idMagasin, String heure, 
-            double remiseGen, double montantTotal, int idCalendrier) {
+            double remiseGen, double montantTotal, int idCalendrier, int idClient) {
         this.idVente = idVente;
         this.idVendeur = idVendeur;
         this.idMagasin = idMagasin;
@@ -63,6 +64,7 @@ public class Vente {
         this.remiseGen = remiseGen;
         this.montantTotal = montantTotal;
         this.idCalendrier = idCalendrier;
+        this.idClient = idClient;
         
     }
 
@@ -242,6 +244,14 @@ public class Vente {
 
     public void setQuantite(int quantite) {
         this.quantite = quantite;
+    }
+
+    public int getIdClient() {
+        return idClient;
+    }
+
+    public void setIdClient(int idClient) {
+        this.idClient = idClient;
     }
     
     

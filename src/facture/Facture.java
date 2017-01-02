@@ -11,8 +11,6 @@ import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -53,7 +51,7 @@ public class Facture {
             + "where pro.codebarre in (" ;
     
 
-    public void generatePdf(int idVent, double remise) throws JRException, PDFException, PDFSecurityException, IOException, PrintException {
+    public void generatePdf(int idVent, double remise, int idClient) throws JRException, PDFException, PDFSecurityException, IOException, PrintException {
  
         String req = "Select pro.codebarre as id , pro.libelle as name,  "
                 + "cat.tva as tvaproduit, proVendu.quantite as qte,  "
@@ -74,6 +72,7 @@ public class Facture {
                 + "join categorie cat on cat.idcat = pro.idcat "
                 + "join prixdevente pv on pro.codebarre = pv.codebarre "
                 + "where ven.idVente = "+ idVent
+                + " and ven.idClient = " + idClient
                 + " order by 1";     
 
         System.out.println(req);
