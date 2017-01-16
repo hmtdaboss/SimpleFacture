@@ -71,6 +71,7 @@ public class Facture {
                 + "join nbproduitvendu proVendu on proVendu.idVente = ven.idVente "
                 + "join categorie cat on cat.idcat = pro.idcat "
                 + "join prixdevente pv on pro.codebarre = pv.codebarre "
+                + "join ventes ven2 on ven2.idclient = cli.idClient "
                 + "where ven.idVente = "+ idVent
                 + " and ven.idClient = " + idClient
                 + " order by 1";     
@@ -91,7 +92,6 @@ public class Facture {
             //parameters.put("tva_"+tva.getTVA_taux(), tva.getTVA_value());
             parameters.put(taux, tva.getTVA_value());
         }
-        
         parameters.put("remise", remise);
         FileInputStream fis = new FileInputStream("./src/invoice.jasper"); 
         BufferedInputStream bufferedInputStream = new BufferedInputStream(fis);
