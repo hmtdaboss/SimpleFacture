@@ -51,7 +51,7 @@ public class Facture {
             + "where pro.codebarre in (" ;
     
 
-    public void generatePdf(int idVent, double remise, int idClient) throws JRException, PDFException, PDFSecurityException, IOException, PrintException {
+    public void generatePdf(int idVent, double remise, int idClient, String typeDoc) throws JRException, PDFException, PDFSecurityException, IOException, PrintException {
  
         String req = "Select pro.codebarre as id , pro.libelle as name,  "
                 + "cat.tva as tvaproduit, proVendu.quantite as qte,  "
@@ -67,11 +67,10 @@ public class Facture {
                 + "from ventes ven "
                 + "join Produit pro on proVendu.codeBarre = pro.codeBarre "
                 + "join magasin mag on mag.idmag = pv.idmag "
-                + "join client cli on cli.idmag = mag.idmag "
+                + "join client cli on cli.idClient = ven.idClient "
                 + "join nbproduitvendu proVendu on proVendu.idVente = ven.idVente "
                 + "join categorie cat on cat.idcat = pro.idcat "
                 + "join prixdevente pv on pro.codebarre = pv.codebarre "
-                + "join ventes ven2 on ven2.idclient = cli.idClient "
                 + "where ven.idVente = "+ idVent
                 + " and ven.idClient = " + idClient
                 + " order by 1";     
@@ -84,14 +83,28 @@ public class Facture {
         // - Paramètres à envoyer au rapport
         Map parameters = new HashMap();
         parameters.put("query", req);
-        parameters.put("test", "F A C T U R E");
+        parameters.put("typeDoc", typeDoc);
         parameters.put("reference", 1);
+        
+        double tva_6=0, tva_21 =0;
+//        for (TVA tva : listeTVA) {
+//            String taux = "tva_"+tva.getTVA_taux();
+//            System.out.println(taux + " : " + tva.getTVA_value());
+//            //parameters.put("tva_"+tva.getTVA_taux(), tva.getTVA_value());
+//            parameters.put(taux, tva.getTVA_value());
+//        }
         for (TVA tva : listeTVA) {
-            String taux = "tva_"+tva.getTVA_taux();
-            System.out.println(taux + " : " + tva.getTVA_value());
-            //parameters.put("tva_"+tva.getTVA_taux(), tva.getTVA_value());
-            parameters.put(taux, tva.getTVA_value());
+            if(tva.getTVA_taux() == 6){
+               tva_6 = tva.getTVA_value();
+            }else if(tva.getTVA_taux() == 21){
+               tva_21 = tva.getTVA_value(); 
+            }
+//            
         }
+        parameters.put("tva_0", 0.0);
+        parameters.put("tva_6", tva_6);
+        parameters.put("tva_21", tva_21);
+        
         parameters.put("remise", remise);
         FileInputStream fis = new FileInputStream("./src/invoice.jasper"); 
         BufferedInputStream bufferedInputStream = new BufferedInputStream(fis);

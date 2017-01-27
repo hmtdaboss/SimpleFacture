@@ -2,6 +2,8 @@
 
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
+    <Component class="javax.swing.ButtonGroup" name="buttonGroupDocType">
+    </Component>
     <Menu class="javax.swing.JMenuBar" name="jMenuBar1">
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="jMenu1">
@@ -1378,6 +1380,9 @@
                       </Border>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="jPanel11PropertyChange"/>
+                  </Events>
 
                   <Layout>
                     <DimensionLayout dim="0">
@@ -1403,6 +1408,9 @@
                   <SubComponents>
                     <Component class="javax.swing.JRadioButton" name="Facture">
                       <Properties>
+                        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                          <ComponentRef name="buttonGroupDocType"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Facture"/>
                       </Properties>
                       <Events>
@@ -1411,6 +1419,9 @@
                     </Component>
                     <Component class="javax.swing.JRadioButton" name="BLivraison">
                       <Properties>
+                        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                          <ComponentRef name="buttonGroupDocType"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="B. Livraison"/>
                       </Properties>
                       <Events>
@@ -1419,8 +1430,14 @@
                     </Component>
                     <Component class="javax.swing.JRadioButton" name="Devis">
                       <Properties>
+                        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                          <ComponentRef name="buttonGroupDocType"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Devis"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="DevisActionPerformed"/>
+                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>

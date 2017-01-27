@@ -162,6 +162,7 @@ public class JFVente extends javax.swing.JFrame {
     private int idCalDetail = 0;
     
     private int idClient = 0;
+    private String typeDoc = "Facture";
 
     /*Multi langues*/
     String path = "langues." + peri.getBalise(peri.LANGUES_CHOOSEN);
@@ -512,6 +513,7 @@ public class JFVente extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroupDocType = new javax.swing.ButtonGroup();
         jPanelCard = new javax.swing.JPanel();
         jPanelLogin = new javax.swing.JPanel();
         jPanelLogEnter = new javax.swing.JPanel();
@@ -1467,7 +1469,13 @@ public class JFVente extends javax.swing.JFrame {
 
         jPanel11.setBackground(new java.awt.Color(134, 185, 236));
         jPanel11.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel11.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jPanel11PropertyChange(evt);
+            }
+        });
 
+        buttonGroupDocType.add(Facture);
         Facture.setText("Facture");
         Facture.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1475,6 +1483,7 @@ public class JFVente extends javax.swing.JFrame {
             }
         });
 
+        buttonGroupDocType.add(BLivraison);
         BLivraison.setText("B. Livraison");
         BLivraison.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1482,7 +1491,13 @@ public class JFVente extends javax.swing.JFrame {
             }
         });
 
+        buttonGroupDocType.add(Devis);
         Devis.setText("Devis");
+        Devis.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DevisActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
@@ -3708,7 +3723,7 @@ public class JFVente extends javax.swing.JFrame {
 
         try {
             Facture facture = new Facture();
-            facture.generatePdf(idVente, remiseGenerale, idClient);
+            facture.generatePdf(idVente, remiseGenerale, idClient, typeDoc);
         } catch (JRException ex) {
             Logger.getLogger(JFVente.class.getName()).log(Level.SEVERE, null, ex);
         } catch (PDFException ex) {
@@ -4834,10 +4849,12 @@ public class JFVente extends javax.swing.JFrame {
 
     private void FactureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FactureActionPerformed
         // TODO add your handling code here:
+        this.typeDoc = "F a c t u r e";
     }//GEN-LAST:event_FactureActionPerformed
 
     private void BLivraisonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BLivraisonActionPerformed
         // TODO add your handling code here:
+        this.typeDoc = "Bon de Livraison";
     }//GEN-LAST:event_BLivraisonActionPerformed
 
     private void jTextFieldSearchClientKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldSearchClientKeyPressed
@@ -4865,6 +4882,16 @@ public class JFVente extends javax.swing.JFrame {
             idClient = client.getIdClient();
         }
     }//GEN-LAST:event_jTableClient1MouseClicked
+
+    private void jPanel11PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jPanel11PropertyChange
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jPanel11PropertyChange
+
+    private void DevisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DevisActionPerformed
+        // TODO add your handling code here:
+        this.typeDoc = "D e v i s";
+    }//GEN-LAST:event_DevisActionPerformed
 
     /**
      * @param args the command line arguments
@@ -4912,6 +4939,7 @@ public class JFVente extends javax.swing.JFrame {
     private javax.swing.JRadioButton BLivraison;
     private javax.swing.JRadioButton Devis;
     private javax.swing.JRadioButton Facture;
+    private javax.swing.ButtonGroup buttonGroupDocType;
     private javax.swing.JTextField codebarreArea;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;

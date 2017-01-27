@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2016-11-29T16:37:19 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="aac62a64-1269-47de-84a5-4cc64cad275a">
 	<property name="ireport.zoom" value="2.0"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="45"/>
+	<property name="ireport.x" value="87"/>
+	<property name="ireport.y" value="430"/>
 	<subDataset name="dataset1" uuid="b5091037-e838-4535-93fd-02606c6ef6dd"/>
 	<parameter name="query" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
-	<parameter name="test" class="java.lang.String">
+	<parameter name="typeDoc" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<parameter name="tva_0" class="java.lang.Double">
@@ -88,7 +86,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="20"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{test}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{typeDoc}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="307" y="83" width="231" height="28" uuid="25ad4948-01cd-4aa8-b77e-f051128e9270"/>
@@ -340,7 +338,7 @@
 			<textField>
 				<reportElement mode="Transparent" x="431" y="26" width="122" height="19" uuid="0fb32936-416a-425a-ba07-b1274142327a"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0.000 €").format($F{totalgeneral} -($P{tva_0} +$P{tva_6}+$P{tva_21}))]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{totalgeneral} -($P{tva_0} +$P{tva_6}+$P{tva_21})]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="false">
 				<reportElement mode="Transparent" x="14" y="26" width="122" height="19" uuid="ca2277cf-9a3b-4d2d-b771-edee8e31a961"/>
