@@ -61,7 +61,7 @@ public class DAOTicketMySQL implements DAOTicket {
         ArrayList<TVA> myList = new ArrayList();
         /*¨String String codebarre, String libelle, double prixAchat, 
              double prixVente, String nomCat, String nomMagasin) {*/
-        String req = "select cat.tva, pv.montantTva "
+        String req = "select cat.tva, sum(pv.montantTva) "
                 + "from nbproduitvendu pv "
                 + "join produit pro on pro.codebarre = pv.codebarre "
                 + "join categorie cat on cat.idCat = pro.idCat "

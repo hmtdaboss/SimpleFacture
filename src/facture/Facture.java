@@ -95,12 +95,13 @@ public class Facture {
 //        }
         for (TVA tva : listeTVA) {
             if(tva.getTVA_taux() == 6){
-               tva_6 = tva.getTVA_value();
+               tva_6 += tva.getTVA_value();
             }else if(tva.getTVA_taux() == 21){
-               tva_21 = tva.getTVA_value(); 
+               tva_21 += tva.getTVA_value(); 
             }
 //            
         }
+        System.out.println("tva 6 : " +tva_6 + " tva 21 : " + tva_21);
         parameters.put("tva_0", 0.0);
         parameters.put("tva_6", tva_6);
         parameters.put("tva_21", tva_21);
