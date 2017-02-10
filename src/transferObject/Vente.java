@@ -29,6 +29,7 @@ public class Vente {
     private double montantTVA;
     private double montantTotal;
     private int idClient;
+    private String typeDoc;
 
     public Vente(int idVente,String codeBarre, String libelleProduit, int idVendeur, 
             int idMagasin, int idCalendrier, int idPayement, 
@@ -51,12 +52,13 @@ public class Vente {
         this.remiseArt = remiseArt;
         this.remiseGen = remiseGen;
         this.montantTotal = montantTotal;
+        
     }
     
     
 
     public Vente(int idVente, int idVendeur, int idMagasin, String heure, 
-            double remiseGen, double montantTotal, int idCalendrier, int idClient) {
+            double remiseGen, double montantTotal, int idCalendrier, int idClient, String typeDoc) {
         this.idVente = idVente;
         this.idVendeur = idVendeur;
         this.idMagasin = idMagasin;
@@ -65,6 +67,7 @@ public class Vente {
         this.montantTotal = montantTotal;
         this.idCalendrier = idCalendrier;
         this.idClient = idClient;
+        this.typeDoc = typeDoc;
         
     }
 
@@ -252,6 +255,14 @@ public class Vente {
 
     public void setIdClient(int idClient) {
         this.idClient = idClient;
+    }
+
+    public String getTypeDoc() {
+        return typeDoc;
+    }
+
+    public void setTypeDoc(String typeDoc) {
+        this.typeDoc = typeDoc;
     }
     
     

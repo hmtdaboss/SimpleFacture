@@ -24,7 +24,21 @@ public class Transaction {
     private Date dateJour;
     private String libellePayement;
     private String dateString;
+    private String typeDoc;
+    private int idClient;
 
+    public Transaction(int idVente, Date dtVente,String heure, double total, 
+            int idVendeur, String nomMagasin, String typeDoc, int idClient) {
+        this.idVente = idVente;
+        this.dtVente = dtVente;
+        this.total = total;
+        this.idVendeur = idVendeur;
+        this.nomMagasin = nomMagasin;
+        this.heure = heure;
+        this.typeDoc = typeDoc;
+        this.idClient = idClient;
+    }
+    
     public Transaction(int idVente, Date dtVente,String heure, double total, 
             int idVendeur, String nomMagasin) {
         this.idVente = idVente;
@@ -33,16 +47,19 @@ public class Transaction {
         this.idVendeur = idVendeur;
         this.nomMagasin = nomMagasin;
         this.heure = heure;
+        
     }
     
     public Transaction(int idVente, String dateString, String heure, double total, 
-            int idVendeur, String nomMagasin) {
+            int idVendeur, String nomMagasin, String typeDoc, int idClient) {
         this.idVente = idVente;
         this.dateString = dateString;
         this.total = total;
         this.idVendeur = idVendeur;
         this.nomMagasin = nomMagasin;
         this.heure = heure;
+        this.typeDoc = typeDoc;
+        this.idClient = idClient;
     }
 
     public Transaction(String libellePayement , double montant, String dateString) {
@@ -127,6 +144,22 @@ public class Transaction {
 
     public void setHeure(String heure) {
         this.heure = heure;
+    }
+
+    public String getTypeDoc() {
+        return typeDoc;
+    }
+
+    public void setTypeDoc(String typeDoc) {
+        this.typeDoc = typeDoc;
+    }
+
+    public int getIdClient() {
+        return idClient;
+    }
+
+    public void setIdClient(int idClient) {
+        this.idClient = idClient;
     }
     
 }

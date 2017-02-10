@@ -17,11 +17,9 @@ import transferObject.Vente;
 public interface DAOVente {
 
     
-    boolean insertNbProdVente(Vente vente);
-    boolean insertNbProdVente2(Vente vente);
+    boolean insertNbProdVente(Vente vente, boolean inWhichTable);
     public ArrayList<Vente> selectTicketCaisse(int idVente);
-    boolean insertVente(Vente vente);
-    public boolean insertVente2(Vente vente);
+    boolean insertVente(Vente vente, boolean inWhichTable);
     public int lastId();
     public ArrayList<Vente> selectVenteParHeure(int idCalendrier);
     public double remiseVente(int idVente);

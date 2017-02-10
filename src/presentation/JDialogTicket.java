@@ -460,7 +460,7 @@ public class JDialogTicket extends javax.swing.JDialog {
                     double montantTvaArti = (pro.getPrixVente() - prixHTArt);
                     Vente vente = new Vente(idVente, pro.getCodebarre(), 1, pro.getPrixVente(),
                             prixHTArt, 0, montantTvaArti, pro.getTva(), pro.getPrixVente(), pro.getLibelle());
-                    daoVente.insertNbProdVente(vente);
+                    daoVente.insertNbProdVente(vente, false);
                     myModelTicket.setMyList(daoTicket.selectTicket(idVente));
 
                 }

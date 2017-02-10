@@ -63,69 +63,61 @@ public class DAOVenteMySQL implements DAOVente {
         return recette;
     }
 
-    private void triggerInsertVente(Vente vente) {
+    private void triggerInsertVente(Vente vente, boolean inWhichTable) {
+        if (!inWhichTable) {
+            double recette = recetteActuelle(vente.getIdVendeur(), vente.getIdCalendrier()) + vente.getMontantTotal();
+            RecetteJournaliere rec = idEmpNidCal(vente.getIdVendeur(), vente.getIdCalendrier());
+            if (rec.getIdCalendrier() == vente.getIdCalendrier() && rec.getIdVendeur() == vente.getIdVendeur()) {
+                String req = "UPDATE recettejournaliere"
+                        + " SET recette= " + recette + ", idEmploye=" + vente.getIdVendeur()
+                        + ", idCalendrier=  " + vente.getIdCalendrier()
+                        + " WHERE idCalendrier = " + vente.getIdCalendrier()
+                        + " and idEmploye = " + vente.getIdVendeur();
+                ConnexionMySQL.getInstance().actionQuery(req);
+            } else {
 
-        double recette = recetteActuelle(vente.getIdVendeur(), vente.getIdCalendrier()) + vente.getMontantTotal();
-        RecetteJournaliere rec = idEmpNidCal(vente.getIdVendeur(), vente.getIdCalendrier());
-        if (rec.getIdCalendrier() == vente.getIdCalendrier() && rec.getIdVendeur() == vente.getIdVendeur()) {
-            String req = "UPDATE recettejournaliere"
-                    + " SET recette= " + recette + ", idEmploye=" + vente.getIdVendeur()
-                    + ", idCalendrier=  " + vente.getIdCalendrier()
-                    + " WHERE idCalendrier = " + vente.getIdCalendrier()
-                    + " and idEmploye = " + vente.getIdVendeur();
-            ConnexionMySQL.getInstance().actionQuery(req);
-        } else {
+                String req = "INSERT INTO recettejournaliere( recette, idEmploye, idCalendrier) "
+                        + "VALUES(" + recette + "," + vente.getIdVendeur() + "," + vente.getIdCalendrier() + ")";
 
-            String req = "INSERT INTO recettejournaliere( recette, idEmploye, idCalendrier) "
-                    + "VALUES(" + recette + "," + vente.getIdVendeur() + "," + vente.getIdCalendrier() + ")";
-
-            ConnexionMySQL.getInstance().actionQuery(req);
+                ConnexionMySQL.getInstance().actionQuery(req);
+            }
+            System.out.println("rectte  : " + recette);
         }
-        System.out.println("rectte  : " + recette);
+
     }
 
     @Override
-    public boolean insertVente2(Vente vente) {
-        String requete = "Insert into ventes2 ( idEmploye,remiseGenerale,idMag, idCalendrier, heure, montantTotal)"
-                + " values ("
-                + vente.getIdVendeur() + "," + vente.getRemiseGen() + "," + vente.getIdMagasin() + ","
-                + vente.getIdCalendrier() + ",'"
-                + vente.getHeure() + "'," + vente.getMontantTotal() + ")";
-        System.out.println(requete);
-
-        boolean ok = ConnexionMySQL.getInstance().actionQuery(requete);
+    public boolean insertVente(Vente vente, boolean inWhichTable) {
         
-        return ok;
-    }
-    
-    @Override
-    public boolean insertVente(Vente vente) {
-        String requete = "Insert into ventes ( idEmploye,remiseGenerale,idMag, idCalendrier, heure, montantTotal, idClient)"
+        String tableVente = inWhichTable ? "ventes2" : "ventes";
+
+        String requete = "Insert into " + tableVente + "( idEmploye,remiseGenerale,idMag, idCalendrier, heure, montantTotal, idClient, typeDocument)"
                 + " values ("
                 + vente.getIdVendeur() + "," + vente.getRemiseGen() + "," + vente.getIdMagasin() + ","
                 + vente.getIdCalendrier() + ",'"
-                + vente.getHeure() + "'," + vente.getMontantTotal() + ","+vente.getIdClient()+")";
+                + vente.getHeure() + "'," + vente.getMontantTotal() + "," + vente.getIdClient() +",'"+vente.getTypeDoc()+ "')";
         System.out.println(requete);
 
         boolean ok = ConnexionMySQL.getInstance().actionQuery(requete);
         if (ok) {
-            triggerInsertVente(vente);
+            triggerInsertVente(vente, inWhichTable);
         }
         return ok;
     }
 
     @Override
-    public boolean insertNbProdVente(Vente vente) {
+    public boolean insertNbProdVente(Vente vente, boolean inWhichTable) {
 
+        String tableNbProduitVendu = inWhichTable ? "nbproduitvendu2" : "nbproduitvendu";
         double remise = vente.getPrixVente() * vente.getRemiseArt() / 100;
         /*
       
          */
-        String requete = "insert into nbproduitvendu(quantite, prixVente,prixHt,"
+        String requete = "insert into " + tableNbProduitVendu + "(quantite, prixVente,prixHt,"
                 + " montantTva,remiseArticle, codeBarre,idVente)"
                 + " values( "
                 + vente.getQuantite() + "," + (vente.getPrixTotal() - remise) + ","
-                + "round("+vente.getPrixHT() + ",3), round(" + vente.getMontantTVA() + ",3)," + vente.getRemiseArt() + ",'"
+                + "round(" + vente.getPrixHT() + ",3), round(" + vente.getMontantTVA() + ",3)," + vente.getRemiseArt() + ",'"
                 + vente.getCodeBarre() + "',"
                 + vente.getIdVente() + ")";
 
@@ -133,30 +125,7 @@ public class DAOVenteMySQL implements DAOVente {
         if (ok) {
             updateProduit(vente.getCodeBarre(), vente.getQuantite());
         }
-        
-        return ok;
-    }
-    
-    @Override
-    public boolean insertNbProdVente2(Vente vente) {
 
-        double remise = vente.getPrixVente() * vente.getRemiseArt() / 100;
-        /*
-      
-         */
-        String requete = "insert into nbproduitvendu2(quantite, prixVente,prixHt,"
-                + " montantTva,remiseArticle, codeBarre,idVente)"
-                + " values( "
-                + vente.getQuantite() + "," + (vente.getPrixTotal() - remise) + ","
-                + vente.getPrixHT() + "," + vente.getMontantTVA() + "," + vente.getRemiseArt() + ",'"
-                + vente.getCodeBarre() + "',"
-                + vente.getIdVente() + ")";
-
-        boolean ok = ConnexionMySQL.getInstance().actionQuery(requete);
-        if (ok) {
-            updateProduit(vente.getCodeBarre(), vente.getQuantite());
-        }
-        
         return ok;
     }
 
@@ -169,6 +138,7 @@ public class DAOVenteMySQL implements DAOVente {
 
         return ok;
     }
+
     @Override
     public int lastId() {
         String requete = "SELECT max(IdVente) FROM ventes";
@@ -284,7 +254,7 @@ public class DAOVenteMySQL implements DAOVente {
         }
         return myList;
     }
-    
+
     @Override
     public ArrayList<FonctionXY> selectTotalTVA(int idCalendrier) {
         ArrayList<FonctionXY> myList = new ArrayList();

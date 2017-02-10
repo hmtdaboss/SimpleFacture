@@ -30,7 +30,7 @@ public class DAOTransactionMySQL implements DAOTransaction {
 
         String num = "0"+numeroMois;
         String req = "select ven.idVente, cal.dateJour, ven.heure, "
-                + "sum(prod.prixVente), ven.idEmploye, mag.nomMagasin "
+                + "sum(prod.prixVente), ven.idEmploye, mag.nomMagasin, ven.typeDocument, ven.idClient "
                 + " from ventes ven "
                 + "join magasin mag on ven.idMag = mag.idMag "
                 + "join calendrier cal on ven.idCalendrier = cal.idCalendrier "
@@ -44,7 +44,7 @@ public class DAOTransactionMySQL implements DAOTransaction {
             while (resu.next()) {
                 myList.add(new Transaction(resu.getInt(1), resu.getDate(2),
                         resu.getString(3),resu.getDouble(4),
-                        resu.getInt(5), resu.getString(6)));
+                        resu.getInt(5), resu.getString(6), resu.getString(7), resu.getInt(8)));
             }
         } catch (SQLException e) {
             System.out.println("selectTransaction : "+e.toString());
@@ -58,7 +58,7 @@ public class DAOTransactionMySQL implements DAOTransaction {
         ArrayList<Transaction> myList = new ArrayList();
         
         String req = "select ven.idVente, strftime('%Y-%m-%d', cal.dateJour), ven.heure, "
-                + "sum(prod.prixVente), ven.idEmploye, mag.nomMagasin, ven.remiseGenerale"
+                + "sum(prod.prixVente), ven.idEmploye, mag.nomMagasin, ven.remiseGenerale,  ven.typeDocument, ven.idClient "
                 + " from ventes ven "
                 + "join magasin mag on ven.idMag = mag.idMag "
                 + "join calendrier cal on ven.idCalendrier = cal.idCalendrier "
@@ -73,7 +73,7 @@ public class DAOTransactionMySQL implements DAOTransaction {
             while (resu.next()) {
                 myList.add(new Transaction(resu.getInt(1), resu.getString(2),
                         resu.getString(3),resu.getDouble(4)-resu.getDouble(7),
-                        resu.getInt(5), resu.getString(6)));
+                        resu.getInt(5), resu.getString(6), resu.getString(8), resu.getInt(9)));
             }
         } catch (SQLException e) {
             System.out.println("selectTransactionID : "+e.toString());
@@ -86,7 +86,7 @@ public class DAOTransactionMySQL implements DAOTransaction {
         ArrayList<Transaction> myList = new ArrayList();
 
         String req = "select ven.idVente, strftime('%Y-%m-%d', cal.dateJour), ven.heure, "
-                + "sum(prod.prixVente), ven.idEmploye, mag.nomMagasin "
+                + "sum(prod.prixVente), ven.idEmploye, mag.nomMagasin,  ven.typeDocument, ven.idClient "
                 + " from ventes ven "
                 + "join magasin mag on ven.idMag = mag.idMag "
                 + "join calendrier cal on ven.idCalendrier = cal.idCalendrier "
@@ -100,7 +100,7 @@ public class DAOTransactionMySQL implements DAOTransaction {
             while (resu.next()) {
                 myList.add(new Transaction(resu.getInt(1), resu.getString(2),
                         resu.getString(3),resu.getDouble(4),
-                        resu.getInt(5), resu.getString(6)));
+                        resu.getInt(5), resu.getString(6), resu.getString(7), resu.getInt(8)));
             }
         } catch (SQLException e) {
             System.out.println("selectTransactionIDEmploye : "+e.toString());
@@ -114,7 +114,7 @@ public class DAOTransactionMySQL implements DAOTransaction {
         ArrayList<Transaction> myList = new ArrayList();
 
         String req = "select ven.idVente, strftime('%Y-%m-%d', cal.dateJour), ven.heure, "
-                + "sum(prod.prixVente), ven.idEmploye, mag.nomMagasin "
+                + "sum(prod.prixVente), ven.idEmploye, mag.nomMagasin ,  ven.typeDocument, ven.idClient"
                 + " from ventes ven "
                 + "join magasin mag on ven.idMag = mag.idMag "
                 + "join calendrier cal on ven.idCalendrier = cal.idCalendrier "
@@ -130,7 +130,7 @@ public class DAOTransactionMySQL implements DAOTransaction {
                 //création de l'objet Chanteur
                  myList.add(new Transaction(resu.getInt(1), resu.getString(2),
                          resu.getString(3),resu.getDouble(4),
-                        resu.getInt(5), resu.getString(6)));
+                        resu.getInt(5), resu.getString(6), resu.getString(7), resu.getInt(8)));
             }
         } catch (SQLException e) {
 
@@ -144,7 +144,7 @@ public class DAOTransactionMySQL implements DAOTransaction {
         ArrayList<Transaction> myList = new ArrayList();
 
          String req = "select ven.idVente, strftime('%Y-%m-%d', cal.dateJour), ven.heure, "
-                 + "sum(prod.prixVente), ven.idEmploye, mag.nomMagasin "
+                 + "sum(prod.prixVente), ven.idEmploye, mag.nomMagasin ,  ven.typeDocument, ven.idClient"
                 + " from ventes ven "
                 + "join magasin mag on ven.idMag = mag.idMag "
                 + "join calendrier cal on ven.idCalendrier = cal.idCalendrier "
@@ -159,7 +159,7 @@ public class DAOTransactionMySQL implements DAOTransaction {
                 //création de l'objet Chanteur
                  myList.add(new Transaction(resu.getInt(1), resu.getString(2),
                          resu.getString(3),resu.getDouble(4),
-                        resu.getInt(5), resu.getString(6)));
+                        resu.getInt(5), resu.getString(6), resu.getString(7), resu.getInt(8)));
             }
         } catch (SQLException e) {
 

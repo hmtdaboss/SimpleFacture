@@ -1477,6 +1477,7 @@ public class JFVente extends javax.swing.JFrame {
 
         buttonGroupDocType.add(Facture);
         Facture.setText("Facture");
+        Facture.setFocusable(false);
         Facture.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 FactureActionPerformed(evt);
@@ -1485,6 +1486,7 @@ public class JFVente extends javax.swing.JFrame {
 
         buttonGroupDocType.add(BLivraison);
         BLivraison.setText("B. Livraison");
+        BLivraison.setFocusable(false);
         BLivraison.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BLivraisonActionPerformed(evt);
@@ -1493,6 +1495,7 @@ public class JFVente extends javax.swing.JFrame {
 
         buttonGroupDocType.add(Devis);
         Devis.setText("Devis");
+        Devis.setFocusable(false);
         Devis.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 DevisActionPerformed(evt);
@@ -1519,6 +1522,7 @@ public class JFVente extends javax.swing.JFrame {
         );
 
         jTableClient1.setAutoCreateRowSorter(true);
+        jTableClient1.setFocusable(false);
         jTableClient1.setRowHeight(40);
         jTableClient1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1539,6 +1543,7 @@ public class JFVente extends javax.swing.JFrame {
         jButtonClient.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButtonClient.setForeground(new java.awt.Color(255, 255, 255));
         jButtonClient.setText("Search");
+        jButtonClient.setFocusable(false);
 
         jLabelSelected.setText("Client selectionné :  ");
 
@@ -3669,7 +3674,7 @@ public class JFVente extends javax.swing.JFrame {
     private Vente setValeurDeVente() {
 
         Vente vente = new Vente(idVente, idEmploye, 1, heureActuel(),
-                remiseGenerale, this.total, idCalendrier, idClient);
+                remiseGenerale, this.total, idCalendrier, idClient, typeDoc);
         return vente;
 
     }
@@ -3681,7 +3686,8 @@ public class JFVente extends javax.swing.JFrame {
     }
 
     private void encaisser(boolean imprimer) {
-        String codeBarres = "";
+        
+        JDialogMessages f = new JDialogMessages(this, "test " +bDatabase, "");
         ArrayList<Vente> list1 = listeVente;
         ArrayList<Vente> list2;
         list2 = new ArrayList();
@@ -3689,7 +3695,7 @@ public class JFVente extends javax.swing.JFrame {
         TicketInfo ticket = new TicketInfo(idVente, listeVente.size(), total, this.montantRecu - total,
                 list2, idEmploye, listeST);
 
-        daoVente.insertVente(setValeurDeVente());
+        daoVente.insertVente(setValeurDeVente(), bDatabase);
         idVente = daoVente.lastId();
         if (listeST.isEmpty()) {
             DifferentModPay modPay = new DifferentModPay(idVente, 1, total);
@@ -3697,7 +3703,7 @@ public class JFVente extends javax.swing.JFrame {
         }
         for (Vente vente : listeVente) {
             vente.setIdVente(idVente);
-            daoVente.insertNbProdVente(vente);
+            daoVente.insertNbProdVente(vente, bDatabase);
         }
 
         for (SousTotal mode : listeST) {
@@ -4139,6 +4145,8 @@ public class JFVente extends javax.swing.JFrame {
         methodeUtile.updatePanel(jPanelCard, jPanelLogin);
         daoEmp.insertHeureFin(heureActuel(), idEmploye, idCalendrier);
         jPasswordField.requestFocusInWindow();
+        bDatabase = false;
+        jPasswordField.setText("");
     }
     private void jButtonLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLogoutActionPerformed
         logout();
@@ -4312,7 +4320,7 @@ public class JFVente extends javax.swing.JFrame {
             JDialogMessages msg = new JDialogMessages(this, password, " ");
             bDatabase = true;
         }
-        if (login != null) {
+        if (login != null || bDatabase) {
 
             idEmploye = (int) jComboBoxEmp.getSelectedItem();
             creerListeRapide();
@@ -4545,6 +4553,20 @@ public class JFVente extends javax.swing.JFrame {
             print.setDateTicket(trans.getDateTransactionSQL());
             print.setHeureTicket(trans.getHeure());
             print.imprimer(ticket);
+            Facture facture = new Facture();
+            try {
+                facture.generatePdf(trans.getIdVente(), 0, trans.getIdClient(), trans.getTypeDoc());
+            } catch (JRException ex) {
+                Logger.getLogger(JFVente.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (PDFException ex) {
+                Logger.getLogger(JFVente.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (PDFSecurityException ex) {
+                Logger.getLogger(JFVente.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(JFVente.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (PrintException ex) {
+                Logger.getLogger(JFVente.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
         }
     }//GEN-LAST:event_jButton6ActionPerformed
