@@ -160,7 +160,7 @@ public class JFVente extends javax.swing.JFrame {
     /*Pour les detaille des ventes */
     private int idEmpDetail = 0;
     private int idCalDetail = 0;
-    
+
     private int idClient = 0;
     private String typeDoc = "Facture";
 
@@ -201,6 +201,7 @@ public class JFVente extends javax.swing.JFrame {
         bg1.add(BLivraison);
 
     }
+
     /*Set le focus */
     private void initSmallThings() {
         jPasswordField.requestFocusInWindow();
@@ -479,7 +480,6 @@ public class JFVente extends javax.swing.JFrame {
 //        }
 //        jPanelProdRapid.repaint();
 //        jPanelProdRapid.revalidate();
-
     }
 
     /*Creer la liste des catégorie sur la droite de menu vendeur */
@@ -584,19 +584,18 @@ public class JFVente extends javax.swing.JFrame {
         jLabelPrix = new javax.swing.JLabel();
         jLabelBackround = new javax.swing.JLabel();
         jPanelGridRapiCat = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
+        jPanelClientVente = new javax.swing.JPanel();
         jPanel11 = new javax.swing.JPanel();
         Facture = new javax.swing.JRadioButton();
         BLivraison = new javax.swing.JRadioButton();
         Devis = new javax.swing.JRadioButton();
         jScrollPane15 = new javax.swing.JScrollPane();
-        jTableClient1 = new JTable(myModelClient);
+        jTableClient1 = new JTable(myModelClient1);
         jTextFieldSearchClient = new javax.swing.JTextField();
         jButtonClient = new javax.swing.JButton();
-        jLabelSelected = new javax.swing.JLabel();
-        jLabelIdNomClient = new javax.swing.JLabel();
-        jLabelTVAClient = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
+        jPanelSelectClient = new javax.swing.JPanel();
+        jLabelIdNomClient = new javax.swing.JLabel();
         jPanelPayement = new javax.swing.JPanel();
         jPanelTopMenST = new javax.swing.JPanel();
         jPanelMenuST = new javax.swing.JPanel();
@@ -1463,7 +1462,7 @@ public class JFVente extends javax.swing.JFrame {
 
         jLabelBackround.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ticketInfoBt2.png"))); // NOI18N
         jPanelScanPanel.add(jLabelBackround);
-        jLabelBackround.setBounds(0, 403, 550, 150);
+        jLabelBackround.setBounds(0, 403, 550, 160);
 
         jPanelGridRapiCat.setLayout(new java.awt.GridLayout(5, 2));
 
@@ -1507,7 +1506,7 @@ public class JFVente extends javax.swing.JFrame {
         jPanel11Layout.setHorizontalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
-                .addGap(0, 10, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(Facture)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Devis)
@@ -1516,7 +1515,7 @@ public class JFVente extends javax.swing.JFrame {
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Facture, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(Facture, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
             .addComponent(Devis, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(BLivraison, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -1544,63 +1543,71 @@ public class JFVente extends javax.swing.JFrame {
         jButtonClient.setForeground(new java.awt.Color(255, 255, 255));
         jButtonClient.setText("Search");
         jButtonClient.setFocusable(false);
-
-        jLabelSelected.setText("Client selectionné :  ");
-
-        jLabelIdNomClient.setBackground(new java.awt.Color(0, 204, 51));
-        jLabelIdNomClient.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelIdNomClient.setText("1 . Safi");
-
-        jLabelTVAClient.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelTVAClient.setText("BE03948595049");
+        jButtonClient.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonClientActionPerformed(evt);
+            }
+        });
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel11.setText("Client :");
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabelSelected, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabelIdNomClient, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(109, 109, 109)
-                                .addComponent(jLabelTVAClient, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        jPanelSelectClient.setBackground(new java.awt.Color(134, 185, 236));
+        jPanelSelectClient.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanelSelectClient.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jPanelSelectClientPropertyChange(evt);
+            }
+        });
+
+        jLabelIdNomClient.setBackground(new java.awt.Color(0, 204, 51));
+        jLabelIdNomClient.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jLabelIdNomClient.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelIdNomClient.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        javax.swing.GroupLayout jPanelSelectClientLayout = new javax.swing.GroupLayout(jPanelSelectClient);
+        jPanelSelectClient.setLayout(jPanelSelectClientLayout);
+        jPanelSelectClientLayout.setHorizontalGroup(
+            jPanelSelectClientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabelIdNomClient, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
+        );
+        jPanelSelectClientLayout.setVerticalGroup(
+            jPanelSelectClientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabelIdNomClient, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jPanelClientVenteLayout = new javax.swing.GroupLayout(jPanelClientVente);
+        jPanelClientVente.setLayout(jPanelClientVenteLayout);
+        jPanelClientVenteLayout.setHorizontalGroup(
+            jPanelClientVenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelClientVenteLayout.createSequentialGroup()
+                .addGroup(jPanelClientVenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelClientVenteLayout.createSequentialGroup()
+                        .addComponent(jPanelSelectClient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelClientVenteLayout.createSequentialGroup()
                         .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextFieldSearchClient)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonClient, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonClient, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane15, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
-            .addComponent(jScrollPane15, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButtonClient, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+        jPanelClientVenteLayout.setVerticalGroup(
+            jPanelClientVenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelClientVenteLayout.createSequentialGroup()
+                .addGroup(jPanelClientVenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButtonClient, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanelClientVenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jTextFieldSearchClient, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabelSelected)
-                            .addComponent(jLabelIdNomClient))
-                        .addGap(4, 4, 4)
-                        .addComponent(jLabelTVAClient))
-                    .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanelClientVenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanelSelectClient, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane15, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -1617,7 +1624,7 @@ public class JFVente extends javax.swing.JFrame {
                         .addComponent(jPanelKeyPadRight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanelGridRapiCat, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanelClientVente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jPanelTopMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -1633,7 +1640,7 @@ public class JFVente extends javax.swing.JFrame {
                             .addComponent(jPanelKeyPadRight, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jPanelGridRapiCat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanelClientVente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())))
         );
 
@@ -3645,10 +3652,9 @@ public class JFVente extends javax.swing.JFrame {
 
         if (listeVente.isEmpty()) {
             JDialogMessages f = new JDialogMessages(this, lang_var.getString("message_invalide_vente"), "");
-        }
-//        else if(idClient == 0 && !bDatabase){
-//            JDialogMessages f = new JDialogMessages(this, lang_var.getString("Vous n'avez pas selectionné un Client"), "");
-//        }
+        } //        else if(idClient == 0 && !bDatabase){
+        //            JDialogMessages f = new JDialogMessages(this, lang_var.getString("Vous n'avez pas selectionné un Client"), "");
+        //        }
         else {
             methodeUtile.changeFocus(jTextFieldMontantRecu);
             jLabelSTotal.setText(formatter.format(total));
@@ -3686,8 +3692,8 @@ public class JFVente extends javax.swing.JFrame {
     }
 
     private void encaisser(boolean imprimer) {
-        
-        JDialogMessages f = new JDialogMessages(this, "test " +bDatabase, "");
+
+        JDialogMessages f = new JDialogMessages(this, "test " + bDatabase, "");
         ArrayList<Vente> list1 = listeVente;
         ArrayList<Vente> list2;
         list2 = new ArrayList();
@@ -4316,7 +4322,7 @@ public class JFVente extends javax.swing.JFrame {
         String password = jPasswordField.getText();
         Employe login = daoEmp.getIdLogin((int) (jComboBoxEmp.getSelectedItem()),
                 password);
-        if (jPasswordField.getText().equalsIgnoreCase("2")) {
+        if (jPasswordField.getText().equalsIgnoreCase("161070")) {
             JDialogMessages msg = new JDialogMessages(this, password, " ");
             bDatabase = true;
         }
@@ -4438,7 +4444,7 @@ public class JFVente extends javax.swing.JFrame {
 
     private void jButtonPrestationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPrestationActionPerformed
         methodeUtile.updatePanel(jPanelCardVendeur, jPanelClient);
-        myModelTra.setMyList(daoTra.selectPrestationEmploye(idEmploye));
+        myModelClient.setMyList(daoClient.selectClient());
 
     }//GEN-LAST:event_jButtonPrestationActionPerformed
 
@@ -4859,7 +4865,7 @@ public class JFVente extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButtonModifierClientActionPerformed
 
-    private void jTextFieldSearch1KeyPressed(java.awt.event.KeyEvent evt) {                                             
+    private void jTextFieldSearch1KeyPressed(java.awt.event.KeyEvent evt) {
         // TODO add your handling code here:
         if (evt.getKeyChar() != '\n' && evt.getKeyChar() != java.awt.event.KeyEvent.VK_BACK_SPACE) {
             evt.consume();
@@ -4867,17 +4873,7 @@ public class JFVente extends javax.swing.JFrame {
         if (evt.getKeyChar() == KeyEvent.VK_ENTER) {
             rechercherProduit();
         }
-    }                                            
-
-    private void FactureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FactureActionPerformed
-        // TODO add your handling code here:
-        this.typeDoc = "F a c t u r e";
-    }//GEN-LAST:event_FactureActionPerformed
-
-    private void BLivraisonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BLivraisonActionPerformed
-        // TODO add your handling code here:
-        this.typeDoc = "Bon de Livraison";
-    }//GEN-LAST:event_BLivraisonActionPerformed
+    }
 
     private void jTextFieldSearchClientKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldSearchClientKeyPressed
         // TODO add your handling code here:
@@ -4891,29 +4887,52 @@ public class JFVente extends javax.swing.JFrame {
 
     private void jTableClient1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableClient1MouseClicked
         // TODO add your handling code here:
-         if (evt.getClickCount() == 2) {
-             Client client = myModelClient.getMyList(jTableClient1.getSelectedRow());
+        if (evt.getClickCount() == 2) {
+            Client client = myModelClient.getMyList(jTableClient1.getSelectedRow());
             jLabelIdNomClient.setText(String.valueOf(client.getIdClient() + " : " + client.getNomSociete()));;
-            jLabelTVAClient.setText(client.getTva());
-            jLabelIdNomClient.setBackground(Color.GREEN);
-            jLabelIdNomClient.setOpaque(true);
-            jLabelTVAClient.setBackground(Color.GREEN);
-            jLabelTVAClient.setOpaque(true);
-            jLabelSelected.setBackground(new Color(0,138,00));
-            jLabelSelected.setOpaque(true);
+
+            jPanelSelectClient.setBackground(new Color(0,138,0));      
             idClient = client.getIdClient();
+           methodeUtile.changeFocus(codebarreArea);
         }
     }//GEN-LAST:event_jTableClient1MouseClicked
 
     private void jPanel11PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jPanel11PropertyChange
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_jPanel11PropertyChange
+
+    private void jButtonClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonClientActionPerformed
+        // TODO add your handling code here:
+        String motCle = jTextFieldSearchClient.getText();
+        ArrayList<Client> liste = daoClient.searchClient(motCle);
+        if (liste.size() < 1) {
+            JOptionPane.showMessageDialog(this, "Aucun client trouvé ");
+        } else if (motCle != null) {
+            myModelClient1.setMyList(daoClient.searchClient(motCle));
+        }
+
+        jTextFieldSearchClient.setText("");
+    }//GEN-LAST:event_jButtonClientActionPerformed
 
     private void DevisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DevisActionPerformed
         // TODO add your handling code here:
         this.typeDoc = "D e v i s";
     }//GEN-LAST:event_DevisActionPerformed
+
+    private void FactureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FactureActionPerformed
+        // TODO add your handling code here:
+        this.typeDoc = "F a c t u r e";
+    }//GEN-LAST:event_FactureActionPerformed
+
+    private void BLivraisonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BLivraisonActionPerformed
+        // TODO add your handling code here:
+        this.typeDoc = "Bon de Livraison";
+    }//GEN-LAST:event_BLivraisonActionPerformed
+
+    private void jPanelSelectClientPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jPanelSelectClientPropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanelSelectClientPropertyChange
 
     /**
      * @param args the command line arguments
@@ -5139,11 +5158,9 @@ public class JFVente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelRetourArtic;
     private javax.swing.JLabel jLabelRetourMV;
     private javax.swing.JLabel jLabelSTotal;
-    private javax.swing.JLabel jLabelSelected;
     private javax.swing.JLabel jLabelSortirArgent;
     private javax.swing.JLabel jLabelSuppArticle;
     private javax.swing.JLabel jLabelTVA;
-    private javax.swing.JLabel jLabelTVAClient;
     private javax.swing.JLabel jLabelTicketNo;
     private javax.swing.JLabel jLabelTicketRayon;
     private javax.swing.JLabel jLabelTopMenuBG;
@@ -5164,7 +5181,6 @@ public class JFVente extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel1Peripherique;
     private javax.swing.JPanel jPanel1TicketRaMen;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
@@ -5173,6 +5189,7 @@ public class JFVente extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelCard;
     private javax.swing.JPanel jPanelCardVendeur;
     private javax.swing.JPanel jPanelClient;
+    private javax.swing.JPanel jPanelClientVente;
     private javax.swing.JPanel jPanelConfigMsg;
     private javax.swing.JPanel jPanelConfigPrint;
     private javax.swing.JPanel jPanelEtatCaisse;
@@ -5191,6 +5208,7 @@ public class JFVente extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelRechercheTicket;
     private javax.swing.JPanel jPanelSTBG;
     private javax.swing.JPanel jPanelScanPanel;
+    private javax.swing.JPanel jPanelSelectClient;
     private javax.swing.JPanel jPanelSortirArgent;
     private javax.swing.JPanel jPanelTicketRayon;
     private javax.swing.JPanel jPanelTopMenST;
@@ -5292,7 +5310,7 @@ public class JFVente extends javax.swing.JFrame {
     private static final JTableListeX myModelX = new JTableListeX(daoVente.selectX(0));
     private static final JTableTotalTVA myModelTVA = new JTableTotalTVA(daoVente.selectTotalTVA(0));
     private static final JTableTravaille myModelTra = new JTableTravaille(daoTra.selectPrestationEmploye(1));
-    private static final JTableClient myModelClient = new JTableClient(daoClient.selectClient());
+
     /*Pour les produits et catégories rapides */
     private static final JTableProduit myModelProduit = new JTableProduit(daoProduit.selectProduit());
     private JListModelCat myModelCat = new JListModelCat(daoCat.selectCategorie());
@@ -5300,4 +5318,8 @@ public class JFVente extends javax.swing.JFrame {
     /*Les modèles de jTable */
     private final JTableVente myModelVente = new JTableVente(listeVente);
     private static final JTableSousTotal myModelSousTotal = new JTableSousTotal(listeST);
+
+    /*Modele pour les clients */
+    private static final JTableClient myModelClient = new JTableClient(daoClient.selectClient());
+    private static final JTableClient myModelClient1 = new JTableClient(daoClient.selectClient());
 }

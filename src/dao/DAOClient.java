@@ -17,7 +17,7 @@ public interface DAOClient {
     boolean insertClient(Client client);
 
     ArrayList<Client> selectClient();
-
+    public ArrayList<Client> searchClient(String motCle) ;
     boolean updateClient(Client client);
     
 }

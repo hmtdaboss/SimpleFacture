@@ -34,6 +34,37 @@ public class DAOClientMySQL implements DAOClient  {
                 + " order by 1";
 
         ResultSet resu = ConnexionMySQL.getInstance().selectQuery(req);
+        System.out.println("selectEmployer : "+ req);
+        try {
+            while (resu.next()) {
+                //création de l'objet Chanteur
+                myList.add(new Client(resu.getInt(1), resu.getString(2), resu.getString(3),
+                        resu.getInt(4), resu.getString(5),resu.getString(6), resu.getString(7), resu.getInt(8), resu.getString(9), resu.getString(10)));
+
+            }
+        } catch (SQLException e) {
+
+            System.out.println("selectEmployer : "+ e.toString());
+            System.exit(-1);
+        }
+        return myList;
+    }
+    
+    @Override
+    public ArrayList<Client> searchClient(String motCle) {
+        ArrayList<Client> myList = new ArrayList();
+
+        String req = "select cli.idClient, cli.nomSociete, cli.adresse, cli.codepostal, cli.commune, cli.tel, cli.tva, cli.idmag, cli.mail, mag.nomMagasin"
+                + " from Client cli"
+                + " join Magasin mag on mag.idMag = cli.idMag"
+                + " where cli.idClient like '%"+motCle + "%' or"
+                + " cli.nomSociete like '%"+motCle + "%' or "
+                + " cli.tva like '%"+motCle + "%'"
+                + " order by 1";
+        
+        
+
+        ResultSet resu = ConnexionMySQL.getInstance().selectQuery(req);
         try {
             while (resu.next()) {
                 //création de l'objet Chanteur
