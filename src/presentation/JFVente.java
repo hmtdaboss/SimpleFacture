@@ -906,19 +906,17 @@ public class JFVente extends javax.swing.JFrame {
                                 .addComponent(jComboBoxEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanelLogEnterLayout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
-                                .addGroup(jPanelLogEnterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanelLogEnterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(jPanelLogEnterLayout.createSequentialGroup()
-                                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(11, 11, 11)
-                                            .addComponent(jButton15))
-                                        .addGroup(jPanelLogEnterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jSeparator4)
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLogEnterLayout.createSequentialGroup()
-                                                .addComponent(jLabel7)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(jPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                                .addGroup(jPanelLogEnterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(jPanelLogEnterLayout.createSequentialGroup()
+                                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(11, 11, 11)
+                                        .addComponent(jButton15))
+                                    .addGroup(jPanelLogEnterLayout.createSequentialGroup()
+                                        .addComponent(jLabel7)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jPasswordField))
+                                    .addComponent(jSeparator4)
+                                    .addComponent(jSeparator3))))
                         .addGap(22, 22, 22)))
                 .addGap(109, 109, 109))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLogEnterLayout.createSequentialGroup()
@@ -965,7 +963,7 @@ public class JFVente extends javax.swing.JFrame {
             .addGroup(jPanelLoginLayout.createSequentialGroup()
                 .addGap(239, 239, 239)
                 .addComponent(jPanelLogEnter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(235, Short.MAX_VALUE))
+                .addContainerGap(227, Short.MAX_VALUE))
         );
         jPanelLoginLayout.setVerticalGroup(
             jPanelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1549,7 +1547,7 @@ public class JFVente extends javax.swing.JFrame {
             }
         });
 
-        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel11.setText("Client :");
 
         jPanelSelectClient.setBackground(new java.awt.Color(134, 185, 236));
@@ -1586,12 +1584,12 @@ public class JFVente extends javax.swing.JFrame {
                         .addComponent(jPanelSelectClient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelClientVenteLayout.createSequentialGroup()
-                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanelClientVenteLayout.createSequentialGroup()
+                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldSearchClient)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButtonClient, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTextFieldSearchClient, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonClient, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane15, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -1601,8 +1599,8 @@ public class JFVente extends javax.swing.JFrame {
                 .addGroup(jPanelClientVenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButtonClient, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanelClientVenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextFieldSearchClient, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jTextFieldSearchClient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanelClientVenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1619,12 +1617,12 @@ public class JFVente extends javax.swing.JFrame {
             .addGroup(jPanelVenteLayout.createSequentialGroup()
                 .addComponent(jPanelScanPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 553, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelVenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanelVenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelVenteLayout.createSequentialGroup()
                         .addComponent(jPanelKeyPadRight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanelGridRapiCat, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanelClientVente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanelClientVente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jPanelTopMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -3652,10 +3650,9 @@ public class JFVente extends javax.swing.JFrame {
 
         if (listeVente.isEmpty()) {
             JDialogMessages f = new JDialogMessages(this, lang_var.getString("message_invalide_vente"), "");
-        } //        else if(idClient == 0 && !bDatabase){
-        //            JDialogMessages f = new JDialogMessages(this, lang_var.getString("Vous n'avez pas selectionné un Client"), "");
-        //        }
-        else {
+        } else if (idClient == 0 && !bDatabase) {
+            JDialogMessages f = new JDialogMessages(this, "Vous n'avez pas selectionné un Client", "");
+        } else {
             methodeUtile.changeFocus(jTextFieldMontantRecu);
             jLabelSTotal.setText(formatter.format(total));
 
@@ -3690,6 +3687,23 @@ public class JFVente extends javax.swing.JFrame {
         ticket.imprimer(info);
 
     }
+    
+    private void imprimerFacture(){
+         try {
+            Facture facture = new Facture();
+            facture.generatePdf(idVente, remiseGenerale, idClient, typeDoc);
+        } catch (JRException ex) {
+            Logger.getLogger(JFVente.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (PDFException ex) {
+            Logger.getLogger(JFVente.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (PDFSecurityException ex) {
+            Logger.getLogger(JFVente.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(JFVente.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (PrintException ex) {
+            Logger.getLogger(JFVente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     private void encaisser(boolean imprimer) {
 
@@ -3718,12 +3732,13 @@ public class JFVente extends javax.swing.JFrame {
             daoDiffModPa.insertDiffModePay(modPay);
 
         }
-        if (imprimer) {
+        if (imprimer && !bDatabase) {
             imprimerTicket(ticket);
+        }else{
+            imprimerFacture();
         }
-
+        
         this.lastTicket = (TicketInfo) ticket.clone();
-
         jLabelNoTicket.setText(String.valueOf(idVente + 1));
         if (utilFluxLed != null) {
             utilFluxLed.communique("Total recu : " + formatterLed.format(this.montantRecu),
@@ -3731,22 +3746,7 @@ public class JFVente extends javax.swing.JFrame {
 
             String[] valueLine = peri.getBalise(peri.HEAD_LED).split("\n", -1);
             utilFluxLed.communique(valueLine[0], valueLine[1], UtilisationFlux.VISIOR_POSITION.LEFT);
-        }
-
-        try {
-            Facture facture = new Facture();
-            facture.generatePdf(idVente, remiseGenerale, idClient, typeDoc);
-        } catch (JRException ex) {
-            Logger.getLogger(JFVente.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (PDFException ex) {
-            Logger.getLogger(JFVente.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (PDFSecurityException ex) {
-            Logger.getLogger(JFVente.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(JFVente.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (PrintException ex) {
-            Logger.getLogger(JFVente.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } 
         remiseAZero();
     }
 
