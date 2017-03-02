@@ -5,6 +5,7 @@
  */
 package facture;
 
+import Utile.PeripheriqueXML;
 import daoMySQL.ConnexionMySQL;
 import factory.Factory;
 import java.io.BufferedInputStream;
@@ -16,6 +17,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import javax.print.PrintException;
+import javax.print.PrintService;
+import javax.print.PrintServiceLookup;
+import javax.print.attribute.standard.MediaSizeName;
+import javax.print.attribute.standard.PrintQuality;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -24,6 +29,10 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.util.JRLoader;
 import org.icepdf.core.exceptions.PDFException;
 import org.icepdf.core.exceptions.PDFSecurityException;
+import org.icepdf.core.pobjects.Document;
+import org.icepdf.core.views.DocumentViewController;
+import org.icepdf.ri.common.SwingController;
+import org.icepdf.ri.common.views.DocumentViewControllerImpl;
 import transferObject.TVA;
 
 /**
@@ -116,9 +125,9 @@ public class Facture {
        
        JasperExportManager.exportReportToPdfFile(jasperPrint, "facture.pdf");
         
-     /*
+     
        
-       PeripheriqueXML peri = new PeripheriqueXML();
+        PeripheriqueXML peri = new PeripheriqueXML();
         Document pdf = new Document();
         pdf.setFile("facture.pdf");
         SwingController sc = new SwingController();
@@ -126,7 +135,7 @@ public class Facture {
         vc.setDocument(pdf);
         org.icepdf.ri.common.PrintHelper printHelper;
         printHelper = new org.icepdf.ri.common.PrintHelper(vc, pdf.getPageTree(),
-                MediaSizeName.NA_LEGAL, PrintQuality.DRAFT);
+                MediaSizeName.A.NA_LEGAL, PrintQuality.DRAFT.DRAFT);
 
         PrintService ps_utilise = null;
         PrintService pss[] = PrintServiceLookup.lookupPrintServices(null, null);
@@ -137,18 +146,18 @@ public class Facture {
 
         for (int i = 0; i < pss.length; i++) {
 
-            if (peri.getBalise(peri.PRINTER_TICKET).compareTo(pss[i].getName()) == 0) {
+            if (peri.getBalise(peri.PRINTER_TICKET_RAYON).compareTo(pss[i].getName()) == 0) {
                 ps_utilise = pss[i];
                 System.out.println(ps_utilise);
             }
         }
 
         //     printHelper.showPrintSetupDialog();
-        printHelper.setupPrintService(ps_utilise, 0, 9, 1, true);
+        printHelper.setupPrintService(ps_utilise, 0, 9, 2, true);
 
         printHelper.getPrintRequestAttributeSet().add(MediaSizeName.ISO_A4);
 
-        printHelper.print();*/
+        printHelper.print();
 
     }
 

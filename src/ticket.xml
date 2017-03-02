@@ -24,7 +24,7 @@
     <line>COM1</line>
   </printerTicketPort>
   <printerTicketRayon>
-    <line>Microsoft XPS Document Writer</line>
+    <line>Microsoft Print to PDF</line>
   </printerTicketRayon>
   <printerTicketRayonPort>
     <line>COM4</line>

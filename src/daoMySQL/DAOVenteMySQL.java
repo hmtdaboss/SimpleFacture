@@ -90,6 +90,7 @@ public class DAOVenteMySQL implements DAOVente {
     public boolean insertVente(Vente vente, boolean inWhichTable) {
         
         String tableVente = inWhichTable ? "ventes2" : "ventes";
+        
 
         String requete = "Insert into " + tableVente + "( idEmploye,remiseGenerale,idMag, idCalendrier, heure, montantTotal, idClient, typeDocument)"
                 + " values ("

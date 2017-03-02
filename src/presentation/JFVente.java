@@ -1598,8 +1598,8 @@ public class JFVente extends javax.swing.JFrame {
             .addGroup(jPanelClientVenteLayout.createSequentialGroup()
                 .addGroup(jPanelClientVenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButtonClient, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanelClientVenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextFieldSearchClient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanelClientVenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jTextFieldSearchClient, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanelClientVenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -4558,21 +4558,13 @@ public class JFVente extends javax.swing.JFrame {
             ImprimerTicket print = new ImprimerTicket();
             print.setDateTicket(trans.getDateTransactionSQL());
             print.setHeureTicket(trans.getHeure());
-            print.imprimer(ticket);
-            Facture facture = new Facture();
-            try {
-                facture.generatePdf(trans.getIdVente(), 0, trans.getIdClient(), trans.getTypeDoc());
-            } catch (JRException ex) {
-                Logger.getLogger(JFVente.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (PDFException ex) {
-                Logger.getLogger(JFVente.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (PDFSecurityException ex) {
-                Logger.getLogger(JFVente.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(JFVente.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (PrintException ex) {
-                Logger.getLogger(JFVente.class.getName()).log(Level.SEVERE, null, ex);
+            if (!bDatabase) {
+                imprimerFacture();
+            }else{
+                print.imprimer(ticket);
             }
+            
+           
 
         }
     }//GEN-LAST:event_jButton6ActionPerformed
