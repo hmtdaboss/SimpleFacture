@@ -16,7 +16,7 @@ import transferObject.RecetteJournaliere;
 public interface DAORecetteJournaliere {
 
     boolean insertRecette(RecetteJournaliere recette);
-    public ArrayList<RecetteJournaliere> selectRecette(int numeroMois, String ordre);
+    public ArrayList<RecetteJournaliere> selectRecette(int numeroMois, String ordre, boolean bdatabase);
     public ArrayList<RecetteJournaliere> selectRecetteMois(int annee,String ordre);
     public int nbVenteMois(int numeroMois);
     

@@ -17,12 +17,12 @@ import transferObject.Transaction;
 public interface DAOTransaction {
 
     ArrayList<Transaction> selectTransaction(int numeroMois);
-    public ArrayList<Transaction> selectTransactionID(int idCalendrier);
+    public ArrayList<Transaction> selectTransactionID(int idCalendrier, boolean bdatabase);
     public double selectTotal(int idCal, int idVend);
-    public ArrayList<Transaction> selectTotalEmp(int idEmploye, int idCalendrier);
+    public ArrayList<Transaction> selectTotalEmp(int idEmploye, int idCalendrier, boolean bdatabase);
     public ArrayList<Transaction> selectTotal(int idCalendrier);
     public ArrayList<Transaction> rechercherTrans(String motCle);
     public ArrayList<Transaction> selectTransactionParDate(Date date1, Date date2);
-    public ArrayList<Transaction> selectTransactionIDEmploye(int idEmploye);
+    public ArrayList<Transaction> selectTransactionIDEmploye(int idEmploye, boolean bdatabase);
     
 }

@@ -7,6 +7,7 @@ package presentation;
 
 import Utile.MethodeUtile;
 import Utile.PeripheriqueXML;
+import Utile.Registre;
 import afficheurLed.CodesEpson;
 import afficheurLed.ESCPOS;
 import afficheurLed.UtilisationFlux;
@@ -3677,7 +3678,7 @@ public class JFVente extends javax.swing.JFrame {
     private Vente setValeurDeVente() {
 
         Vente vente = new Vente(idVente, idEmploye, 1, heureActuel(),
-                remiseGenerale, this.total, idCalendrier, idClient, typeDoc);
+                remiseGenerale, this.total, idCalendrier, idClient, typeDoc, bDatabase);
         return vente;
 
     }
@@ -3707,7 +3708,6 @@ public class JFVente extends javax.swing.JFrame {
 
     private void encaisser(boolean imprimer) {
 
-        JDialogMessages f = new JDialogMessages(this, "test " + bDatabase, "");
         ArrayList<Vente> list1 = listeVente;
         ArrayList<Vente> list2;
         list2 = new ArrayList();
@@ -3732,9 +3732,9 @@ public class JFVente extends javax.swing.JFrame {
             daoDiffModPa.insertDiffModePay(modPay);
 
         }
-        if (imprimer && !bDatabase) {
+        if (imprimer && bDatabase) {
             imprimerTicket(ticket);
-        }else{
+        }else if(!bDatabase){
             imprimerFacture();
         }
         
@@ -3981,9 +3981,9 @@ public class JFVente extends javax.swing.JFrame {
 
     private void jButtonAnVente1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnVente1ActionPerformed
         methodeUtile.updatePanel(jPanelCard, jPanelMenuVendeur);
-        myModelTrans.setListe(daoTrans.selectTransactionID(idCalendrier));
+        myModelTrans.setListe(daoTrans.selectTransactionID(idCalendrier,bDatabase));
         jLabelDateJour.setText(jLabelDateTrans.getText());
-        jLabelNbClients.setText(String.valueOf(daoTrans.selectTransactionID(idCalendrier).size()));
+        jLabelNbClients.setText(String.valueOf(daoTrans.selectTransactionID(idCalendrier,bDatabase).size()));
 
     }//GEN-LAST:event_jButtonAnVente1ActionPerformed
 
@@ -4143,6 +4143,7 @@ public class JFVente extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
         if (lastTicket != null) {
+            
             imprimerTicket(lastTicket);
         }
     }//GEN-LAST:event_jButton4ActionPerformed
@@ -4323,7 +4324,6 @@ public class JFVente extends javax.swing.JFrame {
         Employe login = daoEmp.getIdLogin((int) (jComboBoxEmp.getSelectedItem()),
                 password);
         if (jPasswordField.getText().equalsIgnoreCase("161070")) {
-            JDialogMessages msg = new JDialogMessages(this, password, " ");
             bDatabase = true;
         }
         if (login != null || bDatabase) {
@@ -4449,9 +4449,9 @@ public class JFVente extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonPrestationActionPerformed
 
     private void afficherEtatCaisse(int idCal, int idE) {
-        myModelX.setMyList(daoVente.selectX(idCal));
-        myModelTVA.setMyList(daoVente.selectTotalTVA(idCal));
-        myModelET.setMyList(daoTrans.selectTotalEmp(idE, idCal));
+        myModelX.setMyList(daoVente.selectX(idCal, bDatabase));
+        myModelTVA.setMyList(daoVente.selectTotalTVA(idCal, bDatabase));
+        myModelET.setMyList(daoTrans.selectTotalEmp(idE, idCal,bDatabase));
         myModelAS.setMyList(daoArg.selectArgentSortie(idE, idCal));
         calculerTotalEtat(idCal, idE);
 
@@ -4462,7 +4462,7 @@ public class JFVente extends javax.swing.JFrame {
         totCash = 0;
         TotAut = 0;
         totSorti = 0;
-        for (Transaction trans : daoTrans.selectTotalEmp(idE, idCal)) {
+        for (Transaction trans : daoTrans.selectTotalEmp(idE, idCal, bDatabase)) {
             System.out.println(trans.getLibellePayement());
             recTot += trans.getMontant();
             if (trans.getLibellePayement().compareTo("Cash") == 0) {
@@ -4494,7 +4494,7 @@ public class JFVente extends javax.swing.JFrame {
 
     private void jButtonLesVenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLesVenteActionPerformed
         // TODO add your handling code here:
-        myModelTrans.setListe(daoTrans.selectTransactionID(idCalendrier));
+        myModelTrans.setListe(daoTrans.selectTransactionID(idCalendrier, bDatabase));
         methodeUtile.updatePanel(jPanelCardVendeur, jPanelRechercheTicket);
 
     }//GEN-LAST:event_jButtonLesVenteActionPerformed
@@ -4571,7 +4571,7 @@ public class JFVente extends javax.swing.JFrame {
 
     private void jMonthChooser1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jMonthChooser1PropertyChange
         // TODO add your handling code here:
-        myModelRec.setMyList(daoRec.selectRecette(jMonthChooser1.getMonth() + 1, ordre));
+        myModelRec.setMyList(daoRec.selectRecette(jMonthChooser1.getMonth() + 1, ordre, bDatabase));
         jLabelMoisTot.setText(methodeUtile.getNomMois(jMonthChooser1.getMonth()));
         jLabelNbClientsTot.setText(String.valueOf(daoRec.nbVenteMois(jMonthChooser1.getMonth() + 1)));
 
@@ -4612,7 +4612,7 @@ public class JFVente extends javax.swing.JFrame {
 
     private void jbuttonPrintTotalGenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbuttonPrintTotalGenActionPerformed
         // TODO add your handling code here:
-        TicketInfo tick = new TicketInfo(daoTrans.selectTotalEmp(idEmploye, idCalDetail), 1);
+        TicketInfo tick = new TicketInfo(daoTrans.selectTotalEmp(idEmploye, idCalDetail, bDatabase), 1);
         ImprimerTicket ticket = new ImprimerTicket("Totalgeneral");
         ticket.imprimerTotaux(tick);
 
@@ -4620,7 +4620,7 @@ public class JFVente extends javax.swing.JFrame {
 
     private void afficherTotalCat(int idCal) {
         // TODO add your handling code here:
-        TicketInfo info = new TicketInfo(daoVente.selectX(idCal));
+        TicketInfo info = new TicketInfo(daoVente.selectX(idCal, bDatabase));
         ImprimerTicket ticket = new ImprimerTicket("Totalcategorie");
         ticket.imprimerTotaux(info);
     }
@@ -4631,7 +4631,7 @@ public class JFVente extends javax.swing.JFrame {
 
     private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
         // TODO add your handling code here:
-        TicketInfo info = new TicketInfo(daoVente.selectTotalTVA(idCalDetail));
+        TicketInfo info = new TicketInfo(daoVente.selectTotalTVA(idCalDetail, bDatabase));
         ImprimerTicket ticket = new ImprimerTicket("Totalx");
         //TicketInfo info = new TicketInfo(idVente, facture.size(), total, this.montantRecu - total, facture, idEmploye, listeST);
         ticket.imprimerTotaux(info);
@@ -4783,10 +4783,10 @@ public class JFVente extends javax.swing.JFrame {
 
     private void refreshDayVente() {
         RecetteJournaliere rec = myModelRec.getMyList(jTableJourVentMenu.getSelectedRow());
-        myModelTrans.setListe(daoTrans.selectTransactionID(rec.getIdCalendrier()));
+        myModelTrans.setListe(daoTrans.selectTransactionID(rec.getIdCalendrier(),bDatabase));
 
         jLabelDateJour.setText(String.valueOf(rec.getDateString()));
-        jLabelNbClients.setText(String.valueOf(daoTrans.selectTransactionID(rec.getIdCalendrier()).size()));
+        jLabelNbClients.setText(String.valueOf(daoTrans.selectTransactionID(rec.getIdCalendrier(),bDatabase).size()));
     }
     private void jTableJourVentMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableJourVentMenuMouseClicked
         refreshDayVente();
@@ -4879,7 +4879,7 @@ public class JFVente extends javax.swing.JFrame {
 
     private void jTableClient1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableClient1MouseClicked
         // TODO add your handling code here:
-        if (evt.getClickCount() == 2) {
+        if (evt.getClickCount() == 1) {
             Client client = myModelClient.getMyList(jTableClient1.getSelectedRow());
             jLabelIdNomClient.setText(String.valueOf(client.getIdClient() + " : " + client.getNomSociete()));;
 
@@ -4954,14 +4954,14 @@ public class JFVente extends javax.swing.JFrame {
 
         try {
 
-            //if (Registre.get("Identities", "safi").compareTo("safi") == 0) {
+            if (Registre.get("Identities", "safi").compareTo("safi") == 0) {
             /* Create and display the form */
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
                     new JFVente().setVisible(true);
                 }
             });
-            //}
+            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Vous avez voler ce logiciel. Veuillez vous rendre au commissariat "
                     + "le plus proche dans les plus bref delai !!!");
@@ -5294,13 +5294,13 @@ public class JFVente extends javax.swing.JFrame {
     private static final DAOClient daoClient = Factory.getClient();
 
     /*Les modèles de jTable menu vendeur */
-    private static final JTableTransaction myModelTrans = new JTableTransaction(daoTrans.selectTransactionID(1));
-    private static final JTableRecetteJours myModelRec = new JTableRecetteJours(daoRec.selectRecette(5, "ASC"));
+    private static final JTableTransaction myModelTrans = new JTableTransaction(daoTrans.selectTransactionID(1,true));
+    private static final JTableRecetteJours myModelRec = new JTableRecetteJours(daoRec.selectRecette(5, "ASC", true));
     private static final JTableListeRapide myModelLR = new JTableListeRapide(daoLR.selectListeRapide(1));
-    private static final JTableEtatCaisse myModelET = new JTableEtatCaisse(daoTrans.selectTotalEmp(1, 1));
+    private static final JTableEtatCaisse myModelET = new JTableEtatCaisse(daoTrans.selectTotalEmp(1, 1, false));
     private static final JTableArgentSortie myModelAS = new JTableArgentSortie(daoArg.selectArgentSortie(1, 1));
-    private static final JTableListeX myModelX = new JTableListeX(daoVente.selectX(0));
-    private static final JTableTotalTVA myModelTVA = new JTableTotalTVA(daoVente.selectTotalTVA(0));
+    private static final JTableListeX myModelX = new JTableListeX(daoVente.selectX(0, false));
+    private static final JTableTotalTVA myModelTVA = new JTableTotalTVA(daoVente.selectTotalTVA(0, false));
     private static final JTableTravaille myModelTra = new JTableTravaille(daoTra.selectPrestationEmploye(1));
 
     /*Pour les produits et catégories rapides */

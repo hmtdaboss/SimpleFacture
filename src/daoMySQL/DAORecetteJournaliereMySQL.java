@@ -34,15 +34,20 @@ public class DAORecetteJournaliereMySQL implements DAORecetteJournaliere {
     }
 
     @Override
-    public ArrayList<RecetteJournaliere> selectRecette(int numeroMois, String ordre) {
+    public ArrayList<RecetteJournaliere> selectRecette(int numeroMois, String ordre, boolean bdatabase) {
         ArrayList<RecetteJournaliere> myList = new ArrayList();
         String num = Integer.toString(numeroMois);
         if(numeroMois < 10 ){
             num = "0" + numeroMois;
         }
+        
         Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);
-        String req = "select sum(rec.recette), cal.idCalendrier, cal.dateJour "
+        String req = "select sum(rec.recette)";
+            if(!bdatabase){
+               req +=" - (select sum(montantTotal) from ventes ven where ven.bdatabase = 1 and ven.idCalendrier = cal.idCalendrier )";
+            }
+                req+= ", cal.idCalendrier, cal.dateJour "
                 + "from calendrier cal "
                 + "join recettejournaliere rec on cal.idCalendrier = rec.idcalendrier "
                 + "where strftime('%Y', cal.dateJour) = '"+year+"' and "

@@ -30,6 +30,7 @@ public class Vente {
     private double montantTotal;
     private int idClient;
     private String typeDoc;
+    private boolean bdatabase;
 
     public Vente(int idVente,String codeBarre, String libelleProduit, int idVendeur, 
             int idMagasin, int idCalendrier, int idPayement, 
@@ -58,7 +59,7 @@ public class Vente {
     
 
     public Vente(int idVente, int idVendeur, int idMagasin, String heure, 
-            double remiseGen, double montantTotal, int idCalendrier, int idClient, String typeDoc) {
+            double remiseGen, double montantTotal, int idCalendrier, int idClient, String typeDoc, boolean bdatabase) {
         this.idVente = idVente;
         this.idVendeur = idVendeur;
         this.idMagasin = idMagasin;
@@ -68,7 +69,7 @@ public class Vente {
         this.idCalendrier = idCalendrier;
         this.idClient = idClient;
         this.typeDoc = typeDoc;
-        
+        this.bdatabase = bdatabase;
     }
 
     public Vente(String libelleProduit, double prixVente, int quantite, double prixTotal) {
@@ -263,6 +264,14 @@ public class Vente {
 
     public void setTypeDoc(String typeDoc) {
         this.typeDoc = typeDoc;
+    }
+
+    public boolean isBdatabase() {
+        return bdatabase;
+    }
+
+    public void setBdatabase(boolean bdatabase) {
+        this.bdatabase = bdatabase;
     }
     
     

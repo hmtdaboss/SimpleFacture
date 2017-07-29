@@ -54,21 +54,24 @@ public class DAOTransactionMySQL implements DAOTransaction {
     }
 
     @Override
-    public ArrayList<Transaction> selectTransactionID(int idCalendrier) {
+    public ArrayList<Transaction> selectTransactionID(int idCalendrier, boolean bdatabase) {
         ArrayList<Transaction> myList = new ArrayList();
         
         String req = "select ven.idVente, strftime('%Y-%m-%d', cal.dateJour), ven.heure, "
-                + "sum(prod.prixVente), ven.idEmploye, mag.nomMagasin, ven.remiseGenerale,  ven.typeDocument, ven.idClient "
+                + "sum(prod.prixVente), ven.idEmploye, mag.nomMagasin, ven.remiseGenerale,  ven.typeDocument, ven.idClient, ven.bdatabase "
                 + " from ventes ven "
                 + "join magasin mag on ven.idMag = mag.idMag "
                 + "join calendrier cal on ven.idCalendrier = cal.idCalendrier "
                 + "join nbproduitvendu prod on ven.idVente = prod.idVente "
-                + "where ven.idCalendrier = "+idCalendrier
-                + " group by ven.idVente"
+                + "where ven.idCalendrier = "+idCalendrier;
+                if(!bdatabase){
+                    req += " and ven.bdatabase  = 0";
+                }
+                req += " group by ven.idVente"
                 + " order by ven.idVente";
         
         ResultSet resu = ConnexionMySQL.getInstance().selectQuery(req);
-        System.out.println(req);
+        System.out.println("selectTransactionID : "+req);
         try {
             while (resu.next()) {
                 myList.add(new Transaction(resu.getInt(1), resu.getString(2),
@@ -82,7 +85,7 @@ public class DAOTransactionMySQL implements DAOTransaction {
         return myList;
     }
     @Override
-    public ArrayList<Transaction> selectTransactionIDEmploye(int idEmploye) {
+    public ArrayList<Transaction> selectTransactionIDEmploye(int idEmploye, boolean bdatabase) {
         ArrayList<Transaction> myList = new ArrayList();
 
         String req = "select ven.idVente, strftime('%Y-%m-%d', cal.dateJour), ven.heure, "
@@ -91,8 +94,11 @@ public class DAOTransactionMySQL implements DAOTransaction {
                 + "join magasin mag on ven.idMag = mag.idMag "
                 + "join calendrier cal on ven.idCalendrier = cal.idCalendrier "
                 + "join nbproduitvendu prod on ven.idVente = prod.idVente "
-                + "where ven.idEmploye = "+idEmploye
-                + " group by ven.idVente"
+                + "where ven.idEmploye = ";
+                if(!bdatabase){
+                    req += " bdatabase = 1";
+                }
+                req += " group by ven.idVente"
                 + " order by ven.idVente";
         
         ResultSet resu = ConnexionMySQL.getInstance().selectQuery(req);
@@ -199,15 +205,18 @@ public class DAOTransactionMySQL implements DAOTransaction {
     }
     
     @Override
-    public ArrayList<Transaction> selectTotalEmp(int idEmploye, int idCalendrier) {
+    public ArrayList<Transaction> selectTotalEmp(int idEmploye, int idCalendrier, boolean bdatabase) {
         ArrayList<Transaction> myList = new ArrayList();
         String req = "select mode.libelle, sum(df.montant), strftime('%Y-%m-%d', cal.dateJour) "
                 + "from modepayement mode "
                 + "join differentmodepaye df on mode.idPaye = df.idPaye "
                 + "join ventes ven on df.idVente = ven.idVente "
                 + "join calendrier cal on ven.idCalendrier = cal.idCalendrier "
-                + "where idEmploye =" +idEmploye+ " and ven.idCalendrier = " +idCalendrier
-                + " group by df.idPaye";
+                + "where idEmploye =" +idEmploye+ " and ven.idCalendrier = " +idCalendrier;
+                 if(!bdatabase){
+                     req += " and ven.bdatabase = 0";
+                 }
+                req+= " group by df.idPaye";
 
         System.out.println(req);
         ResultSet resu = ConnexionMySQL.getInstance().selectQuery(req);

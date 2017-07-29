@@ -35,7 +35,7 @@ public class JDialogX extends javax.swing.JDialog {
         jLabelDate.setText(rec.getDateString());
         jLabelTotal.setText(formatter.format(rec.getRecetteTotal()));
         
-        myModelX.setMyList(daoVente.selectX(rec.getIdCalendrier()));
+        myModelX.setMyList(daoVente.selectX(rec.getIdCalendrier(),false));
         myModelET.setMyList(daoTrans.selectTotal(rec.getIdCalendrier()));
         setLocation(parent.getX() + parent.getWidth() / 3, parent.getY() + parent.getHeight() / 3);
     }
@@ -203,6 +203,6 @@ public class JDialogX extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
     private static final DAOVente daoVente = Factory.getDAOVente();
     private static final DAOTransaction daoTrans = Factory.getTransaction();
-    private static final JTableListeX myModelX = new JTableListeX(daoVente.selectX(0));
+    private static final JTableListeX myModelX = new JTableListeX(daoVente.selectX(0, false));
     private static final JTableEtatCaisse myModelET = new JTableEtatCaisse(daoTrans.selectTotal(0));
 }

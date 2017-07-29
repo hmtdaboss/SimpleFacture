@@ -23,7 +23,7 @@ public interface DAOVente {
     public int lastId();
     public ArrayList<Vente> selectVenteParHeure(int idCalendrier);
     public double remiseVente(int idVente);
-    public ArrayList<FonctionXY> selectX(int idCalendrier);
-    public ArrayList<FonctionXY> selectTotalTVA(int idCalendrier) ;
+    public ArrayList<FonctionXY> selectX(int idCalendrier, boolean bdatabase);
+    public ArrayList<FonctionXY> selectTotalTVA(int idCalendrier, boolean bdatabase) ;
     
 }
