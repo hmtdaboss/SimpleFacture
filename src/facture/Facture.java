@@ -40,13 +40,14 @@ import transferObject.TVA;
  * @author fsafi
  */
 public class Facture {
+
     private Connection conn; //objet de connexion à la BDD
     private Statement stat;
     int qte = 10;
-    String prixHT = "round(((pv.prix / (1+(cat.tva/100))) ),2)" ;
-    private   String INVOICE_QUERY = 
-            "select pro.codebarre as id , pro.libelle as name, "+prixHT+" as price, cat.tva as tvaproduit,"
-            + " (pv.quantite +"+qte+" -pv.quantite ) as qte, ("+prixHT+" * "+qte +") as total, "
+    String prixHT = "round(((pv.prix / (1+(cat.tva/100))) ),2)";
+    private String INVOICE_QUERY
+            = "select pro.codebarre as id , pro.libelle as name, " + prixHT + " as price, cat.tva as tvaproduit,"
+            + " (pv.quantite +" + qte + " -pv.quantite ) as qte, (" + prixHT + " * " + qte + ") as total, "
             + "mag.nomMagasin as shopname, mag.adresse as adres, mag.codepostal as postalcode, "
             + "mag.commune as commune, mag.tel as tel, mag.tva as tva, mag.mail as mail, "
             + "cli.idClient as clientid, cli.nomSociete as clientsocietyname, cli.adresse as clientadress, "
@@ -57,22 +58,33 @@ public class Facture {
             + "join client cli on cli.idmag = mag.idmag "
             + "join categorie cat on cat.idcat = pro.idcat "
             + "join prixdevente pv on pro.codebarre = pv.codebarre "
-            + "where pro.codebarre in (" ;
-    
+            + "where pro.codebarre in (";
 
-    public void generatePdf(int idVent, double remise, int idClient, String typeDoc) throws JRException, PDFException, PDFSecurityException, IOException, PrintException {
- 
+    public void generatePdf(int idVent, double remise, int idClient, String typeDoc, boolean bdatabase) throws JRException, PDFException, PDFSecurityException, IOException, PrintException {
+        int nbcopie = 2;
         String req = "Select pro.codebarre as id , pro.libelle as name,  "
                 + "cat.tva as tvaproduit, proVendu.quantite as qte,  "
-                + "(round(proVendu.prixHT/proVendu.quantite,3)) as price,"
+                + "(round(proVendu.prixHT,3)) as price,"
                 + "ven.montantTotal as totalgeneral,  "
-                + "proVendu.prixHT as total, "
-                + "mag.nomMagasin as shopname, mag.adresse as adres, mag.codepostal as postalcode, "
-                + "mag.commune as commune, mag.tel as tel, mag.tva as tva, mag.mail as mail, "
-                + "cli.idClient as clientid, cli.nomSociete as clientsocietyname, cli.adresse as clientadress, "
-                + "cli.codepostal as clientpostalcode, cli.commune as clientcommune, cli.tel as clienttel, "
-                + "cli.tva as clienttva, "
-                + "ven.idVente as nofacture "
+                + "(round(proVendu.prixHT*proVendu.quantite,3)) as total, ";
+        if (bdatabase) {
+            req += "'XXXXXX' as shopname, 'XXXXXX' as adres, 'XXXXXX' as postalcode, "
+                    + "'XXXXXX' as commune, 'XXXXXX' as tel, 'XXXXXX' as tva, 'XXXXXX' as mail, "
+                    + "'XXXXXX' as clientid, 'XXXXXX' as clientsocietyname, 'XXXXXX' as clientadress, "
+                    + "'XXXXXX' as clientpostalcode, 'XXXXXX' as clientcommune, 'XXXXXX' as clienttel, "
+                    + "'XXXXXX' as clienttva, ";
+            typeDoc = "XXXXXXXXX";
+            idClient = 0;
+            nbcopie = 1;
+        } else {
+            req += "mag.nomMagasin as shopname, mag.adresse as adres, mag.codepostal as postalcode, "
+                    + "mag.commune as commune, mag.tel as tel, mag.tva as tva, mag.mail as mail, "
+                    + "cli.idClient as clientid, cli.nomSociete as clientsocietyname, cli.adresse as clientadress, "
+                    + "cli.codepostal as clientpostalcode, cli.commune as clientcommune, cli.tel as clienttel, "
+                    + "cli.tva as clienttva, ";
+        }
+
+        req += "ven.idVente as nofacture "
                 + "from ventes ven "
                 + "join Produit pro on proVendu.codeBarre = pro.codeBarre "
                 + "join magasin mag on mag.idmag = pv.idmag "
@@ -80,53 +92,42 @@ public class Facture {
                 + "join nbproduitvendu proVendu on proVendu.idVente = ven.idVente "
                 + "join categorie cat on cat.idcat = pro.idcat "
                 + "join prixdevente pv on pro.codebarre = pv.codebarre "
-                + "where ven.idVente = "+ idVent
+                + "where ven.idVente = " + idVent
                 + " and ven.idClient = " + idClient
-                + " order by 1";     
+                + " order by 1";
 
         System.out.println(req);
-        
+
         ArrayList<TVA> listeTVA = Factory.getTicket().selectTVAForTVA(idVent);
-        
 
         // - Paramètres à envoyer au rapport
         Map parameters = new HashMap();
         parameters.put("query", req);
         parameters.put("typeDoc", typeDoc);
         parameters.put("reference", 1);
-        
-        double tva_6=0, tva_21 =0;
-//        for (TVA tva : listeTVA) {
-//            String taux = "tva_"+tva.getTVA_taux();
-//            System.out.println(taux + " : " + tva.getTVA_value());
-//            //parameters.put("tva_"+tva.getTVA_taux(), tva.getTVA_value());
-//            parameters.put(taux, tva.getTVA_value());
-//        }
+
+        double tva_6 = 0, tva_21 = 0;
         for (TVA tva : listeTVA) {
-            if(tva.getTVA_taux() == 6){
-               tva_6 += tva.getTVA_value();
-            }else if(tva.getTVA_taux() == 21){
-               tva_21 += tva.getTVA_value(); 
-            }
-//            
+            if (tva.getTVA_taux() == 6) {
+                tva_6 += tva.getTVA_value();
+            } else if (tva.getTVA_taux() == 21) {
+                tva_21 += tva.getTVA_value();
+            }       
         }
-        System.out.println("tva 6 : " +tva_6 + " tva 21 : " + tva_21);
+        System.out.println("tva 6 : " + tva_6 + " tva 21 : " + tva_21);
         parameters.put("tva_0", 0.0);
         parameters.put("tva_6", tva_6);
         parameters.put("tva_21", tva_21);
-        
+
         parameters.put("remise", remise);
-        FileInputStream fis = new FileInputStream("./src/invoice.jasper"); 
+        FileInputStream fis = new FileInputStream("./src/invoice.jasper");
         BufferedInputStream bufferedInputStream = new BufferedInputStream(fis);
 //Load bufferedInputStream file.jasper 
-        JasperReport jasperReport = (JasperReport) JRLoader.loadObject(bufferedInputStream); 
-        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters,ConnexionMySQL.getInstance().getConn());
-        
-       
-       JasperExportManager.exportReportToPdfFile(jasperPrint, "facture.pdf");
-        
-     
-       
+        JasperReport jasperReport = (JasperReport) JRLoader.loadObject(bufferedInputStream);
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, ConnexionMySQL.getInstance().getConn());
+
+        JasperExportManager.exportReportToPdfFile(jasperPrint, "facture.pdf");
+
         PeripheriqueXML peri = new PeripheriqueXML();
         Document pdf = new Document();
         pdf.setFile("facture.pdf");
@@ -153,7 +154,7 @@ public class Facture {
         }
 
         //     printHelper.showPrintSetupDialog();
-        printHelper.setupPrintService(ps_utilise, 0, 9, 2, true);
+        printHelper.setupPrintService(ps_utilise, 0, 9, nbcopie, true);
 
         printHelper.getPrintRequestAttributeSet().add(MediaSizeName.ISO_A4);
 
@@ -161,8 +162,4 @@ public class Facture {
 
     }
 
-    private void searchInDB(String codeBarre) {
-       
-
-    }
 }

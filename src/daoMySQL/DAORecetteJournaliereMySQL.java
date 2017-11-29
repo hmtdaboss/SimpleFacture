@@ -45,7 +45,7 @@ public class DAORecetteJournaliereMySQL implements DAORecetteJournaliere {
         int year = c.get(Calendar.YEAR);
         String req = "select sum(rec.recette)";
             if(!bdatabase){
-               req +=" - (select sum(montantTotal) from ventes ven where ven.bdatabase = 1 and ven.idCalendrier = cal.idCalendrier )";
+               req +=" - (ifnull( (select sum(montantTotal) from ventes ven where ven.bdatabase = 1 and ven.idCalendrier = cal.idCalendrier), 0))";
             }
                 req+= ", cal.idCalendrier, cal.dateJour "
                 + "from calendrier cal "
@@ -56,7 +56,7 @@ public class DAORecetteJournaliereMySQL implements DAORecetteJournaliere {
                 + " order by cal.idCalendrier " + ordre;
 
         ResultSet resu = ConnexionMySQL.getInstance().selectQuery(req);
-        System.out.println(req);
+        System.out.println("selectRecette ::::::::::::: "+req);
         try {
             while (resu.next()) {
                 //création de l'objet Chanteur

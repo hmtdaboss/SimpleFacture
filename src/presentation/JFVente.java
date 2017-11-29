@@ -3692,7 +3692,7 @@ public class JFVente extends javax.swing.JFrame {
     private void imprimerFacture(){
          try {
             Facture facture = new Facture();
-            facture.generatePdf(idVente, remiseGenerale, idClient, typeDoc);
+            facture.generatePdf(idVente, remiseGenerale, idClient, typeDoc, bDatabase);
         } catch (JRException ex) {
             Logger.getLogger(JFVente.class.getName()).log(Level.SEVERE, null, ex);
         } catch (PDFException ex) {
@@ -3735,6 +3735,8 @@ public class JFVente extends javax.swing.JFrame {
         if (imprimer && bDatabase) {
             imprimerTicket(ticket);
         }else if(!bDatabase){
+            imprimerFacture();
+        }else if(bDatabase){
             imprimerFacture();
         }
         
